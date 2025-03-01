@@ -4,7 +4,7 @@ language = "en"
 description = "The note of GAMES104"
 multilingual = false
 src = "src"
-title = "GAMES104"
+title = "GAMES104 现在游戏引擎理论与实践"
 
 [output.html]
 mathjax-support = true
