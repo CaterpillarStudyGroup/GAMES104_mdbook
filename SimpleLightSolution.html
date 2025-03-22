@@ -1,0 +1,326 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Simple Light Solution - GAMES104 现在游戏引擎理论与实践</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="The note of GAMES104">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">基础构建</li><li class="chapter-item expanded "><a href="Architecutre.html"><strong aria-hidden="true">2.</strong> 分层架构</a></li><li class="chapter-item expanded "><a href="world.html"><strong aria-hidden="true">3.</strong> 如何构建游戏世界</a></li><li class="chapter-item expanded "><a href="Render/intro.html"><strong aria-hidden="true">4.</strong> 渲染</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Render/practice.html"><strong aria-hidden="true">4.1.</strong> 如何高效渲染网格、材质与纹理</a></li><li class="chapter-item expanded "><a href="Render/light_meterial_shader.html"><strong aria-hidden="true">4.2.</strong> 光、材质、着急器</a></li><li class="chapter-item expanded "><a href="SimpleLightSolution.html" class="active"><strong aria-hidden="true">4.3.</strong> Simple Light Solution</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">GAMES104 现在游戏引擎理论与实践</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/CaterpillarStudyGroup/GAMES104_mdbook" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main><div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <h1 id="simple-light-solution"><a class="header" href="#simple-light-solution">Simple Light Solution</a></h1>
+<p>P12</p>
+<h2 id="simple-light-solution-1"><a class="header" href="#simple-light-solution-1">Simple Light Solution</a></h2>
+<ul>
+<li>Using simple light source as main light</li>
+<li>Directional light in most cases</li>
+<li>Point and spot light in special case</li>
+<li>Using ambient light to hack others</li>
+<li>A constant to represent mean of complex hemisphere irradiance</li>
+</ul>
+<p><img src="./assets/69-12.png" alt="" /></p>
+<blockquote>
+<p>假设简单场景：(1) 只有一个主光源。(2) 自定义一个常数环境光。<br />
+ambient light：环境光，即去掉主光源后剩下的光。</p>
+</blockquote>
+<p>P13</p>
+<h2 id="environment-map-reflection"><a class="header" href="#environment-map-reflection">Environment Map Reflection</a></h2>
+<ul>
+<li>Using environment map to enhance glossary surface reflection</li>
+<li>Using environment mipmap to represent roughness of surface</li>
+</ul>
+<p><img src="./assets/69-13-1.png" alt="" /></p>
+<p><strong>Early stage exploration of image- based lighting</strong></p>
+<p><img src="./assets/69-13-2.png" alt="" /></p>
+<blockquote>
+<p>增加物体反射光线的效果。<br />
+高光：入射光方向·反射方向·物体表面法线方向重合。<br />
+方法：六面体环境贴图 cudemap</p>
+</blockquote>
+<p>P14</p>
+<h2 id="math-behind-light-combo"><a class="header" href="#math-behind-light-combo">Math Behind Light Combo</a></h2>
+<ul>
+<li>Main Light
+<ul>
+<li>Dominant Light</li>
+</ul>
+</li>
+<li>Ambient Light
+<ul>
+<li>Low-frequency of irradiance sphere distribution</li>
+</ul>
+</li>
+<li>Environment Map
+<ul>
+<li>High-frequency of irradiance sphere distribution</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>本质上，把一个半球形的光场模拟为均匀的环境光。环境光中高频内容用 envirnment map 表达。</p>
+</blockquote>
+<p>P15</p>
+<h2 id="blinn-phong-materials"><a class="header" href="#blinn-phong-materials">Blinn-Phong Materials</a></h2>
+<p><img src="./assets/69-15.png" alt="" /></p>
+<blockquote>
+<p>光可叠加原理。</p>
+</blockquote>
+<p>P16</p>
+<h2 id="problem-of-blinn-phong"><a class="header" href="#problem-of-blinn-phong">Problem of Blinn-Phong</a></h2>
+<ul>
+<li>Not energy conservative
+<ul>
+<li>Unstable in ray-tracing</li>
+</ul>
+</li>
+</ul>
+<p><img src="./assets/69-16-1.png" alt="" /></p>
+<ul>
+<li>Hard to model complex realistic material</li>
+</ul>
+<p><img src="./assets/69-16-2.png" alt="" /></p>
+<p>P17</p>
+<h2 id="shadow"><a class="header" href="#shadow">Shadow</a></h2>
+<ul>
+<li>Shadow is nothing but space when the light is blocked by an opaque object</li>
+<li>Already obsolete method
+<ul>
+<li>planar shadow</li>
+<li>shadow volume</li>
+<li>projective texture</li>
+</ul>
+</li>
+</ul>
+<p><img src="./assets/69-17.png" alt="" /></p>
+<p>P18</p>
+<blockquote>
+<p>从光的视角渲染一张场景深度图。<br />
+判断真实视角下的每一个点在光视角下是否可见。若不可见，则为阴影。</p>
+</blockquote>
+<p>P19</p>
+<h2 id="problem-of-shadow-map"><a class="header" href="#problem-of-shadow-map">Problem of Shadow Map</a></h2>
+<p><img src="./assets/69-19.png" alt="" /></p>
+<blockquote>
+<p>深度图的采样频率和渲染的采样频率一致，会引发 artifacts.</p>
+</blockquote>
+<p>P20</p>
+<h2 id="basic-shading-solution"><a class="header" href="#basic-shading-solution">Basic Shading Solution</a></h2>
+<ul>
+<li>Simple light + Ambient
+<ul>
+<li>dominent light solves No.1b</li>
+<li>ambient and EnvMap solves No.3 challanges</li>
+</ul>
+</li>
+<li>Blinn-Phong material
+<ul>
+<li>solve No.2 challange</li>
+</ul>
+</li>
+<li>Shadow map
+<ul>
+<li>solve No.1a challange</li>
+</ul>
+</li>
+</ul>
+<p>P21</p>
+<h2 id="cheap-robust-and-easy-modification"><a class="header" href="#cheap-robust-and-easy-modification">Cheap, Robust and Easy Modification</a></h2>
+<p>P26</p>
+<h1 id="pre-computed-global-illumination"><a class="header" href="#pre-computed-global-illumination">Pre-computed Global Illumination</a></h1>
+<blockquote>
+<p>假设场景中90％的东西是不动的。<br />
+空间换时间。<br />
+G＝全局光照＝直接光照＋间接光照<br />
+ambient 可以做间接光照效果，但会使整个场景统一变亮，看上去会有平面感。</p>
+</blockquote>
+<p>P27</p>
+<h2 id="why-global-illumination-is-important"><a class="header" href="#why-global-illumination-is-important">Why Global Illumination is Important</a></h2>
+<p><img src="./assets/69-27.png" alt="" /></p>
+<p>P28</p>
+<h2 id="how-to-represent-indirect-light"><a class="header" href="#how-to-represent-indirect-light">How to Represent Indirect Light</a></h2>
+<ul>
+<li>Good compression rate
+<ul>
+<li>We need to store millions of radiance probes in a level</li>
+</ul>
+</li>
+<li>Easy to do integration with material function
+<ul>
+<li>Use polynomial calculation to convolute with material BRDF</li>
+</ul>
+</li>
+</ul>
+<p><img src="./assets/69-28-1.png" alt="" /></p>
+<p><img src="./assets/69-28-2.png" alt="" /></p>
+<p>P31</p>
+<h2 id="spherical-harmonics"><a class="header" href="#spherical-harmonics">Spherical Harmonics</a></h2>
+<p>$$
+Y_{lm}(\theta ,\phi )=N_{lm}P_{lm}(\cos \theta )e^{Im\phi }
+$$</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Render/light_meterial_shader.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Render/light_meterial_shader.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+    </body>
+</html>
