@@ -11,6 +11,9 @@ P12
 
 ![](./assets/69-12.png)     
 
+> 假设简单场景：(1) 只有一个主光源。(2) 自定义一个常数环境光。    
+ambient light：环境光，即去掉主光源后剩下的光。    
+
 P13     
 ## Environment Map Reflection
 
@@ -23,6 +26,11 @@ P13
    
 ![](./assets/69-13-2.png)      
 
+> 增加物体反射光线的效果。    
+高光：入射光方向·反射方向·物体表面法线方向重合。　　　
+方法：六面体环境贴图 cudemap    
+
+
 P14    
 ## Math Behind Light Combo 
 
@@ -33,10 +41,14 @@ P14
 - Environment Map    
   - High-frequency of irradiance sphere distribution    
 
+> 本质上，把一个半球形的光场模拟为均匀的环境光。环境光中高频内容用envirnmentmap表达。
+
 P15   
 ## Blinn-Phong Materials
 
 ![](./assets/69-15.png)   
+
+> 光可叠加原理
 
 P16   
 ## Problem of Blinn-Phong
@@ -61,10 +73,16 @@ P17
 
 ![](./assets/69-17.png)   
 
+P18    
+> 从光的视角渲染→张场景深度图。
+判断真实视角下的每一个点在光视角下是否可见。若不可见，则为阴影。
+
 P19    
 ## Problem of Shadow Map
 
 ![](./assets/69-19.png)   
+
+> 深度图的采样频率和渲染的采样频率一致，会引发artifacts.
 
 P20    
 ## Basic Shading Solution
@@ -83,6 +101,10 @@ P21
 
 P26    
 # Pre-computed Global Illumination
+
+>设场景中90％的东西是不动的。
+空间换时间。
+G＝全局光照＝直接光照＋间接光照ambient可以做间接光照效果，但会使整个场景统变母亮，看上去今有平面咸
 
 P27  
 ## Why Global Illumination is Important
