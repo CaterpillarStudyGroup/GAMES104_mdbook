@@ -30,7 +30,6 @@ P13
 高光：入射光方向·反射方向·物体表面法线方向重合。　　　
 方法：六面体环境贴图 cudemap    
 
-
 P14    
 ## Math Behind Light Combo 
 
@@ -41,14 +40,14 @@ P14
 - Environment Map    
   - High-frequency of irradiance sphere distribution    
 
-> 本质上，把一个半球形的光场模拟为均匀的环境光。环境光中高频内容用envirnmentmap表达。
+> 本质上，把一个半球形的光场模拟为均匀的环境光。环境光中高频内容用 envirnment map 表达。   
 
 P15   
 ## Blinn-Phong Materials
 
 ![](./assets/69-15.png)   
 
-> 光可叠加原理
+> 光可叠加原理。    
 
 P16   
 ## Problem of Blinn-Phong
@@ -74,15 +73,15 @@ P17
 ![](./assets/69-17.png)   
 
 P18    
-> 从光的视角渲染→张场景深度图。
-判断真实视角下的每一个点在光视角下是否可见。若不可见，则为阴影。
+> 从光的视角渲染一张场景深度图。   
+判断真实视角下的每一个点在光视角下是否可见。若不可见，则为阴影。   
 
 P19    
 ## Problem of Shadow Map
 
 ![](./assets/69-19.png)   
 
-> 深度图的采样频率和渲染的采样频率一致，会引发artifacts.
+> 深度图的采样频率和渲染的采样频率一致，会引发 artifacts.    
 
 P20    
 ## Basic Shading Solution
@@ -102,9 +101,10 @@ P21
 P26    
 # Pre-computed Global Illumination
 
->设场景中90％的东西是不动的。
-空间换时间。
-G＝全局光照＝直接光照＋间接光照ambient可以做间接光照效果，但会使整个场景统变母亮，看上去今有平面咸
+> 假设场景中90％的东西是不动的。    
+空间换时间。   
+G＝全局光照＝直接光照＋间接光照    
+ambient 可以做间接光照效果，但会使整个场景统一变亮，看上去会有平面感。   
 
 P27  
 ## Why Global Illumination is Important
