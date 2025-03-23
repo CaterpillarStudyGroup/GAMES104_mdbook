@@ -189,7 +189,7 @@ the surface of a sphere. The SH functions in general are defined on imaginary nu
 
 > 绿色表示正值，红色表示负值。   
 每一个维度的所有基都是正交的。    
-二阶导永远\\(o\\)（光滑）。    
+二阶导永远 0（光滑）。    
 
 > 用体素来表达世界，并用一个值来描述每个体素上是否有物质以及物质的密度。    
 再有 Marching Cube 将其转为 Mesh。    
