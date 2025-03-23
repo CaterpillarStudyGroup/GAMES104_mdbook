@@ -131,7 +131,7 @@ P28
 仍要解决的问题：   
 (1) GI的数据量非常大。     
 (2) 如何让材质与GI做积分。   
-&#x1F50E;［傅利叶变换］（   ）的作用：    
+&#x1F50E;［傅利叶变换］（ \\(\quad\\) ）的作用：    
 (1) 用极少的数据表达一整张图像的大致样子    
 (2) 频域上的一次卷积相当于对图像域上每个像素做加权平均    
 
@@ -535,7 +535,7 @@ P76
   - Sample from the shadow map around the current pixel and compare its depth to all the samples    
   - By averaging out the results we get a smoother line between light and shadow    
 
-![](./assets/69-76.png)  
+![](./assets/69-76-1.png)  
 
 > 用滤波的法做软阴影。    
 
