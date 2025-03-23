@@ -9,7 +9,7 @@ P12
 - Using ambient light to hack others    
 - A constant to represent mean of complex hemisphere irradiance    
 
-![](./assets/69-12.png)     
+![](./assets/69-12-1.png)     
 
 > 假设简单场景：(1) 只有一个主光源。(2) 自定义一个常数环境光。    
 ambient light：环境光，即去掉主光源后剩下的光。    
@@ -24,7 +24,7 @@ P13
 
 **Early stage exploration of image- based lighting**    
    
-![](./assets/69-13-2.png)      
+![](./assets/69-13-3.png)      
 
 > 增加物体反射光线的效果。    
 高光：入射光方向·反射方向·物体表面法线方向重合。    
