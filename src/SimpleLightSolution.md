@@ -425,6 +425,7 @@ Pros
 - Can be easier to author and less prone to errors caused by supplying incorrect dielectric F0 data    
 - Uses less texture memory, as metallic and roughness are
 both grayscale maps    
+
 Cons    
 - No control over F0 for dielectrics in map creation. However, most implementations have a specular control to override the base 4% value   
 - Edge artifacts are more noticeable, especially at lower resolutions   
@@ -433,6 +434,7 @@ Cons
 Pros    
 - Edge artifacts are less apparent    
 - Control over dielectric F0 in the specular map   
+
 Cons   
 - Because the specular map provides control over dielectric F0,it is more susceptible to use of incorrect values. It is possible to break the law of conservation if handled incorrectly in the shader     
 - Uses more texture memory with an additional RGB map    
