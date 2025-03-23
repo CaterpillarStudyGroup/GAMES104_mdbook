@@ -210,7 +210,7 @@ P34
 
 > 在任何一个点取 Irradiance Probe 信息，展开为下图    
 
-![](./assets/69-34.png)  
+![](./assets/69-34-1.png)  
 
 P35   
 ## Compress Irradiance Probe to SH1
@@ -359,7 +359,7 @@ GGX 曲线的特点：高频更具表现力，低频不会那么快消失。
 P51   
 ## Geometric Attenuation Term (self-shadowing)
 
-![](./assets/69-51-1.png)   
+![](./assets/69-51-3.png)   
 
 ![](./assets/69-51-2.png)   
 
@@ -373,7 +373,7 @@ P51
 P52   
 ## Fresnel Equation
 
-![](./assets/69-52-1.png)   
+![](./assets/69-52-3.png)   
 
 ![](./assets/69-52-2.png)   
 
@@ -403,7 +403,7 @@ P54
 P56   
 ## PBR Specular Glossiness
 
-![](./assets/69-56.png)   
+![](./assets/69-56-1.png)   
 
 > 用图片方式帮助选择参数，实现 shader，把参数代入模型，计算结果。    
 
@@ -451,7 +451,7 @@ SH 的局限性：SH 的表达比较粗糙，只能有明暗的感觉，达不�
 P64   
 ## Diffuse Irradiance Map
 
-![](./assets/69-64.png)   
+![](./assets/69-64-1.png)   
 
 > 根据上文可知，\\(L_o（x，W_o）\\) 可以分为 diffuse 项和 specular 项。
 Diffuse 须提前把卷积结果算好存下来。实时渲染时查表即可。    
