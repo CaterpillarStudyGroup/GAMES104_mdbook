@@ -459,7 +459,7 @@ Diffuse 须提前把卷积结果算好存下来。实时渲染时查表即可。
 P65   
 ## Specular Approximation
 
-![](./assets/69-65.png)   
+![](./assets/69-65-1.png)   
 
 > Specular 项的推导比较复杂，且做了大量假设和近似。    
 但 specular 结果与参数 roughness 有关。因此将不同 roughness 的结果存到了不同的 mipmap 中。因为，roughness 越大，对光的敏感度越低，可以放到 mipmap 的最低级。    
