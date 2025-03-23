@@ -217,6 +217,8 @@ P35
 
 ![](./assets/69-35.png)  
 
+EA. (2018). Precomputed Global Illumination in Frostbite. Retrieved from https://www.ea.com/frostbite/news/precomputed-global-illumination-in-frostbite    
+
 > 用 1 阶球谐基(对应 4 个系数)压缩后还原得到图 2。     
 图 2 足以表达光的明暗，且数据非常连续。    
 通一个简单的线性运算，就可以从图中查询出任意一个方     
