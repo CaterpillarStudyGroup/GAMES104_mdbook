@@ -289,3 +289,72 @@ P54
 - Parameters should be zero to one over their plausible range   
 - Parameters should be allowed to be pushed beyond their plausible range where it makes sense   
 - All combinations of parameters should be as robust and plausible as possible   
+
+P56   
+## PBR Specular Glossiness
+
+![](./assets/69-56.png)   
+
+P57   
+## PBR Specular Glossiness
+
+P58   
+## PBR Metallic Roughness
+
+P60   
+## PBR Pipeline MR vs SG
+
+![](./assets/69-60.png)   
+
+**MR**    
+Pros    
+- Can be easier to author and less prone to errors caused by supplying incorrect dielectric F0 data    
+- Uses less texture memory, as metallic and roughness are
+both grayscale maps    
+Cons    
+- No control over F0 for dielectrics in map creation. However, most implementations have a specular control to override the base 4% value   
+- Edge artifacts are more noticeable, especially at lower resolutions   
+
+**SG**   
+Pros    
+- Edge artifacts are less apparent    
+- Control over dielectric F0 in the specular map   
+Cons   
+- Because the specular map provides control over dielectric F0,it is more susceptible to use of incorrect values. It is possible to break the law of conservation if handled incorrectly in the shader     
+- Uses more texture memory with an additional RGB map    
+
+P61   
+## Image-Based Lighting (IBL)
+
+P62    
+## Basic Idea of IBL
+
+P64   
+## Diffuse Irradiance Map
+
+![](./assets/69-64.png)   
+
+P65   
+## Specular Approximation
+
+![](./assets/69-65.png)   
+
+P66   
+## Approximation: part (1/2)
+
+![](./assets/69-66-1.png)   
+
+![](./assets/69-66-2.png)   
+
+P67   
+## Approximation: part (2/2)
+
+![](./assets/69-67-1.png)   
+
+![](./assets/69-67-2.png)   
+
+P68   
+## Quick Shading with Precomputation
+
+![](./assets/69-68.png)   
+
