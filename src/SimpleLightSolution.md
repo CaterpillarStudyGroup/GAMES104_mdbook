@@ -298,6 +298,10 @@ P45
 
 ![](./assets/69-45.png)   
 
+> Reflection Probe 的特点：    
+(1) 数量少    
+(2) 精度高，因为高光对高频很敏感。    
+
 P46   
 ## Light Probes + Reflection Probes
 
@@ -320,6 +324,8 @@ P48
 
 ![](./assets/69-48-2.png)   
 
+> 微平面理论：用物体表面法向的分布来解释各种光学现象     
+
 P49    
 ## BRDF Model Based on Microfacet
 
@@ -331,6 +337,10 @@ L_o(x,\omega _o)=\int _{H^2}\begin{pmatrix}
 \end{pmatrix} L_i(x,\omega _i)(\omega _i\cdot n)dw_i
 $$
 
+> diffuse：漫反射，specular：高光    
+PPT 中的单词写错了。    
+DFG 中每个字母代表一种光学现象。    
+
 P50   
 ## Normal Distribution Function
 
@@ -340,12 +350,23 @@ P50
 
 ![](./assets/69-50-3.png)   
 
+> 法向分布方程     
+\\(\alpha \\) 代表 roughness，范围取 [0，1]    
+GGX 曲线的特点：高频更具表现力，低频不会那么快消失。    
+
 P51   
 ## Geometric Attenuation Term (self-shadowing)
 
 ![](./assets/69-51-1.png)   
 
 ![](./assets/69-51-2.png)   
+
+> 由于表面不平导致的自遮挡。    
+遮挡影响的特点：    
+(1) 遮挡可能发生在入射光射向物体表面，也发生在反射光射向眼睛，因此要算两遍。   
+(2) 与入／反射光的入／反射无关    
+(3) 与入／反射光与法线的夹角有关    
+(4) 与 D 方式中的 \\(\alpha \\) 有关    
 
 P52   
 ## Fresnel Equation
@@ -354,12 +375,17 @@ P52
 
 ![](./assets/69-52-2.png)   
 
+> 当视线与物体表面的切平面夹角很小时，反射系数会急巨增加，看到倒影效果。    
+参数：\\(\alpha \\)，fresnel 系数    
+
 P53   
 ## Physical Measured Material
 
 ![](./assets/69-53-1.png)   
 
 ![](./assets/69-53-2.png)   
+
+> 一个关于真实材质的各项系数的数据集。    
 
 P54   
 ## Disney Principled BRDF
@@ -376,6 +402,8 @@ P56
 ## PBR Specular Glossiness
 
 ![](./assets/69-56.png)   
+
+> 用图片方式帮助选择参数，实现 shader，把参数代入模型，计算结果。    
 
 P57   
 ## PBR Specular Glossiness
