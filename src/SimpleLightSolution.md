@@ -309,7 +309,7 @@ P46
 
 - **Pros**   
   - Very efficient on runtime   
-  - Can be applied to both static and dynamic objects   
+  - Can be applied to both **static and dynamic objects**   
   - Handle both diffuse and specular shading      
 
 - **Cons**   
