@@ -130,3 +130,122 @@ $$
 Y_{lm}(\theta ,\phi )=N_{lm}P_{lm}(\cos \theta )e^{Im\phi }
 $$
 
+![](./assets/69-31-11.png)
+
+$$
+\begin{align*}
+ x& =  \sin \theta \cos \phi \\\\
+  y &  =  \sin \theta \sin \phi\\\\
+  z &  = \cos\theta
+\end{align*}
+$$
+
+Complex sphere integration can be approximated by quadratic polynomial：   
+
+$$
+\int\limits_{\theta =0}^{\pi } \int\limits_{\phi  =0}^{2\pi } L(\theta,\phi )Y_{lm}(\theta ,\phi )\sin \theta d\theta d\phi \approx \begin{bmatrix}
+x \\\\
+y \\\\
+ z\\\\
+1
+\end{bmatrix}^TM\begin{bmatrix}
+x \\\\
+y \\\\
+z \\\\
+1
+\end{bmatrix}
+$$
+
+![](./assets/69-31-2.png)
+
+P32    
+## Spherical Harmonics
+
+![](./assets/69-32.png)
+
+Spherical Harmonics, a mathematical system analogous to the Fourier transform but defined across    
+the surface of a sphere. The SH functions in general are defined on imaginary numbers    
+
+P33   
+## Spherical Harmonics Encoding
+
+![](./assets/69-33-1.png)
+
+![](./assets/69-33-2.png)
+
+P34   
+## Sampling Irradiance Probe Anywhere
+
+![](./assets/69-34.png)  
+
+P35   
+## Compress Irradiance Probe to SH1
+
+![](./assets/69-35.png)  
+
+P37   
+
+## SH Lightmap: Precomputed GI
+
+![](./assets/69-37-1.png)
+
+![](./assets/69-37-2.png)
+
+- Parameterized all scene into huge 2D lightmap atlas    
+- Using offline lighting farm to calculate irradiance probes for all surface points   
+- Compress those irradiance probes into SH coefficients    
+- Store SH coefficients into 2D atlas lightmap textures   
+
+P38   
+## Lightmap: UV Atlas
+
+![](./assets/69-38.png)   
+
+**Lightmap density**   
+- Low-poly proxy geometry   
+- Fewer UV charts/islands   
+- Fewer lightmap texels are wasted    
+
+P43   
+## Light Probe: Probes in Game Space
+
+![](./assets/69-43.png)   
+
+P45    
+## Reflection Probe
+
+![](./assets/69-45.png)   
+
+P46   
+## Light Probes + Reflection Probes
+
+- **Pros**   
+  - Very efficient on runtime   
+  - Can be applied to both static and dynamic objects   
+  - Handle both diffuse and specular shading      
+
+- **Cons**   
+  - A bunch of SH light probes need some precomputation   
+  - Can not handle fine detail of GI. I.e, soft shadow on overlapped structures   
+
+P47   
+# Physical-Based Material   
+
+P48    
+## Microfacet Theory
+
+![](./assets/69-48-1.png)   
+
+![](./assets/69-48-2.png)   
+
+P49    
+## BRDF Model Based on Microfacet
+
+![](./assets/69-49-1.png)   
+
+$$
+L_o(x,\omega _o)=\int _{H^2}\begin{pmatrix}  
+  k_d\frac{c}{\pi } +\frac{DFG}{4(\omega _o\cdot n)(\omega _i\cdot n)}
+\end{pmatrix} L_i(x,\omega _i)(\omega _i\cdot n)dw_i
+$$
+
