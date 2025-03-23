@@ -146,7 +146,7 @@ $$
 Y_{lm}(\theta ,\phi )=N_{lm}P_{lm}(\cos \theta )e^{Im\phi }
 $$
 
-![](./assets/69-31-11.png)
+![](./assets/69-31-1.png)
 
 $$
 \begin{align*}
@@ -172,7 +172,7 @@ z \\\\
 \end{bmatrix}
 $$
 
-![](./assets/69-31-2.png)
+![](./assets/69-31-3.png)
 
 > 利用球谐函数定义了一组基，通过对球谐基的加权平均，可以组合出任意复杂的球面。    
 
