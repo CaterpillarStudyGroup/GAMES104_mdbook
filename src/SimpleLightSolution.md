@@ -182,7 +182,7 @@ $$
 P32    
 ## Spherical Harmonics
 
-![](./assets/69-32.png)
+![](./assets/69-32-1.png)
 
 Spherical Harmonics, a mathematical system analogous to the Fourier transform but defined across    
 the surface of a sphere. The SH functions in general are defined on imaginary numbers    
@@ -198,9 +198,9 @@ the surface of a sphere. The SH functions in general are defined on imaginary nu
 P33   
 ## Spherical Harmonics Encoding
 
-![](./assets/69-33-1.png)
+![](./assets/69-33-3.png)
 
-![](./assets/69-33-2.png)
+![](./assets/69-33-4.png)
 
 > 使用几个球谐基系数，可以把球面的光照信号大致表达出来。   
 由于 GI 只需要表达低频，使用到 1 阶就足够了。    
