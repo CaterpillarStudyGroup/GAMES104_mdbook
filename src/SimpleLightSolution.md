@@ -358,3 +358,127 @@ P68
 
 ![](./assets/69-68.png)   
 
+P69   
+## Shading PBR with IBL
+
+![](./assets/69-69.png)   
+
+P70   
+## Classic Shadow Solution
+
+P71    
+## Big World and Cascade Shadow
+
+- Partition the frustum into multiple frustums   
+- A shadow map is rendered for each sub frustum   
+- The pixel shader then samples from the map that most closely matches the required resolution    
+
+P73   
+## Blend between Cascade Layers
+
+1. A visible seam can be seen where cascades overlap    
+2. between cascade layers because the resolution does not match    
+3. The shader then linearly interpolates between the two values based on the pixel's location in the blend band    
+
+P74    
+## Pros and Cons of Cascade Shadow
+
+- Pros
+  - best way to prevalent errors with shadowing: perspective aliasing    
+  - fast to generate depth map, 3x up when depth writing only   
+  - provide fairly good results   
+- Cons   
+  - Nearly impossible to generate high quality area shadows   
+  - No colored shadows. Translucent surfaces cast opaque shadows   
+
+P75   
+## Hard Shadow vs Realistic Shadow
+
+![](./assets/69-75.png)   
+
+P76   
+## PCF - Percentage Closer Filter
+
+- **Target problem**   
+  - The shadows that result from shadow mapping aliasing is serious   
+- **Basic idea**   
+  - Sample from the shadow map around the current pixel and compare its depth to all the samples    
+  - By averaging out the results we get a smoother line between light and shadow    
+
+![](./assets/69-76.png)  
+
+P77    
+## PCSS - Percentage Closer Soft Shadow
+
+- **Target problem**   
+  - Suffers from aliasing and under sampling artifacts   
+- **Basic idea**   
+  - Search the shadow map and average the depths that
+are closer to the light source   
+  - Using a parallel planes approximation   
+
+![](./assets/69-77.png)   
+
+P78    
+## Variance Soft Shadow Map
+
+- **Target problem**   
+  - Rendering plausible soft shadow in real-time    
+- **Basic idea**   
+  - Based on Chebyshev‘s inequality, using the average and variance of depth, we can approximate the percentage of depth distribution directly instead of comparing a single depth to a particular region(PCSS)     
+
+![](./assets/69-78.png)   
+
+P79    
+## Summary of Popular AAA Rendering
+
+光：Lightmap + Light probe    
+材质： PBR + IBL(环境光)    
+阴影：Cascade shadow + VSSM   
+
+P80    
+# Moving Wave of High Quality
+
+P81   
+## Quick Evolving of GPU
+
+- More flexible new shader model   
+  - Compute shader   
+  - Mesh shader   
+  - Ray-tracing shader   
+- High performance parallel architecture   
+  - Warp or wave architecture   
+- Fully opened graphics API    
+  - DirectX 12 and Vulkan   
+
+P82   
+## Real-Time Ray-Tracing on GPU
+
+![](./assets/69-82.png)   
+
+
+P83   
+## Real-Time Global Illumination
+
+Screen-space GI    
+SDF Based GI   
+Voxel-Based GI（SVOGI/VXGI）   
+RSM / RTX GI   
+
+P86    
+## Shader Management
+
+P90    
+## Uber Shader and Variants
+
+A combination of shader for all possible light types, render passes and material types   
+
+- Shared many state and codes    
+- Compile to many variant short shaders by pre-defined macro   
+
+![](./assets/69-90.png)   
+
+P92   
+## Cross Platform Shader Compile
+
+![](./assets/69-92.png)   
