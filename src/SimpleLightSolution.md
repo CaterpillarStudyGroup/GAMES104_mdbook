@@ -499,6 +499,8 @@ P71
 - A shadow map is rendered for each sub frustum   
 - The pixel shader then samples from the map that most closely matches the required resolution    
 
+![](./assets/69-71.png)   
+
 > 不同远近的物体的 shadow，对精度的要求是不一样的。这样，近处 shadow 足够清晰，远处 shadow 定够稀疏。     
 
 P73   
