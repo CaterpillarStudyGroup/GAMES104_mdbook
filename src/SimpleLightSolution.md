@@ -468,9 +468,9 @@ P65
 P66   
 ## Approximation: part (1/2)
 
-![](./assets/69-66-1.png)   
+![](./assets/69-66-3.png)   
 
-![](./assets/69-66-2.png)   
+![](./assets/69-66-4.png)   
 
 P67   
 ## Approximation: part (2/2)
