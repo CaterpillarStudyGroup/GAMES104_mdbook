@@ -45,7 +45,7 @@ P14
 P15   
 ## Blinn-Phong Materials
 
-![](./assets/69-15.png)   
+![](./assets/69-15-1.png)   
 
 > 光可叠加原理。    
 
@@ -110,7 +110,7 @@ ambient 可以做间接光照效果，但会使整个场景统一变亮，看上
 P27  
 ## Why Global Illumination is Important
 
-![](./assets/69-27.png)   
+![](./assets/69-27-1.png)   
 
 > 只持 DX12 及以上。    
 可以基此实现动态高度的地形效果。    
@@ -123,9 +123,9 @@ P28
 - Easy to do integration with material function   
   - Use polynomial calculation to convolute with material BRDF   
 
-![](./assets/69-28-1.png)   
+![](./assets/69-28-3.png)   
 
-![](./assets/69-28-2.png)   
+![](./assets/69-28-4.png)   
 
 > 预计算的GI，是对一个球面空间的采样。   
 仍要解决的问题：   
