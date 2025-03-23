@@ -105,11 +105,15 @@ P26
 空间换时间。   
 G＝全局光照＝直接光照＋间接光照    
 ambient 可以做间接光照效果，但会使整个场景统一变亮，看上去会有平面感。   
+因此，全局光照对真实感非常重要。
 
 P27  
 ## Why Global Illumination is Important
 
 ![](./assets/69-27.png)   
+
+> 只持 DX12 及以上。    
+可以基此实现动态高度的地形效果。    
 
 P28   
 ## How to Represent Indirect Light
@@ -122,6 +126,18 @@ P28
 ![](./assets/69-28-1.png)   
 
 ![](./assets/69-28-2.png)   
+
+> 预计算的GI，是对一个球面空间的采样。   
+仍要解决的问题：   
+(1) GI的数据量非常大。     
+(2) 如何让材质与GI做积分。   
+&#x1F50E;［傅利叶变换］（   ）的作用：    
+(1) 用极少的数据表达一整张图像的大致样子    
+(2) 频域上的一次卷积相当于对图像域上每个像素做加权平均    
+
+P30    
+> 处理有山洞的地形
+方法1：在普通地形上放一个山洞或桥。    
 
 P31    
 ## Spherical Harmonics
@@ -158,6 +174,11 @@ $$
 
 ![](./assets/69-31-2.png)
 
+> 利用球谐函数定义了一组基，通过对球谐基的加权平均，可以组合出任意复杂的球面。    
+
+> 方法 2：   
+通过将顶点设为无效值的方式把洞口的面片删掉，再放一个隧道的模型上去。    
+
 P32    
 ## Spherical Harmonics
 
@@ -166,6 +187,14 @@ P32
 Spherical Harmonics, a mathematical system analogous to the Fourier transform but defined across    
 the surface of a sphere. The SH functions in general are defined on imaginary numbers    
 
+> 绿色表示正值，红色表示负值。   
+每一个维度的所有基都是正交的。    
+二阶导永远\\(o\\)（光滑）。    
+
+> 用体素来表达世界，并用一个值来描述每个体素上是否有物质以及物质的密度。    
+再有 Marching Cube 将其转为 Mesh。    
+实操时，考虑到水密性、LOD 等因素，会稍微复杂一点。     
+
 P33   
 ## Spherical Harmonics Encoding
 
@@ -173,8 +202,13 @@ P33
 
 ![](./assets/69-33-2.png)
 
+> 使用几个球谐基系数，可以把球面的光照信号大致表达出来。   
+由于 GI 只需要表达低频，使用到 1 阶就足够了。    
+
 P34   
 ## Sampling Irradiance Probe Anywhere
+
+> 在任何一个点取 Irradiance Probe 信息，展开为下图    
 
 ![](./assets/69-34.png)  
 
@@ -183,8 +217,12 @@ P35
 
 ![](./assets/69-35.png)  
 
-P37   
+> 用 1 阶球谐基(对应 4 个系数)压缩后还原得到图 2。     
+图 2 足以表达光的明暗，且数据非常连续。    
+通一个简单的线性运算，就可以从图中查询出任意一个方     
+但实际上不常用。
 
+P37   
 ## SH Lightmap: Precomputed GI
 
 ![](./assets/69-37-1.png)
@@ -206,10 +244,54 @@ P38
 - Fewer UV charts/islands   
 - Fewer lightmap texels are wasted    
 
+> Splat Map：每一个 channel 定义了一种材质的权重。又称为材质混合。    
+
+P39   
+## Lightmap: Lighting
+
+**Indirect lighting, final geometry**   
+- Project lightmap from proxies to all LODs   
+- Apply mesh details
+- Add short-range, high￾frequency lighting detail by HBAO   
+
+> 实际上材质过渡不是这种柔和渐变的过渡。
+
+P40   
+## Lightmap: Lighting + Direct Lighting
+
+**Direct + indirect lighting,final geometry**    
+- Compute direct lighting dynamically    
+
+> 解决方法：利用 height 调整权重   
+
+P41   
+## Final Shading with Materials
+
+**Final frame**    
+- Combined with materials   
+
+> 存在的问题，相机移到时有抖动现象     
+解决方法：引入 height bias    
+
+P42   
+## Lightmap
+
+- **Pros**   
+  - Very efficient on runtime   
+  - Bake a lot of fine details of GI on environment   
+- **Cons**   
+  - Long and expensive precomputation (lightmap farm)   
+  - Only can handle **static scene and static light**   
+  - Storage cost on package and GPU   
+
+> 实践中会用到很多帧图，通常把它们 patch 成 Texture Array。   
+
 P43   
 ## Light Probe: Probes in Game Space
 
 ![](./assets/69-43.png)   
+
+> 视差贴图。    
 
 P45    
 ## Reflection Probe
