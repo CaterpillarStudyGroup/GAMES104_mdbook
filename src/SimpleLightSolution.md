@@ -411,6 +411,8 @@ P57
 P58   
 ## PBR Metallic Roughness
 
+> Specular Glossiness 模型的封装版，解决其 Frenel 项炸掉的问题。灵活度下降，但不容易出问题。   
+
 P60   
 ## PBR Pipeline MR vs SG
 
@@ -439,15 +441,25 @@ P61
 P62    
 ## Basic Idea of IBL
 
+> 对真实的环境光照做预处理，快速地计算环境光照与材质之间的卷积。    
+SH 的局限性：SH 的表达比较粗糙，只能有明暗的感觉，达不到场景细节感和凹凸感的效果。    
+
 P64   
 ## Diffuse Irradiance Map
 
 ![](./assets/69-64.png)   
 
+> 根据上文可知，\\(L_o（x，W_o）\\) 可以分为 diffuse 项和 specular 项。
+Diffuse 须提前把卷积结果算好存下来。实时渲染时查表即可。    
+
 P65   
 ## Specular Approximation
 
 ![](./assets/69-65.png)   
+
+> Specular 项的推导比较复杂，且做了大量假设和近似。    
+但 specular 结果与参数 roughness 有关。因此将不同 roughness 的结果存到了不同的 mipmap 中。因为，roughness 越大，对光的敏感度越低，可以放到 mipmap 的最低级。    
+方法详见 GAMES 201。   
 
 P66   
 ## Approximation: part (1/2)
@@ -483,6 +495,8 @@ P71
 - A shadow map is rendered for each sub frustum   
 - The pixel shader then samples from the map that most closely matches the required resolution    
 
+> 不同远近的物体的 shadow，对精度的要求是不一样的。这样，近处 shadow 足够清晰，远处 shadow 定够稀疏。     
+
 P73   
 ## Blend between Cascade Layers
 
@@ -516,6 +530,8 @@ P76
   - By averaging out the results we get a smoother line between light and shadow    
 
 ![](./assets/69-76.png)  
+
+> 用滤波的法做软阴影。    
 
 P77    
 ## PCSS - Percentage Closer Soft Shadow
