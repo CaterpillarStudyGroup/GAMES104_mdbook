@@ -249,3 +249,43 @@ L_o(x,\omega _o)=\int _{H^2}\begin{pmatrix}
 \end{pmatrix} L_i(x,\omega _i)(\omega _i\cdot n)dw_i
 $$
 
+P50   
+## Normal Distribution Function
+
+![](./assets/69-50-1.png)   
+
+![](./assets/69-50-2.png)   
+
+![](./assets/69-50-3.png)   
+
+P51   
+## Geometric Attenuation Term (self-shadowing)
+
+![](./assets/69-51-1.png)   
+
+![](./assets/69-51-2.png)   
+
+P52   
+## Fresnel Equation
+
+![](./assets/69-52-1.png)   
+
+![](./assets/69-52-2.png)   
+
+P53   
+## Physical Measured Material
+
+![](./assets/69-53-1.png)   
+
+![](./assets/69-53-2.png)   
+
+P54   
+## Disney Principled BRDF
+
+**Principles to follow when implementing model**:   
+
+- Intuitive rather than physical parameters should be used   
+- There should be as few parameters as possible   
+- Parameters should be zero to one over their plausible range   
+- Parameters should be allowed to be pushed beyond their plausible range where it makes sense   
+- All combinations of parameters should be as robust and plausible as possible   
