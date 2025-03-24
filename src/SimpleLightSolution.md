@@ -610,6 +610,8 @@ A combination of shader for all possible light types, render passes and material
 
 ![](./assets/69-90.png)   
 
+> 利用 uber 写好少量 shader 模版，然后自动生成大量 shader.    
+
 P92   
 ## Cross Platform Shader Compile
 
