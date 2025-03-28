@@ -209,6 +209,10 @@ Parallax Mapping: Due to the height of the surface, the eye sees point B instead
 
 > 视差贴图。    
 
+> 凹凸帧图能产生明暗分明的效果。但仍然会有平面感，因为眼睛看到的点和应该看到的点，有视差。常用做法，ray marching（Parallax mapping）缺点（1）走几步测一下，比较贵
+（2）只是产生视觉上的凹凸感，边界上还能看出artifacts（光滑）
+Displacement mapping真实修改地形
+
 P44    
 ## Expensive Material Blending    
 
@@ -218,6 +222,7 @@ P44
 
 ![](./assets/06-20.png)   
 
+> 整个场景包含很多纹理，但实际上一个像素会用到的纹理种类很少。
 P45    
 ## Virtual Texture
 
@@ -226,6 +231,11 @@ P45
 - Pre-bake materials blending into tile and store them into physical textures   
 
 ![](./assets/06-21.png)   
+
+> 思想，只把用到的纹理加到内存、其它的纹理放在硬盘中。类似于mipmap＋oS分页机制。
+优点：（1）极大地减少了显存的占用
+（2）像夷的blending，在tile被加载到内存时算好，就不动3、直到这个tile被置换出内存。
+这个是目前的主流方法。
 
 P46    
 ## VT Implementation, DirectStorage & DMA
