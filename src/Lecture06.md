@@ -113,4 +113,86 @@ P38
 
 ![](./assets/06-14.png)   
 
+P39    
+## Simple Texture Splatting
+
+![](./assets/06-15-1.png)   
+
+![](./assets/06-15-2.png)   
+
+P40    
+## Advanced Texture Splatting
+
+![](./assets/06-16-1.png)   
+
+Blending with Height    
+
+float3 blend(float4 texture1, float height1, float4 texture2, float height2)    
+{    
+return height1 > height2 ? texture1.rgb : texture2.rgb;    
+}       
+
+![](./assets/06-16-2.png)   
+
+P41    
+## Advanced Texture Splatting - Biased
+
+![](./assets/06-17-1.png)   
+
+![](./assets/06-17-3.png)   
+
+![](./assets/06-17-2.png)   
+
+**Links:**     
+<https://www.gamedeveloper.com/programming/advanced-terrain-texture-splatting>    
+
+P42   
+## Sampling from Material Texture Array
+
+![](./assets/06-18.png)   
+
+P43   
+## Parallax and Displacement Mapping
+
+![](./assets/06-19-1.png)   
+
+![](./assets/06-19-2.png)   
+
+Parallax Mapping: Due to the height of the surface, the eye sees point B instead of point A. It creates a sense of dimensionality     
+
+P44    
+## Expensive Material Blending    
+
+- **Many Texturing** - Low performance when multiple materials are sampled too many times    
+
+- Huge Splat Map - We only see a small set of terrain, but we load splat maps for 100 square km into video memory      
+
+![](./assets/06-20.png)   
+
+P45    
+## Virtual Texture
+
+- Build a virtual indexed texture to represent all blended terrain materials for whole scene    
+- Only load materials data of tiles based on view- depend LOD   
+- Pre-bake materials blending into tile and store them into physical textures   
+
+![](./assets/06-21.png)   
+
+P46    
+## VT Implementation, DirectStorage & DMA
+
+![](./assets/06-22-1.png)   
+
+![](./assets/06-22-2.png)   
+
+![](./assets/06-22-3.png)   
+
+P47    
+## Floating-point Precision Error
+
+P48    
+## Camera-Relative Rendering
+
+- Translates objects by the negated world space camera position before any other geometric transformations affect them    
+- It then sets the world space camera position to 0 and modifies all relevant matrices accordingly    
 
