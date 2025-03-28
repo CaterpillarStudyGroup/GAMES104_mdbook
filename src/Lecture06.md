@@ -441,6 +441,49 @@ P89
 - Do not support dynamic weather   
 
 P90   
-## 
+## Billboard Cloud
 
+**Pros**   
+- Efficient   
+**Cons**   
+- Limited visual effect   
+- Limited cloud type    
 
+![](./assets/06-45.png)  
+
+P91    
+## Volumetric Cloud Modeling
+
+![](./assets/06-46.png)  
+
+**Pros**    
+- Realistic cloud shapes    
+- Large scale clouds possible    
+- Dynamic weather supported    
+- Dynamic volumetric lighting and shadowing   
+**Cons**   
+- Efficiency must be considered    
+
+P92    
+## Weather Texture
+
+![](./assets/06-47-1.png)  
+
+![](./assets/06-47-2.png)  
+
+P93   
+## Noise Functions
+
+![](./assets/06-48-1.png)  
+
+![](./assets/06-48-2.png)  
+
+P94    
+## Cloud Density Model
+
+![](./assets/06-49.png)  
+
+P95    
+## Rendering Cloud by Ray Marching
+
+![](./assets/06-50.png)  
