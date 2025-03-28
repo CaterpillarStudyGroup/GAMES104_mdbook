@@ -80,6 +80,7 @@ P21
 > 把 height field 转化为不规则三角形。    
 优点：(1) 三角形少很多    
 (2) 与地形特征更匹配(顶点的位置)    
+但实际上不常用。   
 
 P23    
 ## Triangulated Irregular Network vs. Adpative Tessellation
@@ -106,19 +107,32 @@ P27
 
 ![](./assets/06-11.png)   
 
+> 只持 DX12 及以上。    
+可以基此实现动态高度的地形效果。  
+
 P30    
 Non-Heightfield Terrain
+
+> 处理有山洞的地形    
+方法1：在普通地形上放一个山洞或桥。   
 
 P31   
 ## Dig a Hole in Terrain
 
 ![](./assets/06-12.png)   
 
+> 方法 2：   
+通过将顶点设为无效值的方式把洞口的面片删掉，再放一个隧道的模型上去。 
+
 P32   
 ## Crazy Idea - Volumetric Representation
 
 In 3D computer graphics, a voxel represents a value on a regular grid in three-dimensional space. As pixels in a 2D     
 bitmap, voxels themselves do not typically have their position (i.e. coordinates) explicitly encoded with their values     
+
+> 用体素来表达世界，并用一个值来描述每个体素上是否有物质以及物质的密度。    
+再有 Marching Cube 将其转为 Mesh。    
+实操时，考虑到水密性、LOD 等因素，会稍微复杂一点。     
 
 P33   
 ## Marching Cubes
@@ -135,12 +149,16 @@ P38
 
 ![](./assets/06-14.png)   
 
+> Splat Map：每一个 channel 定义了一种材质的权重。又称为材质混合。    
+
 P39    
 ## Simple Texture Splatting
 
 ![](./assets/06-15-1.png)   
 
 ![](./assets/06-15-2.png)   
+
+> 实际上材质过渡不是这种柔和渐变的过渡。
 
 P40    
 ## Advanced Texture Splatting
@@ -156,6 +174,8 @@ return height1 > height2 ? texture1.rgb : texture2.rgb;
 
 ![](./assets/06-16-2.png)   
 
+> 解决方法：利用 height 调整权重   
+
 P41    
 ## Advanced Texture Splatting - Biased
 
@@ -168,10 +188,15 @@ P41
 **Links:**     
 <https://www.gamedeveloper.com/programming/advanced-terrain-texture-splatting>    
 
+> 存在的问题，相机移到时有抖动现象     
+解决方法：引入 height bias    
+
 P42   
 ## Sampling from Material Texture Array
 
 ![](./assets/06-18.png)   
+
+> 实践中会用到很多帧图，通常把它们 patch 成 Texture Array。   
 
 P43   
 ## Parallax and Displacement Mapping
@@ -181,6 +206,8 @@ P43
 ![](./assets/06-19-2.png)   
 
 Parallax Mapping: Due to the height of the surface, the eye sees point B instead of point A. It creates a sense of dimensionality     
+
+> 视差贴图。    
 
 P44    
 ## Expensive Material Blending    
