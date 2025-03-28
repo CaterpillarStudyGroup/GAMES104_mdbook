@@ -1,3 +1,5 @@
+P5   
+> 地形系统
 
 P8    
 ## Simple Idea - Heightfield
@@ -7,12 +9,21 @@ P8
 P10   
 ## Render Terrain with Heightfield
 
+> ![](./assets/06-51.png)   
+存在的问题：数据量巨大    
+
 ![](./assets/06-2.png)   
 
 P12    
 ## Adaptive Mesh Tessellation
 
 ![](./assets/06-3.png)   
+
+> LOD_2 Level Of Detail     
+等角色 LOD 不同的是，地形是连续的。    
+(1) 近处密集，远处稀疏    
+(2) FOV 小密集，FOV 大稀疏    
+(3) 地起伏大(有明显误差)密集，起伏小稀疏   
 
 P13    
 ## Two Golden Rules of Optimization
@@ -35,19 +46,26 @@ Continuously partitioning triangles and their
 children based on the idea of binary trees     
 
 ![](./assets/06-6.png)   
+  
+> T-Junction：一条边的两边切分不致导数的 BuG。    
+解决方法：强制稀疏侧向密集侧对齐    
 
 P17    
 ## QuadTree-Based Subdivision
 
-Pros    
+**Pros**    
 - Easy to construct     
 - Easy management of data under geospatial, including objects culling and data streaming     
 
-Cons    
+**Cons**    
 - Mesh subdivision is not as flexible as triangle mesh    
 - The grid level of the leaf nodes needs to be consistent   
 
 ![](./assets/06-7.png)   
+
+> 三角形不符合构建地形的直觉，更常用是四边形。   
+也会有 T-Junctions 问题。解决方法：吸附。    
+吸附不改变数据结构，实现更容易。     
 
 P19    
 ## Solving T-Junctions among Quad Grids
@@ -58,6 +76,10 @@ P21
 ## Triangulated Irregular Network (TIN)
 
 ![](./assets/06-9.png)   
+
+> 把 height field 转化为不规则三角形。    
+优点：(1) 三角形少很多    
+(2) 与地形特征更匹配(顶点的位置)    
 
 P23    
 ## Triangulated Irregular Network vs. Adpative Tessellation
