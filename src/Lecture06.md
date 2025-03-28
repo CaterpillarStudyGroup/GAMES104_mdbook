@@ -196,3 +196,60 @@ P48
 - Translates objects by the negated world space camera position before any other geometric transformations affect them    
 - It then sets the world space camera position to 0 and modifies all relevant matrices accordingly    
 
+P49    
+Integration with other world elements (rocks, trees, grass)    
+
+P50    
+## Tree Rendering
+
+P51    
+## Decorator Rendering
+
+P52    
+## Road and Decals Rendering
+
+P54   
+## Procedure Terrain Creation
+
+P55    
+## Sky and Atmosphere
+
+P59    
+## How to "Paint" Everything in the Sky
+
+![](./assets/06-23.png)   
+
+P60   
+## Atmosphere
+
+P61    
+## Analytic Atmosphere Appearance Modeling
+
+$$
+\mathbb{F} (\theta ,\gamma )=(1+Ae^{\frac{B}{\cos \theta +0.01}})\cdot (C+De^{E\gamma }+F\cos ^2\gamma +G\cdot \chi (H,\gamma )+I\cdot \cos ^ {\frac{1}{2} }\theta )  
+$$
+
+$$
+L_\lambda =\mathbb{F} (\theta ,\gamma )\cdot L_{M\lambda} 
+$$
+
+![](./assets/06-24-1.png)   
+
+Pros
+• Calculation is simple and efficient
+Cons
+• Limited to ground view
+• Atmosphere parameters can’t be
+changed freely    
+
+![](./assets/06-24-2.png)   
+
+![](./assets/06-24-3.png)   
+
+An Analytic Model for Full Spectral Sky-dome Radiance, ACM Trans 2012    
+
+P62   
+## Participating Media
+
+- Volume filled with particles    
+- Interact differently with light depending on its composition   
