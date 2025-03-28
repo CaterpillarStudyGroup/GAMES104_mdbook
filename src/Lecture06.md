@@ -25,6 +25,10 @@ P12
 (2) FOV 小密集，FOV 大稀疏    
 (3) 地起伏大(有明显误差)密集，起伏小稀疏   
 
+> 1假设简单汤景。d)只有一个主光源。口)自定
+义-个常数环境光。
+ambient light:环境光,即去掉主光源向剩下的光。
+
 P13    
 ## Two Golden Rules of Optimization
 
@@ -34,10 +38,14 @@ P13
 
 ![](./assets/06-4.png)   
 
+> 增加物体反射光线的效果高光:入射光方向·反射方向，物体表面法线方向重合方法:六面体环境贴图cudemap
+
 P14   
 ## Triangle-Based Subdivision
 
 ![](./assets/06-5.png)   
+
+> 本质上，把一个牛球形的光场模拟为均的环境光。环境光中高频内容用envirnmentmab表达。
 
 P15   
 ## Subdivision and T-Junctions    
@@ -49,6 +57,8 @@ children based on the idea of binary trees
   
 > T-Junction：一条边的两边切分不致导数的 BuG。    
 解决方法：强制稀疏侧向密集侧对齐    
+
+> 光可春加原理
 
 P17    
 ## QuadTree-Based Subdivision
@@ -67,10 +77,15 @@ P17
 也会有 T-Junctions 问题。解决方法：吸附。    
 吸附不改变数据结构，实现更容易。     
 
+P18  
+> 从光的视角渲染一张场景深度图判断真实视角下的每一个点在光视角下是否可见。若不可见，则为阴影
+
 P19    
 ## Solving T-Junctions among Quad Grids
 
 ![](./assets/06-8.png)   
+
+> 深度图的采样频率和渲染的采样频率歌-致，会引发artifacts
 
 P21    
 ## Triangulated Irregular Network (TIN)
@@ -98,6 +113,10 @@ Cons
 ![](./assets/06-10-2.png)   
 
 GDC2021 Boots on the Ground: The Terrain of Call of Duty      
+
+P 26
+> 体设场最中90%的东西是不动的。原向换时间。G、=全局光照=直接光昭十间接接光照amset可以做间接光照效果,但会使整个场景统。
+一变哥亮。春上去会有平面感
 
 P27    
 ## Mesh Shader Pipeline 
@@ -245,15 +264,25 @@ P46
 ![](./assets/06-22-2.png)   
 
 ![](./assets/06-22-3.png)   
+> 这个方法涉及GPU、内存、硬盘之间切换。Texture Array涉及内存的来回寻址，效率比较低。A
+新显卡的方式：硬盘数据只是从内存过一下，到GPU才解压，提升传输效率。
+DMA：硬盘直接往GPU写数据。
 
 P47    
 ## Floating-point Precision Error
+
+> 浮点数的精度溢出
+float存储数据时，数值越大精度越低。精度太低就会引起抖动。
+地图太大时，这种情况很常见。
 
 P48    
 ## Camera-Relative Rendering
 
 - Translates objects by the negated world space camera position before any other geometric transformations affect them    
 - It then sets the world space camera position to 0 and modifies all relevant matrices accordingly    
+
+> 解决方法：坐标系调整到相机中心（很多引擎的标准做法）
+仿真时也会有同样的问题。
 
 P49    
 Integration with other world elements (rocks, trees, grass)    
@@ -277,6 +306,8 @@ P59
 ## How to "Paint" Everything in the Sky
 
 ![](./assets/06-23.png)   
+
+> 天空是一个球，云是可见的实体。背后是完全不同的表达方法，不可混为一谈。
 
 P60   
 ## Atmosphere
@@ -306,11 +337,16 @@ $$
 
 An Analytic Model for Full Spectral Sky-dome Radiance, ACM Trans 2012    
 
+> 这是一种类似Bling Phong的经验模型。
+
 P62   
 ## Participating Media
 
 - Volume filled with particles    
 - Interact differently with light depending on its composition   
+
+> 大气层有两种粒子构成（1）各种气体分子（2）气溶胶
+这些是光的介质，是产生各种光学现象的原因。
 
 P63    
 ## How Light Interacts with Participating Media Particles?
@@ -319,12 +355,16 @@ P63
 
 ![](./assets/06-25-2.png)   
 
+> （1）吸收（2）散射（3）自发光
+
 P64    
 ## Volume Rendering Equation (VRE)
 
 ![](./assets/06-26-1.png)  
 
 ![](./assets/06-26-2.png)  
+
+> d）通透度（2）有多能量向视线方向辐射
 
 P65    
 ## Real Physics in Atmosphere
@@ -340,6 +380,15 @@ Scattering of light by particles that have a diameter **similar to or larger tha
 
 ![](./assets/06-27.png)  
 
+> 气体分子直径远小于光的波长，气溶胶的直径与光
+的波长相似，因此表现出完全不同的视觉效果，也对应两种不同的模型。
+（1）Rayleigh，用于气体分子。特点：
+一均匀散射
+一 波长越短（紫），散射越多
+（2）Mie，用于气溶胶。特点
+一有方向性，沿着光的方向会强一点
+一对波长不敏感.
+
 P67    
 ## Rayleigh Scattering
 
@@ -354,6 +403,8 @@ P68
 ## Rayleigh Scattering Equation
 
 ![](./assets/06-29.png)  
+
+> 入：波长、θ：夹用。h：海拔高度。
 
 P69   
 ## Why Sky is Blue
@@ -389,6 +440,10 @@ P72
 
 ![](./assets/06-33-2.png)  
 
+P73   
+> O3和CH4吸收短波，使物体表现出蓝色。
+假设空气中O3和CH4是均匀分布的。
+
 P74   
 ## Single Scattering vs. Multi Scattering
 
@@ -398,6 +453,9 @@ P75
 ## Single Scattering vs. Multi Scattering   
 
 ![](./assets/06-35.png)  
+
+> Multi Scattering 现象与GI不同。因为空气中的粒子
+充满整个空间，所以MS的效果是连续的。
 
 P76    
 ## Ray Marching
@@ -413,10 +471,14 @@ P77
 
 ![](./assets/06-37.png)  
 
+> 空间采样、预计算、查表．
+
 P78   
 ## Precomputed Atmospheric Scattering
 
 ![](./assets/06-38.png)  
+
+> 人的视角（2D）＋阳光角度（2D）＝40如何参数化地表达40数据、
 
 P79   
 ## Precomputed Atmospheric Scattering
@@ -424,6 +486,10 @@ P79
 **Multi Scattering LUT**
 
 ![](./assets/06-39.png)  
+
+> 一般N取3-4够用了。预计算部算好，实时部分变得简单高效
+非常经典的方法。
+大气环境不变前提下，人和太阳可以在任意位置，都能有比较好的效果。
 
 P81    
 ## Challenges of Precomputed Atmospheric Scattering
@@ -460,6 +526,8 @@ $$
 \mathbf{\Psi _{ms} }=\mathbf{L_{2^{nd}order} F_{ms} }
 $$
 
+> 假设“散射是各向同性的”。那么，均匀的入射光到均匀的出射光”的过程，只是一个简单的能衰减过程。所以只需要求出衰减比例，每bounce一次就按这个比例衰减就可以了。
+
 P83   
 ## Production Friendly Quick Sky and Atmosphere Rendering
 
@@ -467,12 +535,22 @@ Fixed view position and sun position to remove 2 dimensions out of LUT
 
 ![](./assets/06-40.png)  
 
+> 对上文中的LUT的简化，
+（1）假设人所在的高度不变去掉height维
+（2）假设太阳位置不变，去掉入射角的维度
+仅留下出射光的维度（天顶角、环角）
+
 P84    
 ## Production Friendly Quick Sky and Atmosphere Rendering
 
 - Generated a 3D LUT to evaluate aerial-perspective effects by ray marching    
 
 ![](./assets/06-41.png)  
+
+> 这个方法不保证物理正确，但好处是
+（1）艺术家支行
+（2）可以创造异星世界效果
+（3）硬件友好
 
 P85    
 ## Good Balance of Performance and Effect
@@ -499,6 +577,9 @@ P89
 - Overall expensive   
 - Do not support dynamic weather   
 
+> Mesh＋腐蚀等算法，
+现在已经没人用？。
+
 P90   
 ## Billboard Cloud
 
@@ -509,6 +590,9 @@ P90
 - Limited cloud type    
 
 ![](./assets/06-45.png)  
+
+> 半透明插片＋a混合
+十年前常用
 
 P91    
 ## Volumetric Cloud Modeling
@@ -523,12 +607,18 @@ P91
 **Cons**   
 - Efficiency must be considered    
 
+> 优点：（1）全动态，cPU实时生成。（2）云可以表现出很多变化
+局限性：（1）复杂（2）expensive
+
 P92    
 ## Weather Texture
 
 ![](./assets/06-47-1.png)  
 
 ![](./assets/06-47-2.png)  
+
+>  texture＋厚度channel
+对texture做挠动可以产生云的变化。
 
 P93   
 ## Noise Functions
@@ -542,7 +632,12 @@ P94
 
 ![](./assets/06-49.png)  
 
+>  用低频noise雕刻出造型，再用高频加上细节。
+
 P95    
 ## Rendering Cloud by Ray Marching
 
 ![](./assets/06-50.png)  
+
+> 不会把云转成Mesh去渲染，而是当作大气来渲。染。
+但由于云的通透性很低，可以对公式作大量，假设和简化。
