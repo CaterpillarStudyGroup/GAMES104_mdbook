@@ -235,12 +235,11 @@ $$
 
 ![](./assets/06-24-1.png)   
 
-Pros
-• Calculation is simple and efficient
-Cons
-• Limited to ground view
-• Atmosphere parameters can’t be
-changed freely    
+**Pros**    
+- Calculation is simple and efficient    
+**Cons**   
+- Limited to ground view   
+- Atmosphere parameters can’t be changed freely    
 
 ![](./assets/06-24-2.png)   
 
@@ -253,3 +252,195 @@ P62
 
 - Volume filled with particles    
 - Interact differently with light depending on its composition   
+
+P63    
+## How Light Interacts with Participating Media Particles?
+
+![](./assets/06-25-1.png)   
+
+![](./assets/06-25-2.png)   
+
+P64    
+## Volume Rendering Equation (VRE)
+
+![](./assets/06-26-1.png)  
+
+![](./assets/06-26-2.png)  
+
+P65    
+## Real Physics in Atmosphere
+
+P66   
+## Scattering Types
+
+- **Rayleigh Scattering**   
+Scattering of light by particles that have a diameter **much smaller than** the wavelength of the radiation (eg. air molecules)     
+
+- **Mie scattering**   
+Scattering of light by particles that have a diameter **similar to or larger than** the wavelength of the incident light (eg. aerosols)    
+
+![](./assets/06-27.png)  
+
+P67    
+## Rayleigh Scattering
+
+- Certain directions receive more light than others front-back symmetry    
+- Shorter wavelengths (eg. blue) are scattered more strongly than longer wavelengths (eg. red)    
+
+![](./assets/06-28.png)  
+
+**Rayleigh Scattering Distribution**
+
+P68    
+## Rayleigh Scattering Equation
+
+![](./assets/06-29.png)  
+
+P69   
+## Why Sky is Blue
+
+![](./assets/06-30.png)  
+
+P70   
+## Mie Scattering
+
+- Scatter light of all wavelength nearly equally
+- Exhibit a strong forward directivity
+
+![](./assets/06-31.png)  
+
+P71   
+## Mie Scattering Equation
+
+![](./assets/06-32-1.png)  
+
+- g > 0, scatters more forward Mie scattering    
+- g < 0, scatters more backward   
+- g = 0, Rayleigh scattering   
+
+![](./assets/06-32-2.png)  
+
+P72    
+## Mie Scattering in Daily Life
+
+- Exhibit a strong forward directivity (halo effects around sun)    
+- Scatter light of all wavelength nearly equally (fog effects)    
+
+![](./assets/06-33-1.png)  
+
+![](./assets/06-33-2.png)  
+
+P74   
+## Single Scattering vs. Multi Scattering
+
+![](./assets/06-34.png)  
+
+P75   
+## Single Scattering vs. Multi Scattering   
+
+![](./assets/06-35.png)  
+
+P76    
+## Ray Marching
+
+- **Ray marching** is a popular method to integrate function along a path   
+- We use ray marching to calculate final radiance for a given point by single scattering   
+- The integrated radiance is usually stored in **look-up tables (LUT)**   
+
+![](./assets/06-36.png)  
+
+P77   
+## Precomputed Atmospheric Scattering
+
+![](./assets/06-37.png)  
+
+P78   
+## Precomputed Atmospheric Scattering
+
+![](./assets/06-38.png)  
+
+P79   
+## Precomputed Atmospheric Scattering
+
+**Multi Scattering LUT**
+
+![](./assets/06-39.png)  
+
+P81    
+## Challenges of Precomputed Atmospheric Scattering
+
+- Precomputation Cost    
+  - Multi-scattering iterations are very expensive   
+  - Hard to generate atmosphere LUT on low-end devices (ie. mobile)   
+- Authoring and **Dynamic Adjustment of** Environments   
+  - Artist can't change scattering coefficients on the fly   
+  - Hard to render effects like weather from sunny to rain fog, space travel among planets   
+- Runtime Rendering Cost   
+  - Expensive **per-pixel multi high dimensional texture sampling** for transmittance LUT and multi scattering LUT (always need to down-sample for efficiency)   
+
+**A Scalable and Production Ready Sky and Atmosphere Rendering Technique**     
+<https://diglib.eg.org/bitstream/handle/10.1111/cgf14050/v39i4pp013-022.pdf>    
+
+P82   
+## Production Friendly Quick Sky and Atmosphere Rendering
+
+Simplify Multi-scattering Assumption   
+- Scattering events with order greater or equal to 2 are executed using an **isotropic phase function**   
+- All points within the neighborhood of the position we currently shade **receive the same amount of second order scattered light**   
+- **Visibility is ignored**     
+
+$$
+G_{n+1}=G_n\ast f _{ms}
+$$
+
+$$
+\mathbf{ F_{ms}=1+f_{ms}+f^2_{ms}+f^3_{ms}+\dots = \frac{1}{1-\mathbf{f_{ms}} } }
+$$
+
+$$
+\mathbf{\Psi _{ms} }=\mathbf{L_{2^{nd}order} F_{ms} }
+$$
+
+P83   
+## Production Friendly Quick Sky and Atmosphere Rendering
+
+Fixed view position and sun position to remove 2 dimensions out of LUT   
+
+![](./assets/06-40.png)  
+
+P84    
+## Production Friendly Quick Sky and Atmosphere Rendering
+
+- Generated a 3D LUT to evaluate aerial-perspective effects by ray marching    
+
+![](./assets/06-41.png)  
+
+P85    
+## Good Balance of Performance and Effect
+
+- Scalable from mobile to high-end PCs
+
+![](./assets/06-42.png)  
+
+Performance for each step of method, as measured on PC (NV 1080) and a mobile device (iPhone 6s)    
+
+P88    
+## Cloud Type
+
+![](./assets/06-43.png)  
+
+P89   
+## Mesh-Based Cloud Modeling
+
+![](./assets/06-44.png)  
+
+**Pros**   
+- High quality   
+**Cons**   
+- Overall expensive   
+- Do not support dynamic weather   
+
+P90   
+## 
+
+
