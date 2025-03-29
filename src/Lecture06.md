@@ -27,9 +27,6 @@ P12
 (2) FOV 小密集，FOV 大稀疏    
 (3) 地型起伏大(有明显误差)密集，起伏小稀疏   
 
-> 假设简单场景。(1) 只有一个主光源。(2) 自定义一个常数环境光。     
-ambient light：环境光，即去掉主光源后剩下的光。     
-
 P13    
 ## Two Golden Rules of Optimization
 
@@ -39,14 +36,10 @@ P13
 
 ![](./assets/06-4.png)   
 
-> 增加物体反射光线的效果。     
-高光：入射光方向 \\(\bullet \\) 反射方向 \\(\bullet \\) 物体表面法线方向重合。    
-方法：六面体环境贴图 cudemap    
 
 P14   
 ## Triangle-Based Subdivision 
 
-> 本质上，把一个半球形的光场模拟为均匀的环境光。环境光中高频内容用 envirnment map 表达。    
 
 P15   
 ## Subdivision and T-Junctions    
@@ -58,8 +51,6 @@ children based on the idea of binary trees
   
 > T-Junction：一条边的两边切分不一致导致的 BuG。    
 解决方法：强制稀疏侧向密集侧对齐    
-
-> 光可叠加原理    
 
 P17    
 ## QuadTree-Based Subdivision
@@ -76,18 +67,12 @@ P17
 
 > 三角形不符合构建地形的直觉，更常用是四边形。   
 也会有 T-Junctions 问题。解决方法：吸附。    
-吸附不改变数据结构，实现更容易。     
-
-P18  
-> 从光的视角渲染一张场景深度图。    
-判断真实视角下的每一个点在光视角下是否可见。若不可见，则为阴影。    
+吸附不改变数据结构，实现更容易。       
 
 P19    
 ## Solving T-Junctions among Quad Grids
 
-![](./assets/06-8.png)   
-
-> 深度图的采样频率和渲染的采样频率一致，会引发 artifacts.    
+![](./assets/06-8.png)      
 
 P21    
 ## Triangulated Irregular Network (TIN)
@@ -115,12 +100,6 @@ Cons
 ![](./assets/06-10-2.png)   
 
 GDC2021 Boots on the Ground: The Terrain of Call of Duty      
-
-P26
-> 假设场景中90%的东西是不动的。    
-空间换时间。    
-GI = 全局光照 = 直接光昭 + 间接光照    
-ambient 可以做间接光照效果，但会使整个场景统一变亮。看上去会有平面感。    
 
 P27    
 ## Mesh Shader Pipeline 
