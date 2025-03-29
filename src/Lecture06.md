@@ -392,11 +392,11 @@ Scattering of light by particles that have a diameter **similar to or larger tha
 
 > 气体分子直径远小于光的波长，气溶胶的直径与光的波长相似，因此表现出完全不同的视觉效果，也对应两种不同的模型。    
 (1) Rayleigh，用于气体分子。特点：    
-——　均匀散射　　　
+——　均匀散射    
 ——　波长越短(紫)，散射越多    
 (2) Mie，用于气溶胶。特点：    
-——　有方向性，沿着光的方向会强一点    
-——　对波长不敏感。    
+——　有方向性，沿着光的方向会强一点   
+——　对波长不敏感。      
 
 P67    
 ## Rayleigh Scattering
