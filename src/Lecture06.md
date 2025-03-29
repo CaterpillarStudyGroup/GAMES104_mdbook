@@ -586,6 +586,7 @@ P89
 
 **Pros**   
 - High quality   
+
 **Cons**   
 - Overall expensive   
 - Do not support dynamic weather   
