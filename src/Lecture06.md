@@ -479,6 +479,8 @@ P77
 
 ![](./assets/06-37.png)  
 
+<https://ebruneton.github.io/precomputed_atmospheric_scattering/>  
+
 > 空间采样、预计算、查表。     
 
 P78   
