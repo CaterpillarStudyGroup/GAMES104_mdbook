@@ -619,6 +619,7 @@ P91
 - Large scale clouds possible    
 - Dynamic weather supported    
 - Dynamic volumetric lighting and shadowing   
+
 **Cons**   
 - Efficiency must be considered    
 
