@@ -1,0 +1,776 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Simple Light Solution - GAMES104 现在游戏引擎理论与实践</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="The note of GAMES104">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">基础构建</li><li class="chapter-item expanded "><a href="Architecutre.html"><strong aria-hidden="true">2.</strong> 分层架构</a></li><li class="chapter-item expanded "><a href="world.html"><strong aria-hidden="true">3.</strong> 如何构建游戏世界</a></li><li class="chapter-item expanded "><a href="Render/intro.html"><strong aria-hidden="true">4.</strong> 渲染</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Render/practice.html"><strong aria-hidden="true">4.1.</strong> 如何高效渲染网格、材质与纹理</a></li><li class="chapter-item expanded "><a href="Render/light_meterial_shader.html"><strong aria-hidden="true">4.2.</strong> 光、材质、着急器</a></li><li class="chapter-item expanded "><a href="SimpleLightSolution.html" class="active"><strong aria-hidden="true">4.3.</strong> Simple Light Solution</a></li><li class="chapter-item expanded "><a href="Lecture06.html"><strong aria-hidden="true">4.4.</strong> Modern Game Engine - Theory and Practice</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">GAMES104 现在游戏引擎理论与实践</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/CaterpillarStudyGroup/GAMES104_mdbook" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main><div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <h1 id="simple-light-solution"><a class="header" href="#simple-light-solution">Simple Light Solution</a></h1>
+<p>P12</p>
+<h2 id="simple-light-solution-1"><a class="header" href="#simple-light-solution-1">Simple Light Solution</a></h2>
+<ul>
+<li>Using simple light source as main light</li>
+<li>Directional light in most cases</li>
+<li>Point and spot light in special case</li>
+<li>Using ambient light to hack others</li>
+<li>A constant to represent mean of complex hemisphere irradiance</li>
+</ul>
+<p><img src="./assets/69-12-1.png" alt="" /></p>
+<blockquote>
+<p>假设简单场景：(1) 只有一个主光源。(2) 自定义一个常数环境光。<br />
+ambient light：环境光，即去掉主光源后剩下的光。</p>
+</blockquote>
+<p>P13</p>
+<h2 id="environment-map-reflection"><a class="header" href="#environment-map-reflection">Environment Map Reflection</a></h2>
+<ul>
+<li>Using environment map to enhance glossary surface reflection</li>
+<li>Using environment mipmap to represent roughness of surface</li>
+</ul>
+<p><img src="./assets/69-13-1.png" alt="" /></p>
+<p><strong>Early stage exploration of image- based lighting</strong></p>
+<p><img src="./assets/69-13-3.png" alt="" /></p>
+<blockquote>
+<p>增加物体反射光线的效果。<br />
+高光：入射光方向 \(\bullet \) 反射方向 \(\bullet \) 物体表面法线方向重合。<br />
+方法：六面体环境贴图 cudemap</p>
+</blockquote>
+<p>P14</p>
+<h2 id="math-behind-light-combo"><a class="header" href="#math-behind-light-combo">Math Behind Light Combo</a></h2>
+<ul>
+<li>Main Light
+<ul>
+<li>Dominant Light</li>
+</ul>
+</li>
+<li>Ambient Light
+<ul>
+<li>Low-frequency of irradiance sphere distribution</li>
+</ul>
+</li>
+<li>Environment Map
+<ul>
+<li>High-frequency of irradiance sphere distribution</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>本质上，把一个半球形的光场模拟为均匀的环境光。环境光中高频内容用 envirnment map 表达。</p>
+</blockquote>
+<p>P15</p>
+<h2 id="blinn-phong-materials"><a class="header" href="#blinn-phong-materials">Blinn-Phong Materials</a></h2>
+<p><img src="./assets/69-15-1.png" alt="" /></p>
+<blockquote>
+<p>光可叠加原理。</p>
+</blockquote>
+<p>P16</p>
+<h2 id="problem-of-blinn-phong"><a class="header" href="#problem-of-blinn-phong">Problem of Blinn-Phong</a></h2>
+<ul>
+<li>Not energy conservative
+<ul>
+<li>Unstable in ray-tracing</li>
+</ul>
+</li>
+</ul>
+<p><img src="./assets/69-16-1.png" alt="" /></p>
+<ul>
+<li>Hard to model complex realistic material</li>
+</ul>
+<p><img src="./assets/69-16-2.png" alt="" /></p>
+<p>P17</p>
+<h2 id="shadow"><a class="header" href="#shadow">Shadow</a></h2>
+<ul>
+<li>Shadow is nothing but space when the light is blocked by an opaque object</li>
+<li>Already obsolete method
+<ul>
+<li>planar shadow</li>
+<li>shadow volume</li>
+<li>projective texture</li>
+</ul>
+</li>
+</ul>
+<p><img src="./assets/69-17.png" alt="" /></p>
+<p>P18</p>
+<blockquote>
+<p>从光的视角渲染一张场景深度图。<br />
+判断真实视角下的每一个点在光视角下是否可见。若不可见，则为阴影。</p>
+</blockquote>
+<p>P19</p>
+<h2 id="problem-of-shadow-map"><a class="header" href="#problem-of-shadow-map">Problem of Shadow Map</a></h2>
+<p><img src="./assets/69-19.png" alt="" /></p>
+<blockquote>
+<p>深度图的采样频率和渲染的采样频率一致，会引发 artifacts.</p>
+</blockquote>
+<p>P20</p>
+<h2 id="basic-shading-solution"><a class="header" href="#basic-shading-solution">Basic Shading Solution</a></h2>
+<ul>
+<li>Simple light + Ambient
+<ul>
+<li>dominent light solves No.1b</li>
+<li>ambient and EnvMap solves No.3 challanges</li>
+</ul>
+</li>
+<li>Blinn-Phong material
+<ul>
+<li>solve No.2 challange</li>
+</ul>
+</li>
+<li>Shadow map
+<ul>
+<li>solve No.1a challange</li>
+</ul>
+</li>
+</ul>
+<p>P21</p>
+<h2 id="cheap-robust-and-easy-modification"><a class="header" href="#cheap-robust-and-easy-modification">Cheap, Robust and Easy Modification</a></h2>
+<p>P26</p>
+<h1 id="pre-computed-global-illumination"><a class="header" href="#pre-computed-global-illumination">Pre-computed Global Illumination</a></h1>
+<blockquote>
+<p>假设场景中90%的东西是不动的。<br />
+空间换时间。<br />
+GI = 全局光照 = 直接光昭 + 间接光照<br />
+ambient 可以做间接光照效果，但会使整个场景统一变亮。看上去会有平面感。<br />
+因此，全局光照对真实感非常重要。</p>
+</blockquote>
+<p>P27</p>
+<h2 id="why-global-illumination-is-important"><a class="header" href="#why-global-illumination-is-important">Why Global Illumination is Important</a></h2>
+<p><img src="./assets/69-27-1.png" alt="" /></p>
+<p>P28</p>
+<h2 id="how-to-represent-indirect-light"><a class="header" href="#how-to-represent-indirect-light">How to Represent Indirect Light</a></h2>
+<ul>
+<li>Good compression rate
+<ul>
+<li>We need to store millions of radiance probes in a level</li>
+</ul>
+</li>
+<li>Easy to do integration with material function
+<ul>
+<li>Use polynomial calculation to convolute with material BRDF</li>
+</ul>
+</li>
+</ul>
+<p><img src="./assets/69-28-3.png" alt="" /></p>
+<p><img src="./assets/69-28-4.png" alt="" /></p>
+<blockquote>
+<p>预计算的GI，是对一个球面空间的采样。<br />
+仍要解决的问题：<br />
+(1) GI的数据量非常大。<br />
+(2) 如何让材质与GI做积分。<br />
+🔎［傅利叶变换］（ \(\quad\) ）的作用：<br />
+(1) 用极少的数据表达一整张图像的大致样子<br />
+(2) 频域上的一次卷积相当于对图像域上每个像素做加权平均</p>
+</blockquote>
+<p>P31</p>
+<h2 id="spherical-harmonics"><a class="header" href="#spherical-harmonics">Spherical Harmonics</a></h2>
+<p>$$
+Y_{lm}(\theta ,\phi )=N_{lm}P_{lm}(\cos \theta )e^{Im\phi }
+$$</p>
+<p><img src="./assets/69-31-1.png" alt="" /></p>
+<p>$$
+\begin{align*}
+x&amp; =  \sin \theta \cos \phi \\
+y &amp;  =  \sin \theta \sin \phi\\
+z &amp;  = \cos\theta
+\end{align*}
+$$</p>
+<p>Complex sphere integration can be approximated by quadratic polynomial：</p>
+<p>$$
+\int\limits_{\theta =0}^{\pi } \int\limits_{\phi  =0}^{2\pi } L(\theta,\phi )Y_{lm}(\theta ,\phi )\sin \theta d\theta d\phi \approx \begin{bmatrix}
+x \\
+y \\
+z\\
+1
+\end{bmatrix}^TM\begin{bmatrix}
+x \\
+y \\
+z \\
+1
+\end{bmatrix}
+$$</p>
+<p><img src="./assets/69-31-3.png" alt="" /></p>
+<blockquote>
+<p>利用球谐函数定义了一组基，通过对球谐基的加权平均，可以组合出任意复杂的球面。</p>
+</blockquote>
+<p>P32</p>
+<h2 id="spherical-harmonics-1"><a class="header" href="#spherical-harmonics-1">Spherical Harmonics</a></h2>
+<p><img src="./assets/69-32-1.png" alt="" /></p>
+<p>Spherical Harmonics, a mathematical system analogous to the Fourier transform but defined across<br />
+the surface of a sphere. The SH functions in general are defined on imaginary numbers</p>
+<blockquote>
+<p>绿色表示正值，红色表示负值。<br />
+每一个维度的所有基都是正交的。<br />
+二阶导永远 0（光滑）。</p>
+</blockquote>
+<p>P33</p>
+<h2 id="spherical-harmonics-encoding"><a class="header" href="#spherical-harmonics-encoding">Spherical Harmonics Encoding</a></h2>
+<p><img src="./assets/69-33-3.png" alt="" /></p>
+<p><img src="./assets/69-33-4.png" alt="" /></p>
+<blockquote>
+<p>使用几个球谐基系数，可以把球面的光照信号大致表达出来。<br />
+由于 GI 只需要表达低频，使用到 1 阶就足够了。</p>
+</blockquote>
+<p>P34</p>
+<h2 id="sampling-irradiance-probe-anywhere"><a class="header" href="#sampling-irradiance-probe-anywhere">Sampling Irradiance Probe Anywhere</a></h2>
+<blockquote>
+<p>在任何一个点取 Irradiance Probe 信息，展开为下图</p>
+</blockquote>
+<p><img src="./assets/69-34-1.png" alt="" /></p>
+<p>P35</p>
+<h2 id="compress-irradiance-probe-to-sh1"><a class="header" href="#compress-irradiance-probe-to-sh1">Compress Irradiance Probe to SH1</a></h2>
+<p><img src="./assets/69-35.png" alt="" /></p>
+<p>EA. (2018). Precomputed Global Illumination in Frostbite. Retrieved from https://www.ea.com/frostbite/news/precomputed-global-illumination-in-frostbite</p>
+<blockquote>
+<p>用 1 阶球谐基(对应 4 个系数)压缩后还原得到图 2。<br />
+图 2 足以表达光的明暗，且数据非常连续。<br />
+通一个简单的线性运算，就可以从图中查询出任意一个方</p>
+</blockquote>
+<p>P37</p>
+<h2 id="sh-lightmap-precomputed-gi"><a class="header" href="#sh-lightmap-precomputed-gi">SH Lightmap: Precomputed GI</a></h2>
+<p><img src="./assets/69-37-1.png" alt="" /></p>
+<p><img src="./assets/69-37-2.png" alt="" /></p>
+<ul>
+<li>Parameterized all scene into huge 2D lightmap atlas</li>
+<li>Using offline lighting farm to calculate irradiance probes for all surface points</li>
+<li>Compress those irradiance probes into SH coefficients</li>
+<li>Store SH coefficients into 2D atlas lightmap textures</li>
+</ul>
+<p>P38</p>
+<h2 id="lightmap-uv-atlas"><a class="header" href="#lightmap-uv-atlas">Lightmap: UV Atlas</a></h2>
+<p><img src="./assets/69-38.png" alt="" /></p>
+<p><strong>Lightmap density</strong></p>
+<ul>
+<li>Low-poly proxy geometry</li>
+<li>Fewer UV charts/islands</li>
+<li>Fewer lightmap texels are wasted</li>
+</ul>
+<p>P39</p>
+<h2 id="lightmap-lighting"><a class="header" href="#lightmap-lighting">Lightmap: Lighting</a></h2>
+<p><strong>Indirect lighting, final geometry</strong></p>
+<ul>
+<li>Project lightmap from proxies to all LODs</li>
+<li>Apply mesh details</li>
+<li>Add short-range, high￾frequency lighting detail by HBAO</li>
+</ul>
+<p>P40</p>
+<h2 id="lightmap-lighting--direct-lighting"><a class="header" href="#lightmap-lighting--direct-lighting">Lightmap: Lighting + Direct Lighting</a></h2>
+<p><strong>Direct + indirect lighting,final geometry</strong></p>
+<ul>
+<li>Compute direct lighting dynamically</li>
+</ul>
+<p>P41</p>
+<h2 id="final-shading-with-materials"><a class="header" href="#final-shading-with-materials">Final Shading with Materials</a></h2>
+<p><strong>Final frame</strong></p>
+<ul>
+<li>Combined with materials</li>
+</ul>
+<p>P42</p>
+<h2 id="lightmap"><a class="header" href="#lightmap">Lightmap</a></h2>
+<ul>
+<li><strong>Pros</strong>
+<ul>
+<li>Very efficient on runtime</li>
+<li>Bake a lot of fine details of GI on environment</li>
+</ul>
+</li>
+<li><strong>Cons</strong>
+<ul>
+<li>Long and expensive precomputation (lightmap farm)</li>
+<li>Only can handle <strong>static scene and static light</strong></li>
+<li>Storage cost on package and GPU</li>
+</ul>
+</li>
+</ul>
+<p>P43</p>
+<h2 id="light-probe-probes-in-game-space"><a class="header" href="#light-probe-probes-in-game-space">Light Probe: Probes in Game Space</a></h2>
+<p><img src="./assets/69-43.png" alt="" /></p>
+<p>P45</p>
+<h2 id="reflection-probe"><a class="header" href="#reflection-probe">Reflection Probe</a></h2>
+<p><img src="./assets/69-45.png" alt="" /></p>
+<blockquote>
+<p>Reflection Probe 的特点：<br />
+(1) 数量少<br />
+(2) 精度高，因为高光对高频很敏感。</p>
+</blockquote>
+<p>P46</p>
+<h2 id="light-probes--reflection-probes"><a class="header" href="#light-probes--reflection-probes">Light Probes + Reflection Probes</a></h2>
+<ul>
+<li>
+<p><strong>Pros</strong></p>
+<ul>
+<li>Very efficient on runtime</li>
+<li>Can be applied to both <strong>static and dynamic objects</strong></li>
+<li>Handle both diffuse and specular shading</li>
+</ul>
+</li>
+<li>
+<p><strong>Cons</strong></p>
+<ul>
+<li>A bunch of SH light probes need some precomputation</li>
+<li>Can not handle fine detail of GI. I.e, soft shadow on overlapped structures</li>
+</ul>
+</li>
+</ul>
+<p>P47</p>
+<h1 id="physical-based-material"><a class="header" href="#physical-based-material">Physical-Based Material</a></h1>
+<p>P48</p>
+<h2 id="microfacet-theory"><a class="header" href="#microfacet-theory">Microfacet Theory</a></h2>
+<p><img src="./assets/69-48-1.png" alt="" /></p>
+<p><img src="./assets/69-48-2.png" alt="" /></p>
+<blockquote>
+<p>微平面理论：用物体表面法向的分布来解释各种光学现象</p>
+</blockquote>
+<p>P49</p>
+<h2 id="brdf-model-based-on-microfacet"><a class="header" href="#brdf-model-based-on-microfacet">BRDF Model Based on Microfacet</a></h2>
+<p><img src="./assets/69-49-1.png" alt="" /></p>
+<p>$$
+L_o(x,\omega _o)=\int _{H^2}\begin{pmatrix}<br />
+k_d\frac{c}{\pi } +\frac{DFG}{4(\omega _o\cdot n)(\omega _i\cdot n)}
+\end{pmatrix} L_i(x,\omega _i)(\omega _i\cdot n)dw_i
+$$</p>
+<blockquote>
+<p>diffuse：漫反射，specular：高光<br />
+PPT 中的单词写错了。<br />
+DFG 中每个字母代表一种光学现象。</p>
+</blockquote>
+<p>P50</p>
+<h2 id="normal-distribution-function"><a class="header" href="#normal-distribution-function">Normal Distribution Function</a></h2>
+<p><img src="./assets/69-50-1.png" alt="" /></p>
+<p><img src="./assets/69-50-2.png" alt="" /></p>
+<p><img src="./assets/69-50-3.png" alt="" /></p>
+<blockquote>
+<p>法向分布方程<br />
+\(\alpha \) 代表 roughness，范围取 [0，1]<br />
+GGX 曲线的特点：高频更具表现力，低频不会那么快消失。</p>
+</blockquote>
+<p>P51</p>
+<h2 id="geometric-attenuation-term-self-shadowing"><a class="header" href="#geometric-attenuation-term-self-shadowing">Geometric Attenuation Term (self-shadowing)</a></h2>
+<p><img src="./assets/69-51-3.png" alt="" /></p>
+<p><img src="./assets/69-51-2.png" alt="" /></p>
+<blockquote>
+<p>由于表面不平导致的自遮挡。<br />
+遮挡影响的特点：<br />
+(1) 遮挡可能发生在入射光射向物体表面，也发生在反射光射向眼睛，因此要算两遍。<br />
+(2) 与入／反射光的入／反射无关<br />
+(3) 与入／反射光与法线的夹角有关<br />
+(4) 与 D 方式中的 \(\alpha \) 有关</p>
+</blockquote>
+<p>P52</p>
+<h2 id="fresnel-equation"><a class="header" href="#fresnel-equation">Fresnel Equation</a></h2>
+<p><img src="./assets/69-52-3.png" alt="" /></p>
+<p><img src="./assets/69-52-2.png" alt="" /></p>
+<blockquote>
+<p>当视线与物体表面的切平面夹角很小时，反射系数会急巨增加，看到倒影效果。<br />
+参数：\(\alpha \)，fresnel 系数</p>
+</blockquote>
+<p>P53</p>
+<h2 id="physical-measured-material"><a class="header" href="#physical-measured-material">Physical Measured Material</a></h2>
+<p><img src="./assets/69-53-1.png" alt="" /></p>
+<p><img src="./assets/69-53-2.png" alt="" /></p>
+<blockquote>
+<p>一个关于真实材质的各项系数的数据集。</p>
+</blockquote>
+<p>P54</p>
+<h2 id="disney-principled-brdf"><a class="header" href="#disney-principled-brdf">Disney Principled BRDF</a></h2>
+<p><strong>Principles to follow when implementing model</strong>:</p>
+<ul>
+<li>Intuitive rather than physical parameters should be used</li>
+<li>There should be as few parameters as possible</li>
+<li>Parameters should be zero to one over their plausible range</li>
+<li>Parameters should be allowed to be pushed beyond their plausible range where it makes sense</li>
+<li>All combinations of parameters should be as robust and plausible as possible</li>
+</ul>
+<p>P56</p>
+<h2 id="pbr-specular-glossiness"><a class="header" href="#pbr-specular-glossiness">PBR Specular Glossiness</a></h2>
+<p><img src="./assets/69-56-1.png" alt="" /></p>
+<blockquote>
+<p>用图片方式帮助选择参数，实现 shader，把参数代入模型，计算结果。</p>
+</blockquote>
+<p>P57</p>
+<h2 id="pbr-specular-glossiness-1"><a class="header" href="#pbr-specular-glossiness-1">PBR Specular Glossiness</a></h2>
+<p>P58</p>
+<h2 id="pbr-metallic-roughness"><a class="header" href="#pbr-metallic-roughness">PBR Metallic Roughness</a></h2>
+<blockquote>
+<p>Specular Glossiness 模型的封装版，解决其 Frenel 项炸掉的问题。灵活度下降，但不容易出问题。</p>
+</blockquote>
+<p>P60</p>
+<h2 id="pbr-pipeline-mr-vs-sg"><a class="header" href="#pbr-pipeline-mr-vs-sg">PBR Pipeline MR vs SG</a></h2>
+<p><img src="./assets/69-60.png" alt="" /></p>
+<p><strong>MR</strong><br />
+Pros</p>
+<ul>
+<li>Can be easier to author and less prone to errors caused by supplying incorrect dielectric F0 data</li>
+<li>Uses less texture memory, as metallic and roughness are
+both grayscale maps</li>
+</ul>
+<p>Cons</p>
+<ul>
+<li>No control over F0 for dielectrics in map creation. However, most implementations have a specular control to override the base 4% value</li>
+<li>Edge artifacts are more noticeable, especially at lower resolutions</li>
+</ul>
+<p><strong>SG</strong><br />
+Pros</p>
+<ul>
+<li>Edge artifacts are less apparent</li>
+<li>Control over dielectric F0 in the specular map</li>
+</ul>
+<p>Cons</p>
+<ul>
+<li>Because the specular map provides control over dielectric F0,it is more susceptible to use of incorrect values. It is possible to break the law of conservation if handled incorrectly in the shader</li>
+<li>Uses more texture memory with an additional RGB map</li>
+</ul>
+<p>P61</p>
+<h2 id="image-based-lighting-ibl"><a class="header" href="#image-based-lighting-ibl">Image-Based Lighting (IBL)</a></h2>
+<p>P62</p>
+<h2 id="basic-idea-of-ibl"><a class="header" href="#basic-idea-of-ibl">Basic Idea of IBL</a></h2>
+<blockquote>
+<p>对真实的环境光照做预处理，快速地计算环境光照与材质之间的卷积。<br />
+SH 的局限性：SH 的表达比较粗糙，只能有明暗的感觉，达不到场景细节感和凹凸感的效果。</p>
+</blockquote>
+<p>P64</p>
+<h2 id="diffuse-irradiance-map"><a class="header" href="#diffuse-irradiance-map">Diffuse Irradiance Map</a></h2>
+<p><img src="./assets/69-64-1.png" alt="" /></p>
+<blockquote>
+<p>根据上文可知，\(L_o（x，W_o）\) 可以分为 diffuse 项和 specular 项。
+Diffuse 须提前把卷积结果算好存下来。实时渲染时查表即可。</p>
+</blockquote>
+<p>P65</p>
+<h2 id="specular-approximation"><a class="header" href="#specular-approximation">Specular Approximation</a></h2>
+<p><img src="./assets/69-65-1.png" alt="" /></p>
+<blockquote>
+<p>Specular 项的推导比较复杂，且做了大量假设和近似。<br />
+但 specular 结果与参数 roughness 有关。因此将不同 roughness 的结果存到了不同的 mipmap 中。因为，roughness 越大，对光的敏感度越低，可以放到 mipmap 的最低级。<br />
+方法详见 GAMES 201。</p>
+</blockquote>
+<p>P66</p>
+<h2 id="approximation-part-12"><a class="header" href="#approximation-part-12">Approximation: part (1/2)</a></h2>
+<p><img src="./assets/69-66-3.png" alt="" /></p>
+<p><img src="./assets/69-66-4.png" alt="" /></p>
+<p>P67</p>
+<h2 id="approximation-part-22"><a class="header" href="#approximation-part-22">Approximation: part (2/2)</a></h2>
+<p><img src="./assets/69-67-1.png" alt="" /></p>
+<p><img src="./assets/69-67-2.png" alt="" /></p>
+<p>P68</p>
+<h2 id="quick-shading-with-precomputation"><a class="header" href="#quick-shading-with-precomputation">Quick Shading with Precomputation</a></h2>
+<p><img src="./assets/69-68.png" alt="" /></p>
+<p>P69</p>
+<h2 id="shading-pbr-with-ibl"><a class="header" href="#shading-pbr-with-ibl">Shading PBR with IBL</a></h2>
+<p><img src="./assets/69-69.png" alt="" /></p>
+<p>P70</p>
+<h2 id="classic-shadow-solution"><a class="header" href="#classic-shadow-solution">Classic Shadow Solution</a></h2>
+<p>P71</p>
+<h2 id="big-world-and-cascade-shadow"><a class="header" href="#big-world-and-cascade-shadow">Big World and Cascade Shadow</a></h2>
+<ul>
+<li>Partition the frustum into multiple frustums</li>
+<li>A shadow map is rendered for each sub frustum</li>
+<li>The pixel shader then samples from the map that most closely matches the required resolution</li>
+</ul>
+<p><img src="./assets/69-71.png" alt="" /></p>
+<blockquote>
+<p>不同远近的物体的 shadow，对精度的要求是不一样的。这样，近处 shadow 足够清晰，远处 shadow 足够稀疏。</p>
+</blockquote>
+<p>P73</p>
+<h2 id="blend-between-cascade-layers"><a class="header" href="#blend-between-cascade-layers">Blend between Cascade Layers</a></h2>
+<ol>
+<li>A visible seam can be seen where cascades overlap</li>
+<li>between cascade layers because the resolution does not match</li>
+<li>The shader then linearly interpolates between the two values based on the pixel's location in the blend band</li>
+</ol>
+<p>P74</p>
+<h2 id="pros-and-cons-of-cascade-shadow"><a class="header" href="#pros-and-cons-of-cascade-shadow">Pros and Cons of Cascade Shadow</a></h2>
+<ul>
+<li>Pros
+<ul>
+<li>best way to prevalent errors with shadowing: perspective aliasing</li>
+<li>fast to generate depth map, 3x up when depth writing only</li>
+<li>provide fairly good results</li>
+</ul>
+</li>
+<li>Cons
+<ul>
+<li>Nearly impossible to generate high quality area shadows</li>
+<li>No colored shadows. Translucent surfaces cast opaque shadows</li>
+</ul>
+</li>
+</ul>
+<p>P75</p>
+<h2 id="hard-shadow-vs-realistic-shadow"><a class="header" href="#hard-shadow-vs-realistic-shadow">Hard Shadow vs Realistic Shadow</a></h2>
+<p><img src="./assets/69-75.png" alt="" /></p>
+<p>P76</p>
+<h2 id="pcf---percentage-closer-filter"><a class="header" href="#pcf---percentage-closer-filter">PCF - Percentage Closer Filter</a></h2>
+<ul>
+<li><strong>Target problem</strong>
+<ul>
+<li>The shadows that result from shadow mapping aliasing is serious</li>
+</ul>
+</li>
+<li><strong>Basic idea</strong>
+<ul>
+<li>Sample from the shadow map around the current pixel and compare its depth to all the samples</li>
+<li>By averaging out the results we get a smoother line between light and shadow</li>
+</ul>
+</li>
+</ul>
+<p><img src="./assets/69-76-1.png" alt="" /></p>
+<blockquote>
+<p>用滤波的法做软阴影。</p>
+</blockquote>
+<p>P77</p>
+<h2 id="pcss---percentage-closer-soft-shadow"><a class="header" href="#pcss---percentage-closer-soft-shadow">PCSS - Percentage Closer Soft Shadow</a></h2>
+<ul>
+<li><strong>Target problem</strong>
+<ul>
+<li>Suffers from aliasing and under sampling artifacts</li>
+</ul>
+</li>
+<li><strong>Basic idea</strong>
+<ul>
+<li>Search the shadow map and average the depths that
+are closer to the light source</li>
+<li>Using a parallel planes approximation</li>
+</ul>
+</li>
+</ul>
+<p><img src="./assets/69-77.png" alt="" /></p>
+<p>P78</p>
+<h2 id="variance-soft-shadow-map"><a class="header" href="#variance-soft-shadow-map">Variance Soft Shadow Map</a></h2>
+<ul>
+<li><strong>Target problem</strong>
+<ul>
+<li>Rendering plausible soft shadow in real-time</li>
+</ul>
+</li>
+<li><strong>Basic idea</strong>
+<ul>
+<li>Based on Chebyshev‘s inequality, using the average and variance of depth, we can approximate the percentage of depth distribution directly instead of comparing a single depth to a particular region(PCSS)</li>
+</ul>
+</li>
+</ul>
+<p><img src="./assets/69-78.png" alt="" /></p>
+<p>P79</p>
+<h2 id="summary-of-popular-aaa-rendering"><a class="header" href="#summary-of-popular-aaa-rendering">Summary of Popular AAA Rendering</a></h2>
+<p>光：Lightmap + Light probe<br />
+材质： PBR + IBL(环境光)<br />
+阴影：Cascade shadow + VSSM</p>
+<p>P80</p>
+<h1 id="moving-wave-of-high-quality"><a class="header" href="#moving-wave-of-high-quality">Moving Wave of High Quality</a></h1>
+<p>P81</p>
+<h2 id="quick-evolving-of-gpu"><a class="header" href="#quick-evolving-of-gpu">Quick Evolving of GPU</a></h2>
+<ul>
+<li>More flexible new shader model
+<ul>
+<li>Compute shader</li>
+<li>Mesh shader</li>
+<li>Ray-tracing shader</li>
+</ul>
+</li>
+<li>High performance parallel architecture
+<ul>
+<li>Warp or wave architecture</li>
+</ul>
+</li>
+<li>Fully opened graphics API
+<ul>
+<li>DirectX 12 and Vulkan</li>
+</ul>
+</li>
+</ul>
+<p>P82</p>
+<h2 id="real-time-ray-tracing-on-gpu"><a class="header" href="#real-time-ray-tracing-on-gpu">Real-Time Ray-Tracing on GPU</a></h2>
+<p><img src="./assets/69-82.png" alt="" /></p>
+<p>P83</p>
+<h2 id="real-time-global-illumination"><a class="header" href="#real-time-global-illumination">Real-Time Global Illumination</a></h2>
+<p>Screen-space GI<br />
+SDF Based GI<br />
+Voxel-Based GI（SVOGI/VXGI）<br />
+RSM / RTX GI</p>
+<p>P86</p>
+<h2 id="shader-management"><a class="header" href="#shader-management">Shader Management</a></h2>
+<p>P90</p>
+<h2 id="uber-shader-and-variants"><a class="header" href="#uber-shader-and-variants">Uber Shader and Variants</a></h2>
+<p>A combination of shader for all possible light types, render passes and material types</p>
+<ul>
+<li>Shared many state and codes</li>
+<li>Compile to many variant short shaders by pre-defined macro</li>
+</ul>
+<p><img src="./assets/69-90.png" alt="" /></p>
+<blockquote>
+<p>利用 uber 写好少量 shader 模版，然后自动生成大量 shader.</p>
+</blockquote>
+<p>P92</p>
+<h2 id="cross-platform-shader-compile"><a class="header" href="#cross-platform-shader-compile">Cross Platform Shader Compile</a></h2>
+<p><img src="./assets/69-92.png" alt="" /></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Render/light_meterial_shader.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="Lecture06.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Render/light_meterial_shader.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="Lecture06.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+    </body>
+</html>
