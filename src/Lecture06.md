@@ -243,7 +243,7 @@ P44
 
 - **Many Texturing** - Low performance when multiple materials are sampled too many times    
 
-- Huge Splat Map - We only see a small set of terrain, but we load splat maps for 100 square km into video memory      
+- **Huge Splat Map** - We only see a small set of terrain, but we load splat maps for 100 square km into video memory      
 
 ![](./assets/06-20.png)   
 
