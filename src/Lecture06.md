@@ -531,7 +531,7 @@ $$
 \mathbf{\Psi _{ms} }=\mathbf{L_{2^{nd}order} F_{ms} }
 $$
 
-> 假设“散射是各向同性的”。那么，均匀的入射光到均匀的出射光”的过程，只是一个简单的能衰减过程。所以只需要求出衰减比例，每bounce一次就按这个比例衰减就可以了。
+> 假设“散射是各向同性的”。那么，“均匀的入射光到均匀的出射光”的过程，只是一个简单的能衰减过程。所以只需要求出衰减比例，每 bounce 一次就按这个比例衰减就可以了。    
 
 P83   
 ## Production Friendly Quick Sky and Atmosphere Rendering
@@ -540,10 +540,9 @@ Fixed view position and sun position to remove 2 dimensions out of LUT
 
 ![](./assets/06-40.png)  
 
-> 对上文中的LUT的简化，
-（1）假设人所在的高度不变去掉height维
-（2）假设太阳位置不变，去掉入射角的维度
-仅留下出射光的维度（天顶角、环角）
+> 对上文中的 LUT 的简化：    
+(1) 假设人所在的高度不变，去掉 height 维    
+(2) 假设太阳位置不变，去掉入射角的维度仅留下出射光的维度(天顶角、环角)     
 
 P84    
 ## Production Friendly Quick Sky and Atmosphere Rendering
@@ -552,10 +551,10 @@ P84
 
 ![](./assets/06-41.png)  
 
-> 这个方法不保证物理正确，但好处是
-（1）艺术家支行
-（2）可以创造异星世界效果
-（3）硬件友好
+> 这个方法不保证物理正确，但好处是：    
+(1) 艺术家友好      
+(2) 可以创造异星世界效果     
+(3) 硬件友好     
 
 P85    
 ## Good Balance of Performance and Effect
@@ -582,8 +581,8 @@ P89
 - Overall expensive   
 - Do not support dynamic weather   
 
-> Mesh＋腐蚀等算法，
-现在已经没人用？。
+> Mesh＋腐蚀等算法。    
+现在已经没人用了。      
 
 P90   
 ## Billboard Cloud
@@ -596,8 +595,8 @@ P90
 
 ![](./assets/06-45.png)  
 
-> 半透明插片＋a混合
-十年前常用
+> 半透明插片＋\\(\alpha \\) 混合    
+十年前常用     
 
 P91    
 ## Volumetric Cloud Modeling
@@ -612,8 +611,8 @@ P91
 **Cons**   
 - Efficiency must be considered    
 
-> 优点：（1）全动态，cPU实时生成。（2）云可以表现出很多变化
-局限性：（1）复杂（2）expensive
+> 优点：(1) 全动态，CPU 实时生成。(2) 云可以表现出很多变化    
+局限性：(1) 复杂 (2) expensive    
 
 P92    
 ## Weather Texture
@@ -622,8 +621,8 @@ P92
 
 ![](./assets/06-47-2.png)  
 
->  texture＋厚度channel
-对texture做挠动可以产生云的变化。
+>  texture＋厚度 channel    
+对 texture 做挠动可以产生云的变化。     
 
 P93   
 ## Noise Functions
@@ -637,12 +636,12 @@ P94
 
 ![](./assets/06-49.png)  
 
->  用低频noise雕刻出造型，再用高频加上细节。
+>  用低频 noise 雕刻出造型，再用高频加上细节。    
 
 P95    
 ## Rendering Cloud by Ray Marching
 
 ![](./assets/06-50.png)  
 
-> 不会把云转成Mesh去渲染，而是当作大气来渲。染。
-但由于云的通透性很低，可以对公式作大量，假设和简化。
+> 不会把云转成 Mesh 去渲染，而是当作大气来渲染。     
+但由于云的通透性很低，可以对公式作大量假设和简化。     
