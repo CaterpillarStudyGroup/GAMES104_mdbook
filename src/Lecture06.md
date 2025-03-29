@@ -45,9 +45,7 @@ P13
 方法：六面体环境贴图 cudemap    
 
 P14   
-## Triangle-Based Subdivision
-
-![](./assets/06-5.png)   
+## Triangle-Based Subdivision 
 
 > 本质上，把一个半球形的光场模拟为均匀的环境光。环境光中高频内容用 envirnment map 表达。    
 
