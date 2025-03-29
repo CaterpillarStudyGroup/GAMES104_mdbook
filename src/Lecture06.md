@@ -57,7 +57,7 @@ children based on the idea of binary trees
 
 ![](./assets/06-6.png)   
   
-> T-Junction：一条边的两边切分不致导数的 BuG。    
+> T-Junction：一条边的两边切分不一致导数的 BuG。    
 解决方法：强制稀疏侧向密集侧对齐    
 
 > 光可叠加原理    
