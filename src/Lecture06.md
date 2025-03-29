@@ -120,7 +120,7 @@ GDC2021 Boots on the Ground: The Terrain of Call of Duty
 P26
 > 假设场景中90%的东西是不动的。    
 空间换时间。    
-GS = 全局光照 = 直接光昭 + 间接接光照    
+GI = 全局光照 = 直接光昭 + 间接接光照    
 ambient 可以做间接光照效果，但会使整个场景统一变亮。看上去会有平面感。    
 
 P27    
@@ -570,6 +570,9 @@ P85
 ![](./assets/06-42.png)  
 
 Performance for each step of method, as measured on PC (NV 1080) and a mobile device (iPhone 6s)    
+
+P87   
+## "Paint" Cloud
 
 P88    
 ## Cloud Type
