@@ -336,6 +336,7 @@ $$
 
 **Pros**    
 - Calculation is simple and efficient    
+
 **Cons**   
 - Limited to ground view   
 - Atmosphere parameters can’t be changed freely    
