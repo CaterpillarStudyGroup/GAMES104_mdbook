@@ -6,7 +6,7 @@ P5
 P8    
 ## Simple Idea - Heightfield
 
-![](./assets/06-1.png)   
+![](./assets/06-1-1.png)   
 
 P10   
 ## Render Terrain with Heightfield
