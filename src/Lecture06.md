@@ -28,7 +28,7 @@ P12
 (3) 地型起伏大(有明显误差)密集，起伏小稀疏   
 
 > 假设简单场景。(1) 只有一个主光源。(2) 自定义一个常数环境光。     
-ambient light：环境光，即去掉主光源向剩下的光。     
+ambient light：环境光，即去掉主光源后剩下的光。     
 
 P13    
 ## Two Golden Rules of Optimization
