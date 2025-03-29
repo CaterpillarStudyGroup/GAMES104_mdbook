@@ -114,9 +114,11 @@ Cons
 
 GDC2021 Boots on the Ground: The Terrain of Call of Duty      
 
-P 26
-> 体设场最中90%的东西是不动的。原向换时间。G、=全局光照=直接光昭十间接接光照amset可以做间接光照效果,但会使整个场景统。
-一变哥亮。春上去会有平面感
+P26
+> 假设场景中90%的东西是不动的。    
+原向换时间。    
+GS = 全局光照 = 直接光昭 + 间接接光照    
+amcset 可以做间接光照效果，但会使整个场景统一变亮。看上去会有平面感。    
 
 P27    
 ## Mesh Shader Pipeline 
@@ -228,9 +230,10 @@ Parallax Mapping: Due to the height of the surface, the eye sees point B instead
 
 > 视差贴图。    
 
-> 凹凸帧图能产生明暗分明的效果。但仍然会有平面感，因为眼睛看到的点和应该看到的点，有视差。常用做法，ray marching（Parallax mapping）缺点（1）走几步测一下，比较贵
-（2）只是产生视觉上的凹凸感，边界上还能看出artifacts（光滑）
-Displacement mapping真实修改地形
+> 凹凸帧图能产生明暗分明的效果。但仍然会有平面感，因为眼睛看到的点和应该看到的点，有视差。常用做法，ray marching(Parallax mapping)        
+缺点：(1) 几步测一下，比较贵     
+(2) 只是产生视觉上的凹凸感，边界上还能看出 artifacts (光滑)    
+Displacement mapping 真实修改地形     
 
 P44    
 ## Expensive Material Blending    
@@ -241,7 +244,8 @@ P44
 
 ![](./assets/06-20.png)   
 
-> 整个场景包含很多纹理，但实际上一个像素会用到的纹理种类很少。
+> 整个场景包含很多纹理，Texture Array 涉及内存的来回寻址，效率比较低。但实际上一个像素会用到的纹理种类很少。
+
 P45    
 ## Virtual Texture
 
@@ -251,10 +255,11 @@ P45
 
 ![](./assets/06-21.png)   
 
-> 思想，只把用到的纹理加到内存、其它的纹理放在硬盘中。类似于mipmap＋oS分页机制。
-优点：（1）极大地减少了显存的占用
-（2）像夷的blending，在tile被加载到内存时算好，就不动3、直到这个tile被置换出内存。
-这个是目前的主流方法。
+> 思想，只把用到的纹理加到内存、其它的纹理放在硬盘中。类似于mipmap＋oS 分页机制。    
+优点：(1) 极大地减少了显存的占用    
+(2) 像素的 blending，在 tile 被加载到内存时算好，就不动    
+(3) 直到这个 tile 被置换出内存。    
+这个是目前的主流方法。     
 
 P46    
 ## VT Implementation, DirectStorage & DMA
@@ -264,16 +269,17 @@ P46
 ![](./assets/06-22-2.png)   
 
 ![](./assets/06-22-3.png)   
-> 这个方法涉及GPU、内存、硬盘之间切换。Texture Array涉及内存的来回寻址，效率比较低。A
-新显卡的方式：硬盘数据只是从内存过一下，到GPU才解压，提升传输效率。
-DMA：硬盘直接往GPU写数据。
+
+> 这个方法涉及 GPU、内存、硬盘之间切换。    
+新显卡的方式：硬盘数据只是从内存过一下，到 GPU 才解压，提升传输效率。   
+DMA：硬盘直接往 GPU 写数据。   
 
 P47    
 ## Floating-point Precision Error
 
-> 浮点数的精度溢出
-float存储数据时，数值越大精度越低。精度太低就会引起抖动。
-地图太大时，这种情况很常见。
+> 浮点数的精度溢出    
+float 存储数据时，数值越大精度越低。精度太低就会引起抖动。    
+地图太大时，这种情况很常见。   
 
 P48    
 ## Camera-Relative Rendering
@@ -281,8 +287,8 @@ P48
 - Translates objects by the negated world space camera position before any other geometric transformations affect them    
 - It then sets the world space camera position to 0 and modifies all relevant matrices accordingly    
 
-> 解决方法：坐标系调整到相机中心（很多引擎的标准做法）
-仿真时也会有同样的问题。
+> 解决方法：坐标系调整到相机中心(很多引擎的标准做法)
+仿真时也会有同样的问题。    
 
 P49    
 Integration with other world elements (rocks, trees, grass)    
@@ -307,7 +313,7 @@ P59
 
 ![](./assets/06-23.png)   
 
-> 天空是一个球，云是可见的实体。背后是完全不同的表达方法，不可混为一谈。
+> 天空是一个球，云是可见的实体。背后是完全不同的表达方法，不可混为一谈。   
 
 P60   
 ## Atmosphere
@@ -337,7 +343,7 @@ $$
 
 An Analytic Model for Full Spectral Sky-dome Radiance, ACM Trans 2012    
 
-> 这是一种类似Bling Phong的经验模型。
+> 这是一种类似 Bling Phong 的经验模型。    
 
 P62   
 ## Participating Media
@@ -345,8 +351,8 @@ P62
 - Volume filled with particles    
 - Interact differently with light depending on its composition   
 
-> 大气层有两种粒子构成（1）各种气体分子（2）气溶胶
-这些是光的介质，是产生各种光学现象的原因。
+> 大气层有两种粒子构成(1) 各种气体分子 (2) 气溶胶   
+这些是光的介质，是产生各种光学现象的原因。    
 
 P63    
 ## How Light Interacts with Participating Media Particles?
@@ -355,7 +361,7 @@ P63
 
 ![](./assets/06-25-2.png)   
 
-> （1）吸收（2）散射（3）自发光
+> (1) 吸收 (2) 散射 (3) 自发光    
 
 P64    
 ## Volume Rendering Equation (VRE)
@@ -364,7 +370,7 @@ P64
 
 ![](./assets/06-26-2.png)  
 
-> d）通透度（2）有多能量向视线方向辐射
+> (1) 通透度 (2) 有多能量向视线方向辐射    
 
 P65    
 ## Real Physics in Atmosphere
@@ -380,14 +386,13 @@ Scattering of light by particles that have a diameter **similar to or larger tha
 
 ![](./assets/06-27.png)  
 
-> 气体分子直径远小于光的波长，气溶胶的直径与光
-的波长相似，因此表现出完全不同的视觉效果，也对应两种不同的模型。
-（1）Rayleigh，用于气体分子。特点：
-一均匀散射
-一 波长越短（紫），散射越多
-（2）Mie，用于气溶胶。特点
-一有方向性，沿着光的方向会强一点
-一对波长不敏感.
+> 气体分子直径远小于光的波长，气溶胶的直径与光的波长相似，因此表现出完全不同的视觉效果，也对应两种不同的模型。    
+(1) Rayleigh，用于气体分子。特点：    
+——　均匀散射　　　
+——　波长越短(紫)，散射越多    
+(2) Mie，用于气溶胶。特点：    
+——　有方向性，沿着光的方向会强一点    
+——　对波长不敏感。    
 
 P67    
 ## Rayleigh Scattering
@@ -404,7 +409,7 @@ P68
 
 ![](./assets/06-29.png)  
 
-> 入：波长、θ：夹用。h：海拔高度。
+> \\(\lambda\\)：波长。\\(\theta\\)：夹用。\\(h\\)：海拔高度。    
 
 P69   
 ## Why Sky is Blue
@@ -441,8 +446,8 @@ P72
 ![](./assets/06-33-2.png)  
 
 P73   
-> O3和CH4吸收短波，使物体表现出蓝色。
-假设空气中O3和CH4是均匀分布的。
+> \\(O_3\\) 和 \\(CH_4\\) 吸收短波，使物体表现出蓝色。    
+假设空气中 \\(O_3\\) 和 \\(CH_4\\) 是均匀分布的。   
 
 P74   
 ## Single Scattering vs. Multi Scattering
@@ -454,8 +459,7 @@ P75
 
 ![](./assets/06-35.png)  
 
-> Multi Scattering 现象与GI不同。因为空气中的粒子
-充满整个空间，所以MS的效果是连续的。
+> Multi Scattering 现象与 GI 不同。因为空气中的粒子充满整个空间，所以 MS 的效果是连续的。    
 
 P76    
 ## Ray Marching
@@ -471,14 +475,15 @@ P77
 
 ![](./assets/06-37.png)  
 
-> 空间采样、预计算、查表．
+> 空间采样、预计算、查表。     
 
 P78   
 ## Precomputed Atmospheric Scattering
 
 ![](./assets/06-38.png)  
 
-> 人的视角（2D）＋阳光角度（2D）＝40如何参数化地表达40数据、
+> 人的视角 (2D)＋阳光角度 (2D) ＝4D    
+如何参数化地表达 4D 数据    
 
 P79   
 ## Precomputed Atmospheric Scattering
@@ -487,9 +492,9 @@ P79
 
 ![](./assets/06-39.png)  
 
-> 一般N取3-4够用了。预计算部算好，实时部分变得简单高效
-非常经典的方法。
-大气环境不变前提下，人和太阳可以在任意位置，都能有比较好的效果。
+> 一般 N 取 3-4 够用了。预计算部算好，实时部分变得简单高效
+非常经典的方法。    
+大气环境不变前提下，人和太阳可以在任意位置，都能有比较好的效果。    
 
 P81    
 ## Challenges of Precomputed Atmospheric Scattering
