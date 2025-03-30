@@ -223,11 +223,10 @@ P23
 P24    
 ## FXAA (Fast Approximate Anti-aliasing)
 
-Anti-aliasing based on 1x rendered image　　　
-
-－ Find edge pixels by luminance　　　
-－ Compute offset for every edge pixel　　　
-－ Re-sample edge pixel by its offset to blend with a neighbor　　　
+Anti-aliasing based on 1x rendered image　  
+- Find edge pixels by luminance　　　
+- Compute offset for every edge pixel　　　
+- Re-sample edge pixel by its offset to blend with a neighbor　　　
 
 ![](./assets/07-17-1.png)   
 
