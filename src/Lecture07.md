@@ -163,7 +163,7 @@ $$
 
 - Fog color after transmission
 
-FogInscatter=1-exp\\(^{-FogDensityIntegration}\\)    
+FogInscatter=1\\(- \\)exp\\(^{-FogDensityIntegration}\\)    
 FinalColor=FogColor\\(\cdot\\) FogInscatter    
 
 ![](./assets/07-12.png)   
