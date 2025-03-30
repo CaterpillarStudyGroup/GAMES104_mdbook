@@ -76,7 +76,7 @@ P11
 
 > 采样改进积分。    
 先计算一圈每个方向的仰角，可以估算出有多大面积的天顶是可见的。   
-Attenuation Trik：如果遮挡物离当前点比软远，就不产生影响。   
+Attenuation Trik：如果遮挡物离当前点比较远，就不产生影响。   
 
 P12    
 ## HBAO Implementation
