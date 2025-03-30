@@ -419,8 +419,8 @@ P60
 ## Forward Rendering
 
 for n meshes   
-  for m lights    
-     color += shading(mesh, light)    
+\\(\quad\\) for m lights    
+\\(\quad \quad\\)color += shading(mesh, light)    
 
 P61    
 ## Sort and Render Transparent after Opaque Objects
