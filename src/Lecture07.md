@@ -424,7 +424,10 @@ P61
 
 ![](./assets/07-37.png) 
 
-> 透明物质必须最后绘制。多个透明物质则由远及达绘制,因为不同绘顺序产生的结果是不一样的透明物体的排序很寄号引起各种 BuG.十几年前的主流Pipeline
+> 透明物质必须最后绘制。    
+多个透明物质则由远及近绘制，因为不同绘制顺序产生的结果是不一样的。   
+透明物体的排序很容易引起各种 BuG。    
+十几年前的主流 Pipeline。    
 
 P64    
 ## Deferred Rendering
@@ -437,7 +440,8 @@ P64
 
 ![](./assets/07-38-4.png) 
 
-> 由子光的种类非常复来,引入延迟渲染技术,即先绘制意物体,再叁运与寒的关系,는近十年最主流的 Pipeline.
+> 由于光的种类非常复杂，引入延迟渲染技术，即先绘制物体，再考虑与光的关系。   
+近十年最主流的 Pipeline.    
 
 P65    
 ## Deferred Rendering
@@ -467,9 +471,9 @@ P67
 
 ![](./assets/07-41-3.png)     
 
-> 这个 pirpeline用于移动立端。因为移动端最关心资热问题。
-DRAM存储大、速度慢、功耗高。On-chip中的SRAM则相反。
-因此.把整个G-buffer切成小的tile在SRAM计算，算好存成framebuffer。
+> 这个 pipeline 用于移动端。因为移动端最关心发热问题。    
+DRAM 存储大、速度慢、功耗高。On-chip 中的 SRAM 则相反。    
+因此，把整个 G-buffer 切成小的 tile 在 SRAM 计算，算好存成framebuffer。    
 
 P68   
 ## Light Culling by Tiles
@@ -484,8 +488,8 @@ P69
 
 ![](./assets/07-43.png)     
 
-> tile-based是现代引擎的主流方案。
-tile的额外好处是简化光的计算。
+> tile-based 是现代引擎的主流方案。    
+tile 的额外好处是简化光的计算。    
 
 P71    
 ## Forward+ (Tile-based Forward) Rendering
@@ -499,17 +503,16 @@ P72
 
 ![](./assets/07-44.png)     
 
-> 对Z空间也做切分。一个小块称为cluster。
+> 对 Z 空间也做切分。一个小块称为 cluster。    
 
 P73    
 ## Visibility Buffer
 
 ![](./assets/07-45.png)     
 
-> 几何信息和材质信息剥离开。
-( V - B u f f e r )( a - B a + f e r )
-因为现在的几何越来越复杂，甚至几何密度超过像素密度.
-这是现代引擎的发展方向。
+> 几何信息 (V-Buffer) 和材质信息 (G-Buffer) 剥离开。   
+因为现在的几何越来越复杂，甚至几何密度超过像素密度。    
+这是现代引擎的发展方向。     
 
 P74   
 ![](./assets/07-46.png)     
@@ -529,7 +532,7 @@ A Directed Acyclic Graph (DAG) of pass and resource dependency in a frame, not a
 
 ![](./assets/07-47.png)     
 
-> Frame Graph是未来重要的发展方向。
+> Frame Graph 是未来重要的发展方向。    
 
 P77    
 ## Render to Monitor
