@@ -302,7 +302,7 @@ P36
 ## What is Bloom
 
 - The physical basis of bloom is that, in the real world, lenses can never focus perfectly    
-- Even a perfect lens will convolve the incoming image with an Airy disk    
+- Even a perfect lens will convolve the incoming image with an <u>**Airy disk**</U>    
 
 ![](./assets/07-25.png)   
 
