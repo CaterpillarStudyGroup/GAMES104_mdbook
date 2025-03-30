@@ -221,7 +221,7 @@ P23
 但现在的高精摸型可能比一个像素还小，这种方法就失效了。    
 
 P24    
-##　FXAA (Fast Approximate Anti-aliasing)
+## FXAA (Fast Approximate Anti-aliasing)
 
 Anti-aliasing based on 1x rendered image　　　
 
