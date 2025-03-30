@@ -238,3 +238,266 @@ P31
 
 ![](./assets/07-23.png)   
 
+P34   
+## Post-process
+
+Post-process in 3D Graphics refers to any algorithm that will be applied to the final image. It can be done for stylistic reasons (color correction, contrast, etc.) or for realistic reasons (tone mapping, depth of field, etc.)    
+
+![](./assets/07-24.png)   
+
+P35   
+## Bloom Effect
+
+P36   
+## What is Bloom
+
+- The physical basis of bloom is that, in the real world, lenses can never focus perfectly    
+- Even a perfect lens will convolve the incoming image with an Airy disk    
+
+![](./assets/07-25.png)   
+
+P37   
+## Detect Bright Area by Threshold
+
+![](./assets/07-26.png)   
+
+Find Luminance (Y) apply the standard coefficients for sRGB:    
+
+$$
+Y=R_{lin}\ast 0.2126+G_{lin}\ast 0.7152+B_{lin}\ast 0.0722
+$$
+
+P38   
+## Gaussian Blur   
+
+![](./assets/07-27.png)   
+
+P39    
+## Pyramid Guassian Blur
+
+![](./assets/07-28.png)   
+
+We can't do all that filtering at high resolution, so we need a way to **downsample** and **upsample** the image Need a weight coefficient to tweak final effect   
+
+P40   
+## Bloom Composite
+
+![](./assets/07-29.png)   
+
+P41   
+![](./assets/07-30.png)   
+
+P42   
+## Tone Mapping
+
+P43   
+## Tone Mapping
+
+- No way to directly display HDR image in a SDR device    
+- The purpose of the **Tone Mapping** function is to map the wide range of high dynamic range (HDR) colors into standard dynamic range (SDR) that a display can output    
+
+![](./assets/07-31.png)   
+
+P45   
+## ACES
+
+- **A**cademy **C**olor **E**ncoding **S**ystem    
+  - Primarily for Film & Animation    
+  - Interesting paradigms and transformations   
+- The useful bits   
+  - Applying Color Grading in HDR is good   
+  - The idea of a fixed pipeline up to the final OTD transforms stage is good   
+     - Separates artistic intent from the mechanics of supporting different devices   
+
+![](./assets/07-32-1.png)   
+
+P46    
+## HDR and SDR Pipeline
+
+- Visual consistency between HDR / SDR   
+- Similar SDR results to previous SDR color pipeline   
+- High quality   
+- High performance   
+- Minimal disruption to art teams   
+  - Simple transition from current color pipeline   
+  - Minimal additional overhead for mastering HDR *and* SDR   
+
+![](./assets/07-33.png)   
+
+P47    
+## Tone Mapping Curve Comparison
+
+![](./assets/07-34-1.png)   
+![](./assets/07-34-2.png)   
+
+P48   
+## Color Grading
+
+P49   
+## Lookup Table (LUT)
+
+- LUT is used to remap the input color values of source pixels to new output values based on data contained within the LUT    
+
+- A LUT can be considered as a kind of color preset that can be applied to image or footage    
+
+![](./assets/07-35.png) 
+
+P53    
+## Rendering Pipeline
+
+P59   
+## Rendering Pipeline
+
+- **Rendering pipeline** is the management order of all rendering operation execution and resource allocation    
+
+![](./assets/07-36.png) 
+
+P60   
+## Forward Rendering
+
+for n meshes   
+  for m lights    
+     color += shading(mesh, light)    
+
+P61    
+## Sort and Render Transparent after Opaque Objects
+
+![](./assets/07-37.png) 
+
+P64    
+## Deferred Rendering
+
+![](./assets/07-38-1.png)   
+
+![](./assets/07-38-2.png) 
+
+![](./assets/07-38-3.png) 
+
+![](./assets/07-38-4.png) 
+
+P65    
+## Deferred Rendering
+
+**Pros**   
+- Lighting is only computed for visible fragments     
+- The data from the G-Buffer can be used for post- processing   
+
+**Cons**   
+- High memory and bandwidth cost     
+- Not supporting transparent object     
+- Not friendly to MSAA    
+
+![](./assets/07-39.png)   
+
+P66   
+## Pilot Engine Deferred Rendering
+
+![](./assets/07-40.png)   
+
+P67    
+## Tile-based Rendering
+
+![](./assets/07-41-1.png)     
+
+![](./assets/07-41-2.png)     
+
+![](./assets/07-41-3.png)     
+
+P68   
+## Light Culling by Tiles
+
+![](./assets/07-42.png)     
+
+P69    
+## Depth Range Optimization
+
+- Get Min/Max depth per tile from Pre-z pass    
+- Test depth bounds for each light   
+
+![](./assets/07-43.png)     
+
+P71    
+## Forward+ (Tile-based Forward) Rendering
+
+- Depth prepass (prevent overdraw / provide tile depth bounds)     
+- Tiled light culling (output: light list per tile)   
+- Shading per object (PS: Iterate through light list calculated in light culling)    
+
+P72   
+## Cluster-based Rendering
+
+![](./assets/07-44.png)     
+
+P73    
+## Visibility Buffer
+
+![](./assets/07-45.png)     
+
+P74   
+![](./assets/07-46.png)     
+
+P75   
+## Challenges
+
+- Complex parallel work needs to synchronize with complex resource dependency    
+- Large amount of transient resource whose lifetime is shorter than one frame    
+- Complex resource state management     
+- Exploit newly exposed GPU features without extensive user low level knowledge    
+
+P76   
+## Frame Graph
+
+A Directed Acyclic Graph (DAG) of pass and resource dependency in a frame, not a real visual graph    
+
+![](./assets/07-47.png)     
+
+P77    
+## Render to Monitor
+
+P78    
+## Screen Tearing
+
+![](./assets/07-48.png)     
+
+P79    
+## Screen Tearing
+
+In most games your GPU frame rate will be highly volatile    
+When new GPU frame updates in the middle of last screen frame, screen tearing occurrs       
+
+![](./assets/07-49.png)     
+
+
+P80    
+## V-Sync Technology
+
+Synchronizing buffer swaps with the Vertical refresh is called V-sync    
+V-Sync can be used to prevent tearing but framerates are reduced, the mouse is lagging & stuttering ruins gameplay   
+
+![](./assets/07-50.png)     
+
+P81    
+## Variable Refresh Rate
+
+![](./assets/07-51.png)     
+
+P82    
+## Homework 2
+
+- You are supposed to...    
+  - Implement ColorGrading shader code   
+  - Generate own style ColorGrading result    
+  - Add a new post-process pass that you want (advanced)   
+  - Write a report document that contains screenshots of
+your results   
+
+- Download at    
+  - Course-site:    
+<https://games104.boomingtech.com/sc/course-list>   
+  - Github:   
+<https://github.com/BoomingTech/Pilot/tree/games104/homewor
+k02-rendering>    
+
+![](./assets/07-52.png)     
+
+
