@@ -132,8 +132,10 @@ P17
 
 Linear fog:   
 factor = (end-z)/(end-start)   
+
 Exp fog:   
 factor = exp(- density\\(\ast \\)z)   
+
 **Exp Squared fog:**    
 factor = exp(- (density\\(\ast \\)z)^2)   
 
