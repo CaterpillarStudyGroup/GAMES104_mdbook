@@ -12,12 +12,16 @@ P4
 
 ![](./assets/07-2.png)   
 
+> 大脑对光影变化很敏感，通过光影构造空问理解。  
+
 P5   
 ## Ambient Occlusion
 
 - Approximation of attenuation of ambient light due to occlusion    
 
 ![](./assets/07-3.png)   
+
+> 由于附近几何的遮挡，有些点朝某些方向的光被挡住，产生了光影的效果。    
 
 P6    
 ## Precomputed AO
@@ -27,6 +31,8 @@ Using ray tracing to compute the AO offline and store the result into texture, w
 - Only apply to static object    
 
 ![](./assets/07-4.png)   
+
+> 对于特点的角色，可以预计算 AO    
 
 P7    
 ## Screen Space Ambient Occlusion (SSAO)
@@ -43,6 +49,8 @@ $$
 - Test sample occlusions by comparing depth against depth buffer   
 - Average visibility of sample points to approximate AO   
 
+> 对于一个场景，场景中对象的位置不固定，不能预计算。利用一个点周边的采样情况来估算它的被遮挡情况。公式不重要，重要的是思想：同部采样。   
+
 P8    
 ## SSAO+
 
@@ -51,6 +59,8 @@ P8
 ![](./assets/07-6-1.png)   
 
 ![](./assets/07-6-2.png)   
+
+> 改进版：只采样半球。   
 
 P11    
 ## HBAO - Horizon-based Ambient Occlusion
@@ -62,6 +72,10 @@ P11
 
 ![](./assets/07-7-2.png)   
 
+> 采样改进积分。    
+先计算一圈每个方向的仰角，可以估算出有多大面积的天顶是可见的。住   
+Attenuation Trik：如果遮挡物离当前点比软远，就不产生影响。   
+
 P12    
 ## HBAO Implementation
 
@@ -69,6 +83,8 @@ P12
 - Trace rays directly in 2D and approximate AO from horizon angle   
 
 ![](./assets/07-8.png)   
+
+> 实际算法中有很多细节。   
 
 P13    
 ## GTAO - Ground Truth-based Ambient Occlusion
@@ -81,6 +97,8 @@ GTAO introduces the missing cosine factor, removes the attenuation function, and
 
 ![](./assets/07-9-3.png)   
 
+> HBAO 没有考虑到角度的因素。因为从不同角度射下来的光，对点的影响是不一样的。    
+
 P14    
 ## GTAO - Ground Truth-based Ambient Occlusion
 
@@ -92,12 +110,17 @@ Add **multiple bounces** by fitting a cubic polynomial per albedo
 
 ![](./assets/07-10-3.png)   
 
+> 用真实数据拟合了 Single Bounce AO 与 Multi Bounce AO 的关系(假设为三阶多项式)    
+
 P15    
 ## Ray-Tracing Ambient Occlusion
 
 - Casting rays from each screen pixel using RTT hardware    
 - 1 spp(sample per-pixel) works well for far-field occlusion    
 - With 2-4 spp, can recover detailed occlusion in contact region   
+
+> (1) 利用 GPU 的 ray casting 能力    
+(2) 每帧只 sample 一个方向，在时序上持续收集遮挡信息。    
 
 P16    
 ## Fog Everything
@@ -113,6 +136,8 @@ factor = exp(- density\\(\ast \\)z)
 factor = exp(- (density\\(\ast \\)z)^2)   
 
 ![](./assets/07-11.png)   
+
+> 随着距离降低透明度。   
 
 P18    
 ## Height Fog
@@ -139,13 +164,21 @@ FinalColor=FogColor\\(\cdot\\) FogInscatter
 
 ![](./assets/07-12.png)   
 
+> 十年前的常用方法。   
+
 P19   
 ## Voxel-based Volumetric Fog
 
 ![](./assets/07-13-1.png)   
 
+> 根据视锥构造非均匀体素。    
+计算方法与上一节的体素云类似。    
+可以构造出雾中的光柱效果。    
+
 P20   
 ## Anti-aliasing
+
+> 反走样。    
 
 P21   
 ## Reason of Aliasing
@@ -153,6 +186,8 @@ P21
 - Aliasing is a series of rendering artifact which is caused by high-frequency signal vs. insufficient sampling of limited rendering resolutions   
 
 ![](./assets/07-14.png)   
+
+> 走样的本质：渲染的采样频率与真实世界的频率不一致。    
 
 P22    
 ## Anti-aliasing
@@ -167,6 +202,8 @@ $$
 
 ![](./assets/07-15-2.png)   
 
+> 多采样再取平均，产生过渡区域。    
+
 P23    
 ## Super-sample AA (SSAA) and Multi-sample AA (MSAA)
 
@@ -175,6 +212,9 @@ P23
 ![](./assets/07-16-1.png)   
 
 ![](./assets/07-16-2.png)   
+
+> 目前硬件部已支持 MSAA。    
+但现在的高精摸型可能比一个像素还小，这种方法就失效了。    
 
 P24    
 ##　FXAA (Fast Approximate Anti-aliasing)
@@ -188,6 +228,11 @@ Anti-aliasing based on 1x rendered image　　　
 ![](./assets/07-17-1.png)   
 
 ![](./assets/07-17-2.png)   
+
+> 提取边界，并在边界做插值。   
+优点：(1) 效果子    
+(2) 述度快，利用 GPU 的并行计算，没有多余的计算。   
+(3) 计算简单。   
 
 P26   
 ## Edge Searching Algorithm
@@ -233,6 +278,8 @@ Utilize spatial-**temporal** filtering methods to improve AA stability **in moti
 
 ![](./assets/07-22-2.png)   
 
+> 引擎中的主流方法。   
+
 P31   
 ## TAA (Temporal Anti-aliasing)
 
@@ -267,6 +314,8 @@ $$
 Y=R_{lin}\ast 0.2126+G_{lin}\ast 0.7152+B_{lin}\ast 0.0722
 $$
 
+> 取出非常亮的部分，做与 5\\(\times \\)5高斯 blur。    
+
 P38   
 ## Gaussian Blur   
 
@@ -279,6 +328,8 @@ P39
 
 We can't do all that filtering at high resolution, so we need a way to **downsample** and **upsample** the image Need a weight coefficient to tweak final effect   
 
+> 在低精度图上 blur 再放大，可以得到大区域的 blur 效果同时较小的计算量。   
+
 P40   
 ## Bloom Composite
 
@@ -290,6 +341,8 @@ P41
 P42   
 ## Tone Mapping
 
+> 真实世界的亮度 range 非端大，如果曝光没部过亮或暗部过暗的效果
+
 P43   
 ## Tone Mapping
 
@@ -297,6 +350,8 @@ P43
 - The purpose of the **Tone Mapping** function is to map the wide range of high dynamic range (HDR) colors into standard dynamic range (SDR) that a display can output    
 
 ![](./assets/07-31.png)   
+
+> 用一条曲线把HDR映射到SDRfilmic curve是一个拟合出的所项式曲线。
 
 P45   
 ## ACES
@@ -310,6 +365,8 @@ P45
      - Separates artistic intent from the mechanics of supporting different devices   
 
 ![](./assets/07-32-1.png)   
+
+> ACES曲线不但效裹更好,还可以通注增加一个后处理,无差别造配到任何络端。
 
 P46    
 ## HDR and SDR Pipeline
@@ -342,6 +399,8 @@ P49
 
 ![](./assets/07-35.png) 
 
+> 用一个表格实现从原治色招空间到国际色相空间的映射。
+
 P53    
 ## Rendering Pipeline
 
@@ -364,6 +423,8 @@ P61
 
 ![](./assets/07-37.png) 
 
+> 透明物质必须最后绘制。多个透明物质则由远及达绘制,因为不同绘顺序产生的结果是不一样的透明物体的排序很寄号引起各种 BuG.十几年前的主流Pipeline
+
 P64    
 ## Deferred Rendering
 
@@ -374,6 +435,8 @@ P64
 ![](./assets/07-38-3.png) 
 
 ![](./assets/07-38-4.png) 
+
+> 由子光的种类非常复来,引入延迟渲染技术,即先绘制意物体,再叁运与寒的关系,는近十年最主流的 Pipeline.
 
 P65    
 ## Deferred Rendering
@@ -403,6 +466,10 @@ P67
 
 ![](./assets/07-41-3.png)     
 
+> 这个 pirpeline用于移动立端。因为移动端最关心资热问题。
+DRAM存储大、速度慢、功耗高。On-chip中的SRAM则相反。
+因此.把整个G-buffer切成小的tile在SRAM计算，算好存成framebuffer。
+
 P68   
 ## Light Culling by Tiles
 
@@ -416,6 +483,9 @@ P69
 
 ![](./assets/07-43.png)     
 
+> tile-based是现代引擎的主流方案。
+tile的额外好处是简化光的计算。
+
 P71    
 ## Forward+ (Tile-based Forward) Rendering
 
@@ -428,10 +498,17 @@ P72
 
 ![](./assets/07-44.png)     
 
+> 对Z空间也做切分。一个小块称为cluster。
+
 P73    
 ## Visibility Buffer
 
 ![](./assets/07-45.png)     
+
+> 几何信息和材质信息剥离开。
+( V - B u f f e r )( a - B a + f e r )
+因为现在的几何越来越复杂，甚至几何密度超过像素密度.
+这是现代引擎的发展方向。
 
 P74   
 ![](./assets/07-46.png)     
@@ -450,6 +527,8 @@ P76
 A Directed Acyclic Graph (DAG) of pass and resource dependency in a frame, not a real visual graph    
 
 ![](./assets/07-47.png)     
+
+> Frame Graph是未来重要的发展方向。
 
 P77    
 ## Render to Monitor
