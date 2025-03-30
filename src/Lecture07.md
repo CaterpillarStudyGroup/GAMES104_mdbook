@@ -92,4 +92,149 @@ Add **multiple bounces** by fitting a cubic polynomial per albedo
 
 ![](./assets/07-10-3.png)   
 
+P15    
+## Ray-Tracing Ambient Occlusion
+
+- Casting rays from each screen pixel using RTT hardware    
+- 1 spp(sample per-pixel) works well for far-field occlusion    
+- With 2-4 spp, can recover detailed occlusion in contact region   
+
+P16    
+## Fog Everything
+
+P17    
+## Depth Fog
+
+Linear fog:   
+factor = (end-z)/(end-start)   
+Exp fog:   
+factor = exp(- density\\(\ast \\)z)   
+**Exp Squared fog:**    
+factor = exp(- (density\\(\ast \\)z)^2)   
+
+![](./assets/07-11.png)   
+
+P18    
+## Height Fog
+
+- Height Fog integration along view diretion   
+
+$$
+\mathrm{D(h)=D _{max}\cdot e ^{-\sigma \cdot max(h-H _s,0)}}
+$$
+
+FogDensitylntegration      
+
+$$
+\begin{align*}
+ = & \mathrm {D_{\max}\cdot d\int_{0}^{1}e^{-\sigma \cdot \max (v_z+t\ast d_z-H_s,0)}dt} \\\\
+  = & \mathrm {D_{\max}\cdot d\cdot e^{-\sigma \cdot \max(v_z-Hs,0)}\frac{1-e^{-\sigma \cdot d_z}}{\sigma \cdot d_z}}
+\end{align*}
+$$
+
+- Fog color after transmission
+
+FogInscatter=1-exp\\(^{-FogDensityIntegration}\\)    
+FinalColor=FogColor\\(\cdot\\) FogInscatter    
+
+![](./assets/07-12.png)   
+
+P19   
+## Voxel-based Volumetric Fog
+
+![](./assets/07-13-1.png)   
+
+P20   
+## Anti-aliasing
+
+P21   
+## Reason of Aliasing
+
+- Aliasing is a series of rendering artifact which is caused by high-frequency signal vs. insufficient sampling of limited rendering resolutions   
+
+![](./assets/07-14.png)   
+
+P22    
+## Anti-aliasing
+
+- The general strategy of screen-based antialiasing schemes is using a sampling pattern to **get more samples** and then **weight and sum samples** to produce a pixel color    
+
+$$
+p(x,y)=\sum_{i=1}^{n}  w_ic(i,x,y)
+$$
+
+![](./assets/07-15-1.png)   
+
+![](./assets/07-15-2.png)   
+
+P23    
+## Super-sample AA (SSAA) and Multi-sample AA (MSAA)
+
+- Super sampling is the most straightforward solution to solve **AA**    
+
+![](./assets/07-16-1.png)   
+
+![](./assets/07-16-2.png)   
+
+P24    
+##　FXAA (Fast Approximate Anti-aliasing)
+
+Anti-aliasing based on 1x rendered image　　　
+
+－ Find edge pixels by luminance　　　
+－ Compute offset for every edge pixel　　　
+－ Re-sample edge pixel by its offset to blend with a neighbor　　　
+
+![](./assets/07-17-1.png)   
+
+![](./assets/07-17-2.png)   
+
+P26   
+## Edge Searching Algorithm
+
+![](./assets/07-18-1.png)   
+
+![](./assets/07-18-2.png)   
+
+P27    
+## Calculate Blend Coefficient
+
+- Compute blender coefficient
+
+**targetP** is the nearer edge end of **CurrentP**    
+
+![](./assets/07-19-2.png)   
+
+![](./assets/07-19-3.png)   
+
+![](./assets/07-19-4.png)   
+
+P28   
+## Blend Nearby Pixels
+
+- Compute blender coefficient   
+
+![](./assets/07-20.png)   
+
+**PixelNewColor = Texture(CurrentP_UV + offset_direction * offset_magnitude )**
+
+P29   
+## FXAA Result
+
+![](./assets/07-21.png)   
+
+
+P30   
+## TAA (Temporal Anti-aliasing)
+
+Utilize spatial-**temporal** filtering methods to improve AA stability **in motion**   
+
+![](./assets/07-22-1.png)   
+
+![](./assets/07-22-2.png)   
+
+P31   
+## TAA (Temporal Anti-aliasing)
+
+![](./assets/07-23.png)   
 
