@@ -317,7 +317,7 @@ $$
 Y=R_{lin}\ast 0.2126+G_{lin}\ast 0.7152+B_{lin}\ast 0.0722
 $$
 
-> 取出非常亮的部分，做与 5\\(\times \\)5高斯 blur。    
+> 取出非常亮的部分，做与 5\\(\times \\)5 高斯 blur。    
 
 P38   
 ## Gaussian Blur   
