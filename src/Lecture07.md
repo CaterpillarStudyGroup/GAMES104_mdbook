@@ -118,8 +118,8 @@ P15
 ## Ray-Tracing Ambient Occlusion
 
 - Casting rays from each screen pixel using RTT hardware    
-- 1 spp(sample per-pixel) works well for far-field occlusion    
-- With 2-4 spp, can recover detailed occlusion in contact region   
+  - 1 spp(sample per-pixel) works well for far-field occlusion    
+  - With 2-4 spp, can recover detailed occlusion in contact region   
 
 > (1) 利用 GPU 的 ray casting 能力    
 (2) 每帧只 sample 一个方向，在时序上持续收集遮挡信息。    
