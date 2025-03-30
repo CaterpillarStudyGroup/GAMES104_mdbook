@@ -581,8 +581,7 @@ your results
   - Course-site:    
 <https://games104.boomingtech.com/sc/course-list>   
   - Github:   
-<https://github.com/BoomingTech/Pilot/tree/games104/homewor
-k02-rendering>    
+<https://github.com/BoomingTech/Pilot/tree/games104/homework02-rendering>    
 
 ![](./assets/07-52.png)     
 
