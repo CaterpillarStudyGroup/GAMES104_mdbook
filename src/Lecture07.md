@@ -46,7 +46,9 @@ $$
 ![](./assets/07-5-1.png)   
 
 - Generate N random samples in a sphere around each pixel p in view space   
+
 - Test sample occlusions by comparing depth against depth buffer   
+
 - Average visibility of sample points to approximate AO   
 
 > 对于一个场景，场景中对象的位置不固定，不能预计算。利用一个点周边的采样情况来估算它的被遮挡情况。公式不重要，重要的是思想：同部采样。   
@@ -73,7 +75,7 @@ P11
 ![](./assets/07-7-2.png)   
 
 > 采样改进积分。    
-先计算一圈每个方向的仰角，可以估算出有多大面积的天顶是可见的。住   
+先计算一圈每个方向的仰角，可以估算出有多大面积的天顶是可见的。   
 Attenuation Trik：如果遮挡物离当前点比软远，就不产生影响。   
 
 P12    
