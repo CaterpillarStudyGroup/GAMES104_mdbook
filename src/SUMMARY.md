@@ -10,5 +10,6 @@
     - [如何高效渲染网格、材质与纹理](Render/practice.md)
     - [光、材质、着急器](Render/light_meterial_shader.md)
     - [Simple Light Solution](SimpleLightSolution.md)
+    - [Pre-computed Global Illumination](Pre-computedGlobalIllumination.md)
     - [Modern Game Engine - Theory and Practice](Lecture06.md)
     - [Rendering on Game Engine](Lecture07.md)
