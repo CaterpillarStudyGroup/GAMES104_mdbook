@@ -12,6 +12,7 @@
     - [Simple Light Solution](SimpleLightSolution.md)
     - [Pre-computed Global Illumination](Pre-computedGlobalIllumination.md)
     - [Physical-Based Material](Physical-BasedMaterial.md)
+    - [Image-Based Lighting (IBL)](Image-BasedLighting(IBL).md)
 
 
     - [Modern Game Engine - Theory and Practice](Lecture06.md)
