@@ -11,5 +11,8 @@
     - [光、材质、着急器](Render/light_meterial_shader.md)
     - [Simple Light Solution](SimpleLightSolution.md)
     - [Pre-computed Global Illumination](Pre-computedGlobalIllumination.md)
+    - [Physical-Based Material](Physical-BasedMaterial.md)
+
+
     - [Modern Game Engine - Theory and Practice](Lecture06.md)
     - [Rendering on Game Engine](Lecture07.md)
