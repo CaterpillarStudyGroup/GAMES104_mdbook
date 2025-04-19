@@ -4,102 +4,7 @@ P5
 > 地形系统
 
 P8    
-## Simple Idea - Heightfield
-
-![](./assets/06-1-1.png)   
-
-P10   
-## Render Terrain with Heightfield
-
-![](./assets/06-2.png)   
-
-> ![](./assets/06-51.png)   
-存在的问题：数据量巨大    
-
-P12    
-## Adaptive Mesh Tessellation
-
-![](./assets/06-3.png)   
-
-> \\(LOD_2\\) Level Of Detail     
-等角色 LOD 不同的是，地形是连续的。    
-(1) 近处密集，远处稀疏    
-(2) FOV 小密集，FOV 大稀疏    
-(3) 地型起伏大(有明显误差)密集，起伏小稀疏   
-
-P13    
-## Two Golden Rules of Optimization
-
-**View-dependent error bound**   
-- Distance to camera and FoV   
-- Error compare to ground truth (pre-computation)   
-
-![](./assets/06-4.png)   
-
-
-P14   
-## Triangle-Based Subdivision 
-
-
-P15   
-## Subdivision and T-Junctions    
-
-Continuously partitioning triangles and their    
-children based on the idea of binary trees     
-
-![](./assets/06-6.png)   
-  
-> T-Junction：一条边的两边切分不一致导致的 BuG。    
-解决方法：强制稀疏侧向密集侧对齐    
-
-P17    
-## QuadTree-Based Subdivision
-
-**Pros**    
-- Easy to construct     
-- Easy management of data under geospatial, including objects culling and data streaming     
-
-**Cons**    
-- Mesh subdivision is not as flexible as triangle mesh    
-- The grid level of the leaf nodes needs to be consistent   
-
-![](./assets/06-7.png)   
-
-> 三角形不符合构建地形的直觉，更常用是四边形。   
-也会有 T-Junctions 问题。解决方法：吸附。    
-吸附不改变数据结构，实现更容易。       
-
-P19    
-## Solving T-Junctions among Quad Grids
-
-![](./assets/06-8.png)      
-
-P21    
-## Triangulated Irregular Network (TIN)
-
-![](./assets/06-9.png)   
-
-> 把 height field 转化为不规则三角形。    
-优点：(1) 三角形少很多    
-(2) 与地形特征更匹配(顶点的位置)    
-但实际上不常用。   
-
-P23    
-## Triangulated Irregular Network vs. Adpative Tessellation
-
-Pros   
-- Easy in runtime rendeirng   
-- Less triangls in certain terrain types   
-
-![](./assets/06-10-1.png)   
-
-Cons    
-- Requires certain pre-processing steps   
-- Poor reusability   
-
-![](./assets/06-10-2.png)   
-
-GDC2021 Boots on the Ground: The Terrain of Call of Duty      
+[Simple Idea - Heightfield](https://caterpillarstudygroup.github.io/GAMES101_mdbook/TerrainRendering/HeightField.html)
 
 P27    
 ## Mesh Shader Pipeline 
@@ -112,220 +17,35 @@ P27
 > 只持 DX12 及以上。    
 可以基此实现动态高度的地形效果。  
 
-P30    
-Non-Heightfield Terrain
-
-> 处理有山洞的地形    
-方法1：在普通地形上放一个山洞或桥。   
-
-P31   
-## Dig a Hole in Terrain
-
-![](./assets/06-12.png)   
-
-> 方法 2：   
-通过将顶点设为无效值的方式把洞口的面片删掉，再放一个隧道的模型上去。 
-
-P32   
-## Crazy Idea - Volumetric Representation
-
-In 3D computer graphics, a voxel represents a value on a regular grid in three-dimensional space. As pixels in a 2D     
-bitmap, voxels themselves do not typically have their position (i.e. coordinates) explicitly encoded with their values     
-
-> 用体素来表达世界，并用一个值来描述每个体素上是否有物质以及物质的密度。    
-再有 Marching Cube 将其转为 Mesh。    
-实操时，考虑到水密性、LOD 等因素，会稍微复杂一点。     
-
-P33   
-## Marching Cubes
-
-![](./assets/06-13.png)   
-
-MARCHING CUBES: A HIGH RESOLUTION 3D SURFACE CONSTRUCTION ALGORITHM'; Computer Graphics, Volume 21, Number 4, July 1987    
-
-P36    
-Paint Terrain Materials
-
-P38    
-## Terrain Materials
-
-![](./assets/06-14.png)   
-
-> Splat Map：每一个 channel 定义了一种材质的权重。又称为材质混合。    
-
-P39    
-## Simple Texture Splatting
-
-![](./assets/06-15-1.png)   
-
-![](./assets/06-15-2.png)   
-
-> 实际上材质过渡不是这种柔和渐变的过渡。
-
-P40    
-## Advanced Texture Splatting
-
-![](./assets/06-16-1.png)   
-
-Blending with Height    
-
-float3 blend(float4 texture1, float height1, float4 texture2, float height2)    
-{    
-return height1 > height2 ? texture1.rgb : texture2.rgb;    
-}       
-
-![](./assets/06-16-2.png)   
-
-> 解决方法：利用 height 调整权重   
-
-P41    
-## Advanced Texture Splatting - Biased
-
-![](./assets/06-17-1.png)   
-
-![](./assets/06-17-3.png)   
-
-![](./assets/06-17-2.png)   
-
-**Links:**     
-<https://www.gamedeveloper.com/programming/advanced-terrain-texture-splatting>    
-
-> 存在的问题，相机移到时有抖动现象     
-解决方法：引入 height bias    
-
-P42   
-## Sampling from Material Texture Array
-
-![](./assets/06-18.png)   
-
-> 实践中会用到很多帧图，通常把它们 patch 成 Texture Array。   
-
-P43   
-## Parallax and Displacement Mapping
-
-![](./assets/06-19-1.png)   
-
-![](./assets/06-19-2.png)   
-
-Parallax Mapping: Due to the height of the surface, the eye sees point B instead of point A. It creates a sense of dimensionality     
-
-> 视差贴图。    
-
-> 凹凸帧图能产生明暗分明的效果。但仍然会有平面感，因为眼睛看到的点和应该看到的点，有视差。常用做法，ray marching(Parallax mapping)        
-缺点：(1) 几步测一下，比较贵     
-(2) 只是产生视觉上的凹凸感，边界上还能看出 artifacts (光滑)    
-Displacement mapping 真实修改地形     
-
-P44    
-## Expensive Material Blending    
-
-- **Many Texturing** - Low performance when multiple materials are sampled too many times    
-
-- **Huge Splat Map** - We only see a small set of terrain, but we load splat maps for 100 square km into video memory      
-
-![](./assets/06-20.png)   
-
-> 整个场景包含很多纹理，Texture Array 涉及内存的来回寻址，效率比较低。但实际上一个像素会用到的纹理种类很少。
-
 P45    
 ## Virtual Texture
 
-- Build a virtual indexed texture to represent all blended terrain materials for whole scene    
-- Only load materials data of tiles based on view- depend LOD   
-- Pre-bake materials blending into tile and store them into physical textures   
+[Virtual Texture](https://caterpillarstudygroup.github.io/GAMES101_mdbook/TerrainRendering/PaintTerrainMaterials.html)
 
-![](./assets/06-21.png)   
+P46   
 
-> 思想，只把用到的纹理加到内存、其它的纹理放在硬盘中。类似于mipmap＋oS 分页机制。    
-优点：(1) 极大地减少了显存的占用    
-(2) 像素的 blending，在 tile 被加载到内存时算好，就不动    
-(3) 直到这个 tile 被置换出内存。    
-这个是目前的主流方法。     
-
-P46    
-## VT Implementation, DirectStorage & DMA
+> 这个方法涉及 GPU、内存、硬盘之间切换。    
 
 ![](./assets/06-22-1.png)   
 
-![](./assets/06-22-2.png)   
+新显卡的方式：
+
+- DirectStorage: 硬盘数据只是从内存过一下，到 GPU 才解压，提升传输效率。  
+
+![](./assets/06-22-2.png) 
+
+- DMA：硬盘直接往 GPU 写数据。   
 
 ![](./assets/06-22-3.png)   
 
-> 这个方法涉及 GPU、内存、硬盘之间切换。    
-新显卡的方式：硬盘数据只是从内存过一下，到 GPU 才解压，提升传输效率。   
-DMA：硬盘直接往 GPU 写数据。   
 
-P47    
-## Floating-point Precision Error
 
-> 浮点数的精度溢出    
-float 存储数据时，数值越大精度越低。精度太低就会引起抖动。    
-地图太大时，这种情况很常见。   
-
-P48    
-## Camera-Relative Rendering
-
-- Translates objects by the negated world space camera position before any other geometric transformations affect them    
-- It then sets the world space camera position to 0 and modifies all relevant matrices accordingly    
-
-> 解决方法：坐标系调整到相机中心(很多引擎的标准做法)
-仿真时也会有同样的问题。    
-
-P49    
-Integration with other world elements (rocks, trees, grass)    
-
-P50    
-## Tree Rendering
-
-P51    
-## Decorator Rendering
-
-P52    
-## Road and Decals Rendering
-
-P54   
-## Procedure Terrain Creation
 
 P55    
-## Sky and Atmosphere
-
-P59    
-## How to "Paint" Everything in the Sky
-
-![](./assets/06-23.png)   
-
-> 天空是一个球，云是可见的实体。背后是完全不同的表达方法，不可混为一谈。   
+## Sky and Atmosphere  
 
 P60   
 ## Atmosphere
-
-P61    
-## Analytic Atmosphere Appearance Modeling
-
-$$
-\mathbb{F} (\theta ,\gamma )=(1+Ae^{\frac{B}{\cos \theta +0.01}})\cdot (C+De^{E\gamma }+F\cos ^2\gamma +G\cdot \chi (H,\gamma )+I\cdot \cos ^ {\frac{1}{2} }\theta )  
-$$
-
-$$
-L_\lambda =\mathbb{F} (\theta ,\gamma )\cdot L_{M\lambda} 
-$$
-
-![](./assets/06-24-1.png)   
-
-**Pros**    
-- Calculation is simple and efficient    
-
-**Cons**   
-- Limited to ground view   
-- Atmosphere parameters can’t be changed freely    
-
-![](./assets/06-24-2.png)   
-
-![](./assets/06-24-3.png)   
-
-An Analytic Model for Full Spectral Sky-dome Radiance, ACM Trans 2012    
-
-> 这是一种类似 Bling Phong 的经验模型。    
 
 P62   
 ## Participating Media
