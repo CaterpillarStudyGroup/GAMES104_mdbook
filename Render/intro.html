@@ -1,0 +1,260 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>渲染 - GAMES104 现在游戏引擎理论与实践</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="The note of GAMES104">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/pagetoc.css">
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">基础构建</li><li class="chapter-item expanded "><a href="../Architecutre.html"><strong aria-hidden="true">2.</strong> 分层架构</a></li><li class="chapter-item expanded "><a href="../world.html"><strong aria-hidden="true">3.</strong> 如何构建游戏世界</a></li><li class="chapter-item expanded "><a href="../Render/intro.html" class="active"><strong aria-hidden="true">4.</strong> 渲染</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Render/practice.html"><strong aria-hidden="true">4.1.</strong> 如何高效渲染网格、材质与纹理</a></li><li class="chapter-item expanded "><a href="../Physical-BasedMaterial.html"><strong aria-hidden="true">4.2.</strong> Physical-Based Material</a></li><li class="chapter-item expanded "><a href="../Image-BasedLighting(IBL).html"><strong aria-hidden="true">4.3.</strong> Image-Based Lighting (IBL)</a></li><li class="chapter-item expanded "><a href="../Lecture06.html"><strong aria-hidden="true">4.4.</strong> Modern Game Engine - Theory and Practice</a></li><li class="chapter-item expanded "><a href="../Lecture07.html"><strong aria-hidden="true">4.5.</strong> Rendering on Game Engine</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">GAMES104 现在游戏引擎理论与实践</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/CaterpillarStudyGroup/GAMES104_mdbook" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main><div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <h1 id="游戏引擎中的渲染系统的挑战"><a class="header" href="#游戏引擎中的渲染系统的挑战">游戏引擎中的渲染系统的挑战</a></h1>
+<h2 id="挑战一复杂性问题"><a class="header" href="#挑战一复杂性问题">挑战一：复杂性问题</a></h2>
+<p>一个场景中可能存在着成千上万个物体对象，而且每个对象的形式都不一样。比如场景中可能同时出现水体、植被（foliage）、角色、云朵等对象。每个对象需要用到的绘制算法，比如水体的算法、植被的算法、毛发的算法、皮肤的算法、还有地面上的材质的算法等等，这些算法都完全不同。<br />
+但渲染理论通常是针对一种对象解决问题。</p>
+<h2 id="挑战二硬件的深度适配问题"><a class="header" href="#挑战二硬件的深度适配问题">挑战二：硬件的深度适配问题</a></h2>
+<p>游戏绘制系统的实现是一个实践性问题，它需要运行在各种性能的现代硬件上。<br />
+同学们需要对经典计算机的架构有所了解，比如南桥和北桥的概念、显卡和CPU的通信方式等等。游戏绘制系统所实现的所有算法必须要在这些现代的PC或者主机（比如Switch）上高效运行。因此我们需要对这些设备的硬件进行非常深入的了解，才能充分利用各种硬件的特性，从而实现高效的算法。<br />
+但在图形学理论中，我们一般不会特别关注具体的硬件实现，而只关注图形学理论在算法或者数学上的正确性。</p>
+<h2 id="挑战三性能预算问题"><a class="header" href="#挑战三性能预算问题">挑战三：性能预算问题</a></h2>
+<ol>
+<li>游戏中的场景是千变万化的，而且必须在这种情况下保证稳定的帧率。</li>
+<li>每帧的时间预算越来越少，30FPS -&gt; 60 FPS -&gt; 120 FPS</li>
+<li>对画质的要求越来越高,1080P -&gt; 4K -&gt; 8K</li>
+</ol>
+<p>但在学习图形学理论时，如果实现了一个算法的效果，并且达到了相对较好的帧率，我们认为就可以了。</p>
+<h2 id="挑战四时间预算分配问题"><a class="header" href="#挑战四时间预算分配问题">挑战四：时间预算分配问题</a></h2>
+<p>工业级游戏引擎的绘制系统和同学们在图形学课上所学到渲染算法有所不同，它并不能将100%的计算资源全部用掉。一般来说，绘制系统只能使用大概10%-20%左右的计算资源，剩下的大部分计算资源需要分配给其他的系统，比如Gameplay等模块。这也是一个硬性要求。</p>
+<h1 id="本课程内容"><a class="header" href="#本课程内容">本课程内容</a></h1>
+<p>接下来所讲的所有内容，并不是纯粹的理论模型，而是非常具有实践性的工程知识，在经过了游戏行业接近30年的迭代优化所形成的软件系统，属于实践科学的范畴。</p>
+<h2 id="第一节课"><a class="header" href="#第一节课">第一节课</a></h2>
+<ul>
+<li>介绍基础的GPU硬件的相关知识
+<ul>
+<li>在基于GPU硬件的架构上，如何对渲染数据，以及整个渲染体系进行管理</li>
+<li>包括可见性裁剪等基础知识</li>
+</ul>
+</li>
+</ul>
+<p>同学们会了解到GPU绘制物体的基本原理。</p>
+<h2 id="第二节课"><a class="header" href="#第二节课">第二节课</a></h2>
+<ul>
+<li>介绍游戏开发实战中用到的光照和材质的知识。
+<ul>
+<li>包括现代游戏中使用的光照模型的介绍</li>
+<li>以及著名的IBL模型</li>
+</ul>
+</li>
+<li>介绍现在行业内最标准的材质系统
+<ul>
+<li>PBR材质</li>
+<li>两种最经典的材质模型之间的优异度差别</li>
+</ul>
+</li>
+<li>介绍Shader模型相关的知识。</li>
+</ul>
+<p>第二节课结束之后，大家应该能够了解如何绘制出接近于现代游戏画质的画面表现，做出来的内容看上去会很接近工业级产品画质的画面。</p>
+<h2 id="第三节课"><a class="header" href="#第三节课">第三节课</a></h2>
+<ul>
+<li>介绍游戏中很多很重要的子系统
+<ul>
+<li>地形系统</li>
+<li>天空系统</li>
+<li>后处理系统</li>
+</ul>
+</li>
+</ul>
+<p>经过前三节课的知识储备，大家会对基础的数据组织，基础的绘制算法，以及材质模型有所了解。</p>
+<h2 id="第四节课"><a class="header" href="#第四节课">第四节课</a></h2>
+<ul>
+<li>开始讲解管线（Pipeline）方面的相关知识,比如延迟着色（DeferredShading）。
+<ul>
+<li>讲解延迟着色的设计原理</li>
+<li>延迟着色的关键点。</li>
+</ul>
+</li>
+<li>在实际开发过程中，完成绘制之后，如何将画面提交到屏幕上</li>
+<li>显卡所绘制的内容是如何管理的，包括如何在屏幕上进行同步。</li>
+<li>Tiled-Based Rendering方法</li>
+</ul>
+<p>由于受到课程时长的限制，因此本课程不会涉及：</p>
+<ul>
+<li>卡通渲染方面的知识</li>
+<li>非真实感渲染（Non-Photorealistic Rendering</li>
+<li>2D游戏引擎方面</li>
+<li>一些酷炫的效果，本课程也不会涉及，包括皮肤的次表面散射材质效果、毛发效果等。</li>
+</ul>
+<p>这些内容适合作为一些特定的专题讲座来介绍。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../world.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../Render/practice.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../world.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../Render/practice.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="../theme/pagetoc.js"></script>
+    </body>
+</html>

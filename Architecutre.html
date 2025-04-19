@@ -1,0 +1,263 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>分层架构 - GAMES104 现在游戏引擎理论与实践</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="The note of GAMES104">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">基础构建</li><li class="chapter-item expanded "><a href="Architecutre.html" class="active"><strong aria-hidden="true">2.</strong> 分层架构</a></li><li class="chapter-item expanded "><a href="world.html"><strong aria-hidden="true">3.</strong> 如何构建游戏世界</a></li><li class="chapter-item expanded "><a href="Render/intro.html"><strong aria-hidden="true">4.</strong> 渲染</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Render/practice.html"><strong aria-hidden="true">4.1.</strong> 如何高效渲染网格、材质与纹理</a></li><li class="chapter-item expanded "><a href="Physical-BasedMaterial.html"><strong aria-hidden="true">4.2.</strong> Physical-Based Material</a></li><li class="chapter-item expanded "><a href="Image-BasedLighting(IBL).html"><strong aria-hidden="true">4.3.</strong> Image-Based Lighting (IBL)</a></li><li class="chapter-item expanded "><a href="Lecture06.html"><strong aria-hidden="true">4.4.</strong> Modern Game Engine - Theory and Practice</a></li><li class="chapter-item expanded "><a href="Lecture07.html"><strong aria-hidden="true">4.5.</strong> Rendering on Game Engine</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">GAMES104 现在游戏引擎理论与实践</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/CaterpillarStudyGroup/GAMES104_mdbook" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main><div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <h1 id="工具层"><a class="header" href="#工具层">工具层</a></h1>
+<p>工具层实际上就是允许别人以Level Editor（地图编辑器）为中心形成的一系列编辑器。</p>
+<p><img src="./assets/v2-dd89ea6250866603ec13f0f29be4f505_r.png" alt="" /></p>
+<ul>
+<li>蓝图编辑器</li>
+<li>材质编辑器</li>
+<li>DCC——Digital Content Creation</li>
+<li>Asset Conditioning Pipeline</li>
+</ul>
+<h1 id="功能层"><a class="header" href="#功能层">功能层</a></h1>
+<p><img src="./assets/v2-82d287e3155b3f2819c19d00e96404c5_r.png" alt="" /></p>
+<p>但功能层在很多引擎的架构中，它经常和具体的游戏关联在一起，因此，很多时候哪些功能属于游戏，哪些功能属于引擎，基本上就会在功能层上打架。</p>
+<h2 id="tick"><a class="header" href="#tick">Tick</a></h2>
+<p>在游戏的世界里面，是如何让这个世界动起来的？其实就是利用现代计算机非常高的计算速度，在每隔1/30秒把整个世界的逻辑和绘制全部跑了一遍。</p>
+<p><img src="./assets/v2-ff074790a584bd253ab5c03a75d83b2c_1440w.webp" alt="" /></p>
+<p><em>在实际源码里面不一定叫tick</em></p>
+<h2 id="tick-logic-和-tick-render"><a class="header" href="#tick-logic-和-tick-render">Tick Logic 和 Tick Render</a></h2>
+<p>在Tick里面，就会出现两大神兽，一个叫Tick Logic，一个叫Tick Render。</p>
+<p><img src="./assets/v2-ec81d34cb5b8dfd19977d8e22651c4b1_1440w.webp" alt="" /></p>
+<ol>
+<li>TickLogic</li>
+</ol>
+<p>负责这个世界模拟出来</p>
+<ol start="2">
+<li>TickRender</li>
+</ol>
+<p>从某个观察视角，把能看到的世界绘制出来</p>
+<ol start="3">
+<li>二者的关系</li>
+</ol>
+<p>通常是先逻辑再绘制。<br />
+逻辑和绘制一定要严格细分，一个没有受过系统训练的游戏引擎开发者，很容易把两边的代码写混在一起，但是，如果把绘制和逻辑分开，基本上无论怎么写，都不会重合在一起。</p>
+<h2 id="多核时代的游戏引擎架构"><a class="header" href="#多核时代的游戏引擎架构">多核时代的游戏引擎架构</a></h2>
+<p><img src="./assets/v2-458c8df0a83f8720bf3f8010889e4a20_1440w.webp" alt="" /></p>
+<h1 id="资源层"><a class="header" href="#资源层">资源层</a></h1>
+<p>资源层是游戏非常核心的一个管理层，它管理能让整个游戏引擎跑起来的生态资源池的分配，以及每个资产实时的生命周期。</p>
+<ol>
+<li>
+<p>资源 -&gt; 资产
+资源：来自各种DCC工具得到的各种格式的资源文件<br />
+资产：一种统一的、高效的内部数据形式</p>
+</li>
+<li>
+<p>GUID
+每个资产设置一个唯一识别号。</p>
+</li>
+<li>
+<p>资产管理器(runtime asset manager)</p>
+</li>
+</ol>
+<p>这里最主要的管理是对所有这些资产的生命周期的管理。因为在游戏过程，资源要不停地加载和卸载。生命周期的管理会很大地影响系统的效率。</p>
+<ul>
+<li>handle系统，类似于指针的概念</li>
+<li>GC系统</li>
+</ul>
+<h1 id="核心层"><a class="header" href="#核心层">核心层</a></h1>
+<p>为功能层提供与具体功能无关的通用能力，类似于操作系统。</p>
+<p><img src="./assets/v2-a082d095e14963a0c9af8f0193de252e_r.png" alt="" /></p>
+<ul>
+<li>数学库</li>
+<li>数据结构</li>
+<li>内存管理</li>
+</ul>
+<p>为什么要自己写而不是直接使用已有的库，主要是效率方面的考虑，实现一套定制化的高效的通用能力。</p>
+<h1 id="平台层"><a class="header" href="#平台层">平台层</a></h1>
+<p>在引擎的这一层，就是处理各种各样的平台。</p>
+<p><img src="./assets/v2-429413fb0b70d727bde676b0b43b4069_r.png" alt="" /></p>
+<p>平台层的本质是在上面写核心代码/功能/逻辑，可以无视平台的差别。它把平台的差异性全部掩盖掉，提供RHI——Render Hardware Interface，把这些硬件的SDK差别封装起来。</p>
+<h1 id="第三方插件"><a class="header" href="#第三方插件">第三方插件</a></h1>
+<p>有的插件是通过SDK的形式直接集成到我们的引擎里面去，就是说引擎里面编译的时候，就要把第三方代码编译进去。<br />
+有的插件是一个独立的工具。它和引擎之间的数据交换，只是通过文件格式进行交换。</p>
+<p><img src="./assets/v2-c8de8ce073af1afea3cf2ce363ad926a_r.png" alt="" /></p>
+<h1 id="总结"><a class="header" href="#总结">总结</a></h1>
+<p>分层架构的本质是封装。</p>
+<ol>
+<li>这个世界如果没有封装，只是把所有的概念散落，那是不可被理解，也是不可被管理的。</li>
+<li>在架构中有个基础原则：越往底层的东西越不要去动它。</li>
+<li>当我们未来在做任何一个需求的时候，同学们首先要去想的是做的这件事情应该属于哪一层，而不是着急地把算法写出来。</li>
+<li>各个层次之间的调用，一般只允许上面的层次调下面层次的功能，绝对不允许下面反向调上面一层的功能，这就是分层的一个核心的体系结构。</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="world.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="world.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+    </body>
+</html>

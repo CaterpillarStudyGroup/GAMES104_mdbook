@@ -1,0 +1,329 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Image-Based Lighting (IBL) - GAMES104 现在游戏引擎理论与实践</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="The note of GAMES104">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">基础构建</li><li class="chapter-item expanded "><a href="Architecutre.html"><strong aria-hidden="true">2.</strong> 分层架构</a></li><li class="chapter-item expanded "><a href="world.html"><strong aria-hidden="true">3.</strong> 如何构建游戏世界</a></li><li class="chapter-item expanded "><a href="Render/intro.html"><strong aria-hidden="true">4.</strong> 渲染</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Render/practice.html"><strong aria-hidden="true">4.1.</strong> 如何高效渲染网格、材质与纹理</a></li><li class="chapter-item expanded "><a href="Physical-BasedMaterial.html"><strong aria-hidden="true">4.2.</strong> Physical-Based Material</a></li><li class="chapter-item expanded "><a href="Image-BasedLighting(IBL).html" class="active"><strong aria-hidden="true">4.3.</strong> Image-Based Lighting (IBL)</a></li><li class="chapter-item expanded "><a href="Lecture06.html"><strong aria-hidden="true">4.4.</strong> Modern Game Engine - Theory and Practice</a></li><li class="chapter-item expanded "><a href="Lecture07.html"><strong aria-hidden="true">4.5.</strong> Rendering on Game Engine</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">GAMES104 现在游戏引擎理论与实践</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/CaterpillarStudyGroup/GAMES104_mdbook" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main><div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <p>P61</p>
+<h2 id="image-based-lighting-ibl"><a class="header" href="#image-based-lighting-ibl">Image-Based Lighting (IBL)</a></h2>
+<p>P62</p>
+<h2 id="basic-idea-of-ibl"><a class="header" href="#basic-idea-of-ibl">Basic Idea of IBL</a></h2>
+<blockquote>
+<p>对真实的环境光照做预处理，快速地计算环境光照与材质之间的卷积。<br />
+SH 的局限性：SH 的表达比较粗糙，只能有明暗的感觉，达不到场景细节感和凹凸感的效果。</p>
+</blockquote>
+<p>P64</p>
+<h2 id="diffuse-irradiance-map"><a class="header" href="#diffuse-irradiance-map">Diffuse Irradiance Map</a></h2>
+<p><img src="./assets/69-64-1.png" alt="" /></p>
+<blockquote>
+<p>根据上文可知，\(L_o（x，W_o）\) 可以分为 diffuse 项和 specular 项。
+Diffuse 须提前把卷积结果算好存下来。实时渲染时查表即可。</p>
+</blockquote>
+<p>P65</p>
+<h2 id="specular-approximation"><a class="header" href="#specular-approximation">Specular Approximation</a></h2>
+<p><img src="./assets/69-65-1.png" alt="" /></p>
+<blockquote>
+<p>Specular 项的推导比较复杂，且做了大量假设和近似。<br />
+但 specular 结果与参数 roughness 有关。因此将不同 roughness 的结果存到了不同的 mipmap 中。因为，roughness 越大，对光的敏感度越低，可以放到 mipmap 的最低级。<br />
+方法详见 GAMES 201。</p>
+</blockquote>
+<p>P66</p>
+<h2 id="approximation-part-12"><a class="header" href="#approximation-part-12">Approximation: part (1/2)</a></h2>
+<p><img src="./assets/69-66-3.png" alt="" /></p>
+<p><img src="./assets/69-66-4.png" alt="" /></p>
+<p>P67</p>
+<h2 id="approximation-part-22"><a class="header" href="#approximation-part-22">Approximation: part (2/2)</a></h2>
+<p><img src="./assets/69-67-1.png" alt="" /></p>
+<p><img src="./assets/69-67-2.png" alt="" /></p>
+<p>P68</p>
+<h2 id="quick-shading-with-precomputation"><a class="header" href="#quick-shading-with-precomputation">Quick Shading with Precomputation</a></h2>
+<p><img src="./assets/69-68.png" alt="" /></p>
+<p>P69</p>
+<h2 id="shading-pbr-with-ibl"><a class="header" href="#shading-pbr-with-ibl">Shading PBR with IBL</a></h2>
+<p><img src="./assets/69-69.png" alt="" /></p>
+<p>P70</p>
+<h2 id="classic-shadow-solution"><a class="header" href="#classic-shadow-solution">Classic Shadow Solution</a></h2>
+<p>P75</p>
+<h2 id="hard-shadow-vs-realistic-shadow"><a class="header" href="#hard-shadow-vs-realistic-shadow">Hard Shadow vs Realistic Shadow</a></h2>
+<p><img src="./assets/69-75.png" alt="" /></p>
+<p>P76</p>
+<h2 id="pcf---percentage-closer-filter"><a class="header" href="#pcf---percentage-closer-filter">PCF - Percentage Closer Filter</a></h2>
+<ul>
+<li><strong>Target problem</strong>
+<ul>
+<li>The shadows that result from shadow mapping aliasing is serious</li>
+</ul>
+</li>
+<li><strong>Basic idea</strong>
+<ul>
+<li>Sample from the shadow map around the current pixel and compare its depth to all the samples</li>
+<li>By averaging out the results we get a smoother line between light and shadow</li>
+</ul>
+</li>
+</ul>
+<p><img src="./assets/69-76-1.png" alt="" /></p>
+<blockquote>
+<p>用滤波的法做软阴影。</p>
+</blockquote>
+<p>P77</p>
+<h2 id="pcss---percentage-closer-soft-shadow"><a class="header" href="#pcss---percentage-closer-soft-shadow">PCSS - Percentage Closer Soft Shadow</a></h2>
+<ul>
+<li><strong>Target problem</strong>
+<ul>
+<li>Suffers from aliasing and under sampling artifacts</li>
+</ul>
+</li>
+<li><strong>Basic idea</strong>
+<ul>
+<li>Search the shadow map and average the depths that
+are closer to the light source</li>
+<li>Using a parallel planes approximation</li>
+</ul>
+</li>
+</ul>
+<p><img src="./assets/69-77.png" alt="" /></p>
+<p>P78</p>
+<h2 id="variance-soft-shadow-map"><a class="header" href="#variance-soft-shadow-map">Variance Soft Shadow Map</a></h2>
+<ul>
+<li><strong>Target problem</strong>
+<ul>
+<li>Rendering plausible soft shadow in real-time</li>
+</ul>
+</li>
+<li><strong>Basic idea</strong>
+<ul>
+<li>Based on Chebyshev‘s inequality, using the average and variance of depth, we can approximate the percentage of depth distribution directly instead of comparing a single depth to a particular region(PCSS)</li>
+</ul>
+</li>
+</ul>
+<p><img src="./assets/69-78.png" alt="" /></p>
+<p>P79</p>
+<h2 id="summary-of-popular-aaa-rendering"><a class="header" href="#summary-of-popular-aaa-rendering">Summary of Popular AAA Rendering</a></h2>
+<p>光：Lightmap + Light probe<br />
+材质： PBR + IBL(环境光)<br />
+阴影：Cascade shadow + VSSM</p>
+<p>P80</p>
+<h1 id="moving-wave-of-high-quality"><a class="header" href="#moving-wave-of-high-quality">Moving Wave of High Quality</a></h1>
+<p>P81</p>
+<h2 id="quick-evolving-of-gpu"><a class="header" href="#quick-evolving-of-gpu">Quick Evolving of GPU</a></h2>
+<ul>
+<li>More flexible new shader model
+<ul>
+<li>Compute shader</li>
+<li>Mesh shader</li>
+<li>Ray-tracing shader</li>
+</ul>
+</li>
+<li>High performance parallel architecture
+<ul>
+<li>Warp or wave architecture</li>
+</ul>
+</li>
+<li>Fully opened graphics API
+<ul>
+<li>DirectX 12 and Vulkan</li>
+</ul>
+</li>
+</ul>
+<p>P82</p>
+<h2 id="real-time-ray-tracing-on-gpu"><a class="header" href="#real-time-ray-tracing-on-gpu">Real-Time Ray-Tracing on GPU</a></h2>
+<p><img src="./assets/69-82.png" alt="" /></p>
+<p>P83</p>
+<h2 id="real-time-global-illumination"><a class="header" href="#real-time-global-illumination">Real-Time Global Illumination</a></h2>
+<p>Screen-space GI<br />
+SDF Based GI<br />
+Voxel-Based GI（SVOGI/VXGI）<br />
+RSM / RTX GI</p>
+<p>P86</p>
+<h2 id="shader-management"><a class="header" href="#shader-management">Shader Management</a></h2>
+<p>P90</p>
+<h2 id="uber-shader-and-variants"><a class="header" href="#uber-shader-and-variants">Uber Shader and Variants</a></h2>
+<p>A combination of shader for all possible light types, render passes and material types</p>
+<ul>
+<li>Shared many state and codes</li>
+<li>Compile to many variant short shaders by pre-defined macro</li>
+</ul>
+<p><img src="./assets/69-90.png" alt="" /></p>
+<blockquote>
+<p>利用 uber 写好少量 shader 模版，然后自动生成大量 shader.</p>
+</blockquote>
+<p>P92</p>
+<h2 id="cross-platform-shader-compile"><a class="header" href="#cross-platform-shader-compile">Cross Platform Shader Compile</a></h2>
+<p><img src="./assets/69-92.png" alt="" /></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Physical-BasedMaterial.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="Lecture06.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Physical-BasedMaterial.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="Lecture06.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+    </body>
+</html>

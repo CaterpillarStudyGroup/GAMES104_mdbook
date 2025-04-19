@@ -1,0 +1,250 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>如何构建游戏世界 - GAMES104 现在游戏引擎理论与实践</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="The note of GAMES104">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">基础构建</li><li class="chapter-item expanded "><a href="Architecutre.html"><strong aria-hidden="true">2.</strong> 分层架构</a></li><li class="chapter-item expanded "><a href="world.html" class="active"><strong aria-hidden="true">3.</strong> 如何构建游戏世界</a></li><li class="chapter-item expanded "><a href="Render/intro.html"><strong aria-hidden="true">4.</strong> 渲染</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Render/practice.html"><strong aria-hidden="true">4.1.</strong> 如何高效渲染网格、材质与纹理</a></li><li class="chapter-item expanded "><a href="Physical-BasedMaterial.html"><strong aria-hidden="true">4.2.</strong> Physical-Based Material</a></li><li class="chapter-item expanded "><a href="Image-BasedLighting(IBL).html"><strong aria-hidden="true">4.3.</strong> Image-Based Lighting (IBL)</a></li><li class="chapter-item expanded "><a href="Lecture06.html"><strong aria-hidden="true">4.4.</strong> Modern Game Engine - Theory and Practice</a></li><li class="chapter-item expanded "><a href="Lecture07.html"><strong aria-hidden="true">4.5.</strong> Rendering on Game Engine</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">GAMES104 现在游戏引擎理论与实践</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/CaterpillarStudyGroup/GAMES104_mdbook" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main><div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <h1 id="游戏世界的组成"><a class="header" href="#游戏世界的组成">游戏世界的组成</a></h1>
+<h2 id="游戏对象game-object-go"><a class="header" href="#游戏对象game-object-go">游戏对象Game Object (GO)</a></h2>
+<p>所有的动靜态物体统称为游戏对象Game Object (GO)</p>
+<ul>
+<li>可交互的动态物</li>
+<li>默默的静态物</li>
+<li>动静结合态系统，例如植被</li>
+<li>检测体</li>
+</ul>
+<p><em>大地和天空系统是独立的</em></p>
+<p>GO的成员可以归类成两类，一类叫做属性，另一类叫做行为。</p>
+<p>每个对象都有一个属性叫做GUID，这是这个对象的全局唯一标识。</p>
+<h2 id="组件化"><a class="header" href="#组件化">组件化</a></h2>
+<p>用面向对象的逻辑去构建这个世界有一个缺陷：随着游戏世界越来越复杂，有些东西它并没有那么清晰的父子关系。</p>
+<p>这个问题有一个经典的解法，叫做组件化。</p>
+<table><thead><tr><th>面向对象</th><th>组件化</th></tr></thead><tbody>
+<tr><td><img src="./assets/v2-c32cf6d3740972656fa47b28e0423596_r.png" alt="" /></td><td><img src="./assets/v2-c372f93e3780033e51ad9ed855206650_1440w.png" alt="" /></td></tr>
+</tbody></table>
+<h3 id="商业引擎中的组件化结构"><a class="header" href="#商业引擎中的组件化结构">商业引擎中的组件化结构</a></h3>
+<p><img src="./assets/v2-96c5e3c88f32f43f23824533ef515555_r.png" alt="" /></p>
+<table><thead><tr><th>UE</th><th>Unity</th><th>作用</th></tr></thead><tbody>
+<tr><td>UObject</td><td>Object</td><td>所有对象的基类，用于对象的生命周期的管理</td></tr>
+<tr><td>AActor</td><td>GameObject</td><td>相当于本文中的GO</td></tr>
+<tr><td>UActorComponent</td><td>Component</td><td>相当于本文中的组件</td></tr>
+</tbody></table>
+<h2 id="总结"><a class="header" href="#总结">总结</a></h2>
+<p>第一，游戏世界里面几乎把所有的东西抽象成了游戏对象Game Object （GO）这样一个东西。第二，每个GO用各种各样多功能的组件把它组合起来，所以各种组件又是游戏对象的原子，如果这两件事情明白了，你就明白了现在游戏的组合的一个基础逻辑。</p>
+<h1 id="如何让游戏世界动起来"><a class="header" href="#如何让游戏世界动起来">如何让游戏世界动起来</a></h1>
+<p>在游戏引擎里面核心的一个函数叫做Tick，就是每隔1/30秒让这个世界往前走一步。</p>
+<h2 id="object-based-tick"><a class="header" href="#object-based-tick">Object-based Tick</a></h2>
+<p>在每个tick里，把每一个游戏物体的每一个组件依次去Tick一遍，世界就动起来了。</p>
+<p><img src="./assets/v2-f7f8b368c6f93385d7411100b9b3fa3e_1440w.png" alt="" /></p>
+<h2 id="component-based-tick"><a class="header" href="#component-based-tick">Component-based Tick</a></h2>
+<p>按照每个系统或者是每一种组件进行Tick，这样效率更高</p>
+<p><img src="./assets/v2-35771f683a9319768582843893718120_r.png" alt="" /></p>
+<h2 id="总结-1"><a class="header" href="#总结-1">总结</a></h2>
+<p>现代游戏引擎，为了追求效率，逐渐的会转向按照每个系统或者是每一种组件进行Tick，就是造个流水线进行批处理，这样效率会特别高。</p>
+<h1 id="事件机制"><a class="header" href="#事件机制">事件机制</a></h1>
+<p>到目前为止，各个对象是独立的，事件机制让各个对象之间互相影响相互关联。</p>
+<p>一个对象需要影响另一个对象，但不是通过hard code直接去影响。而是通过事件机制统一处理这种影响，这是对象与组件逻辑的解耦。</p>
+<h2 id="商业引擎中的事件机制"><a class="header" href="#商业引擎中的事件机制">商业引擎中的事件机制</a></h2>
+<p><img src="./assets/v2-96a21cce4309533121db9e2c7d374142_r.png" alt="" /></p>
+<h3 id="unity"><a class="header" href="#unity">Unity</a></h3>
+<p>如果GO1要对GO2产生影响，GO1需要做这些事情：</p>
+<ol>
+<li>注册一个事件，事件包括要影响的目标和回调函数。</li>
+<li>然后发送事件</li>
+<li>最后销毁事件。
+当GO2收到了这个事件后，激活回调函数做相应的处理。</li>
+</ol>
+<h3 id="ue"><a class="header" href="#ue">UE</a></h3>
+<p>UE使用了比较复杂的C++反射机制，其原理大同小异。</p>
+<p>它的本质就是让接口的消息不断扩展定义。一个可扩展的消息系统，让游戏开发者可以在我们的引擎之上不断的定制玩法和相关的各种各样的消息类型，然后他们可以定制各种各样自己想要的组件去对这些消息，让事件进行按照自己想要的逻辑的处理，这就是现在游戏引擎的核心的一个工作。</p>
+<h1 id="场景管理"><a class="header" href="#场景管理">场景管理</a></h1>
+<p>当场景中的对象非常多时，查找/访问对象会成为巨大的负担。场景管理是指根据角色的位置，对角色进行递归分组，避免全局性的角色查找。</p>
+<h2 id="均匀分组"><a class="header" href="#均匀分组">均匀分组</a></h2>
+<p><img src="./assets/v2-2fa577fe98ec1dc78c3fdf57f6ec3964_r.png" alt="" /></p>
+<p>优点：简单直观<br />
+局限性：角色在地图里的分布通常是不均匀的。稀疏处的格子是浪费的，而密集处的格子仍然会很慢。</p>
+<h2 id="树形结构"><a class="header" href="#树形结构">树形结构</a></h2>
+<p><img src="./assets/v2-f48adbd08c24a2231da1bf53d06dc0b8_1440w.png" alt="" /></p>
+<p>根据实际情况决定是否需要继续分。<br />
+根据实际情况决定怎么分。</p>
+<h1 id="时序的一致性问题"><a class="header" href="#时序的一致性问题">时序的一致性问题</a></h1>
+<p>由于各个角色、各个组件是独立tick的，它们之间是并发关系，因此同样的输入，其结果是不确定的。<br />
+使用“邮局”作为第三方，根据依赖关系定义发生的顺序，可以确保它的时序是严格一致的，但实际上角色之间存循环依赖。</p>
+<p>时序一致性问题会产生很多逻辑上的混乱性，这个混乱性在很多时候你会注意不到。但实际上的话，对游戏的影响是非常大的。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Architecutre.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="Render/intro.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Architecutre.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="Render/intro.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+    </body>
+</html>

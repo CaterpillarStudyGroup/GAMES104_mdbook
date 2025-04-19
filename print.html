@@ -1,0 +1,1075 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>GAMES104 现在游戏引擎理论与实践</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="The note of GAMES104">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">基础构建</li><li class="chapter-item expanded "><a href="Architecutre.html"><strong aria-hidden="true">2.</strong> 分层架构</a></li><li class="chapter-item expanded "><a href="world.html"><strong aria-hidden="true">3.</strong> 如何构建游戏世界</a></li><li class="chapter-item expanded "><a href="Render/intro.html"><strong aria-hidden="true">4.</strong> 渲染</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Render/practice.html"><strong aria-hidden="true">4.1.</strong> 如何高效渲染网格、材质与纹理</a></li><li class="chapter-item expanded "><a href="Physical-BasedMaterial.html"><strong aria-hidden="true">4.2.</strong> Physical-Based Material</a></li><li class="chapter-item expanded "><a href="Image-BasedLighting(IBL).html"><strong aria-hidden="true">4.3.</strong> Image-Based Lighting (IBL)</a></li><li class="chapter-item expanded "><a href="Lecture06.html"><strong aria-hidden="true">4.4.</strong> Modern Game Engine - Theory and Practice</a></li><li class="chapter-item expanded "><a href="Lecture07.html"><strong aria-hidden="true">4.5.</strong> Rendering on Game Engine</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">GAMES104 现在游戏引擎理论与实践</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/CaterpillarStudyGroup/GAMES104_mdbook" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main><div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <p>本文是对GAMES104的课程与相关材料的整合与二次编辑，如有侵权，请联系。</p>
+<h1 id="游戏引擎所面临的挑战"><a class="header" href="#游戏引擎所面临的挑战">游戏引擎所面临的挑战</a></h1>
+<ol>
+<li>计算机的有限算力</li>
+</ol>
+<ul>
+<li>有限的算力、有限的存储、带宽的延迟。</li>
+</ul>
+<ol start="2">
+<li>核心设计的边界条件——Realtime（实时）</li>
+</ol>
+<ul>
+<li>无论有多么厉害的算法，能做出多么好的效果，如果不能够在1/30秒（33毫秒）之内把计算结果提交出去，那么这个算法就是无效的。</li>
+<li>实际整个预算只有33毫秒。对于每个系统，可能只给你1-2毫秒。</li>
+<li>对帧率要求也越来越高。60帧意味着计算只有15毫秒。</li>
+</ul>
+<p><strong>Fitting到这么短的一个时间片里面，这就是现代游戏引擎设计的核心难点。</strong></p>
+<ol start="3">
+<li>强大的工具体系</li>
+</ol>
+<p>游戏引擎不仅仅是一系列的算法，它是一个生产力的工具。</p>
+<ul>
+<li>面向艺术家，制作效果</li>
+<li>面向设计师，构建世界</li>
+<li>面向程序员，二次开发</li>
+</ul>
+<h1 id="agenda"><a class="header" href="#agenda">Agenda</a></h1>
+<ul>
+<li>基础构建</li>
+<li>渲染</li>
+<li>动画</li>
+<li>物理</li>
+<li>工具链</li>
+<li>网络</li>
+<li>前沿理论</li>
+</ul>
+<h1 id="reference"><a class="header" href="#reference">Reference</a></h1>
+<ol>
+<li>https://zhuanlan.zhihu.com/p/597024196</li>
+<li>https://www.bilibili.com/video/BV1oU4y1R7Km/</li>
+<li>《游戏引擎架构》</li>
+<li>https://github.com/BoomingTech/Piccolo</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="工具层"><a class="header" href="#工具层">工具层</a></h1>
+<p>工具层实际上就是允许别人以Level Editor（地图编辑器）为中心形成的一系列编辑器。</p>
+<p><img src="./assets/v2-dd89ea6250866603ec13f0f29be4f505_r.png" alt="" /></p>
+<ul>
+<li>蓝图编辑器</li>
+<li>材质编辑器</li>
+<li>DCC——Digital Content Creation</li>
+<li>Asset Conditioning Pipeline</li>
+</ul>
+<h1 id="功能层"><a class="header" href="#功能层">功能层</a></h1>
+<p><img src="./assets/v2-82d287e3155b3f2819c19d00e96404c5_r.png" alt="" /></p>
+<p>但功能层在很多引擎的架构中，它经常和具体的游戏关联在一起，因此，很多时候哪些功能属于游戏，哪些功能属于引擎，基本上就会在功能层上打架。</p>
+<h2 id="tick"><a class="header" href="#tick">Tick</a></h2>
+<p>在游戏的世界里面，是如何让这个世界动起来的？其实就是利用现代计算机非常高的计算速度，在每隔1/30秒把整个世界的逻辑和绘制全部跑了一遍。</p>
+<p><img src="./assets/v2-ff074790a584bd253ab5c03a75d83b2c_1440w.webp" alt="" /></p>
+<p><em>在实际源码里面不一定叫tick</em></p>
+<h2 id="tick-logic-和-tick-render"><a class="header" href="#tick-logic-和-tick-render">Tick Logic 和 Tick Render</a></h2>
+<p>在Tick里面，就会出现两大神兽，一个叫Tick Logic，一个叫Tick Render。</p>
+<p><img src="./assets/v2-ec81d34cb5b8dfd19977d8e22651c4b1_1440w.webp" alt="" /></p>
+<ol>
+<li>TickLogic</li>
+</ol>
+<p>负责这个世界模拟出来</p>
+<ol start="2">
+<li>TickRender</li>
+</ol>
+<p>从某个观察视角，把能看到的世界绘制出来</p>
+<ol start="3">
+<li>二者的关系</li>
+</ol>
+<p>通常是先逻辑再绘制。<br />
+逻辑和绘制一定要严格细分，一个没有受过系统训练的游戏引擎开发者，很容易把两边的代码写混在一起，但是，如果把绘制和逻辑分开，基本上无论怎么写，都不会重合在一起。</p>
+<h2 id="多核时代的游戏引擎架构"><a class="header" href="#多核时代的游戏引擎架构">多核时代的游戏引擎架构</a></h2>
+<p><img src="./assets/v2-458c8df0a83f8720bf3f8010889e4a20_1440w.webp" alt="" /></p>
+<h1 id="资源层"><a class="header" href="#资源层">资源层</a></h1>
+<p>资源层是游戏非常核心的一个管理层，它管理能让整个游戏引擎跑起来的生态资源池的分配，以及每个资产实时的生命周期。</p>
+<ol>
+<li>
+<p>资源 -&gt; 资产
+资源：来自各种DCC工具得到的各种格式的资源文件<br />
+资产：一种统一的、高效的内部数据形式</p>
+</li>
+<li>
+<p>GUID
+每个资产设置一个唯一识别号。</p>
+</li>
+<li>
+<p>资产管理器(runtime asset manager)</p>
+</li>
+</ol>
+<p>这里最主要的管理是对所有这些资产的生命周期的管理。因为在游戏过程，资源要不停地加载和卸载。生命周期的管理会很大地影响系统的效率。</p>
+<ul>
+<li>handle系统，类似于指针的概念</li>
+<li>GC系统</li>
+</ul>
+<h1 id="核心层"><a class="header" href="#核心层">核心层</a></h1>
+<p>为功能层提供与具体功能无关的通用能力，类似于操作系统。</p>
+<p><img src="./assets/v2-a082d095e14963a0c9af8f0193de252e_r.png" alt="" /></p>
+<ul>
+<li>数学库</li>
+<li>数据结构</li>
+<li>内存管理</li>
+</ul>
+<p>为什么要自己写而不是直接使用已有的库，主要是效率方面的考虑，实现一套定制化的高效的通用能力。</p>
+<h1 id="平台层"><a class="header" href="#平台层">平台层</a></h1>
+<p>在引擎的这一层，就是处理各种各样的平台。</p>
+<p><img src="./assets/v2-429413fb0b70d727bde676b0b43b4069_r.png" alt="" /></p>
+<p>平台层的本质是在上面写核心代码/功能/逻辑，可以无视平台的差别。它把平台的差异性全部掩盖掉，提供RHI——Render Hardware Interface，把这些硬件的SDK差别封装起来。</p>
+<h1 id="第三方插件"><a class="header" href="#第三方插件">第三方插件</a></h1>
+<p>有的插件是通过SDK的形式直接集成到我们的引擎里面去，就是说引擎里面编译的时候，就要把第三方代码编译进去。<br />
+有的插件是一个独立的工具。它和引擎之间的数据交换，只是通过文件格式进行交换。</p>
+<p><img src="./assets/v2-c8de8ce073af1afea3cf2ce363ad926a_r.png" alt="" /></p>
+<h1 id="总结"><a class="header" href="#总结">总结</a></h1>
+<p>分层架构的本质是封装。</p>
+<ol>
+<li>这个世界如果没有封装，只是把所有的概念散落，那是不可被理解，也是不可被管理的。</li>
+<li>在架构中有个基础原则：越往底层的东西越不要去动它。</li>
+<li>当我们未来在做任何一个需求的时候，同学们首先要去想的是做的这件事情应该属于哪一层，而不是着急地把算法写出来。</li>
+<li>各个层次之间的调用，一般只允许上面的层次调下面层次的功能，绝对不允许下面反向调上面一层的功能，这就是分层的一个核心的体系结构。</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="游戏世界的组成"><a class="header" href="#游戏世界的组成">游戏世界的组成</a></h1>
+<h2 id="游戏对象game-object-go"><a class="header" href="#游戏对象game-object-go">游戏对象Game Object (GO)</a></h2>
+<p>所有的动靜态物体统称为游戏对象Game Object (GO)</p>
+<ul>
+<li>可交互的动态物</li>
+<li>默默的静态物</li>
+<li>动静结合态系统，例如植被</li>
+<li>检测体</li>
+</ul>
+<p><em>大地和天空系统是独立的</em></p>
+<p>GO的成员可以归类成两类，一类叫做属性，另一类叫做行为。</p>
+<p>每个对象都有一个属性叫做GUID，这是这个对象的全局唯一标识。</p>
+<h2 id="组件化"><a class="header" href="#组件化">组件化</a></h2>
+<p>用面向对象的逻辑去构建这个世界有一个缺陷：随着游戏世界越来越复杂，有些东西它并没有那么清晰的父子关系。</p>
+<p>这个问题有一个经典的解法，叫做组件化。</p>
+<table><thead><tr><th>面向对象</th><th>组件化</th></tr></thead><tbody>
+<tr><td><img src="./assets/v2-c32cf6d3740972656fa47b28e0423596_r.png" alt="" /></td><td><img src="./assets/v2-c372f93e3780033e51ad9ed855206650_1440w.png" alt="" /></td></tr>
+</tbody></table>
+<h3 id="商业引擎中的组件化结构"><a class="header" href="#商业引擎中的组件化结构">商业引擎中的组件化结构</a></h3>
+<p><img src="./assets/v2-96c5e3c88f32f43f23824533ef515555_r.png" alt="" /></p>
+<table><thead><tr><th>UE</th><th>Unity</th><th>作用</th></tr></thead><tbody>
+<tr><td>UObject</td><td>Object</td><td>所有对象的基类，用于对象的生命周期的管理</td></tr>
+<tr><td>AActor</td><td>GameObject</td><td>相当于本文中的GO</td></tr>
+<tr><td>UActorComponent</td><td>Component</td><td>相当于本文中的组件</td></tr>
+</tbody></table>
+<h2 id="总结-1"><a class="header" href="#总结-1">总结</a></h2>
+<p>第一，游戏世界里面几乎把所有的东西抽象成了游戏对象Game Object （GO）这样一个东西。第二，每个GO用各种各样多功能的组件把它组合起来，所以各种组件又是游戏对象的原子，如果这两件事情明白了，你就明白了现在游戏的组合的一个基础逻辑。</p>
+<h1 id="如何让游戏世界动起来"><a class="header" href="#如何让游戏世界动起来">如何让游戏世界动起来</a></h1>
+<p>在游戏引擎里面核心的一个函数叫做Tick，就是每隔1/30秒让这个世界往前走一步。</p>
+<h2 id="object-based-tick"><a class="header" href="#object-based-tick">Object-based Tick</a></h2>
+<p>在每个tick里，把每一个游戏物体的每一个组件依次去Tick一遍，世界就动起来了。</p>
+<p><img src="./assets/v2-f7f8b368c6f93385d7411100b9b3fa3e_1440w.png" alt="" /></p>
+<h2 id="component-based-tick"><a class="header" href="#component-based-tick">Component-based Tick</a></h2>
+<p>按照每个系统或者是每一种组件进行Tick，这样效率更高</p>
+<p><img src="./assets/v2-35771f683a9319768582843893718120_r.png" alt="" /></p>
+<h2 id="总结-2"><a class="header" href="#总结-2">总结</a></h2>
+<p>现代游戏引擎，为了追求效率，逐渐的会转向按照每个系统或者是每一种组件进行Tick，就是造个流水线进行批处理，这样效率会特别高。</p>
+<h1 id="事件机制"><a class="header" href="#事件机制">事件机制</a></h1>
+<p>到目前为止，各个对象是独立的，事件机制让各个对象之间互相影响相互关联。</p>
+<p>一个对象需要影响另一个对象，但不是通过hard code直接去影响。而是通过事件机制统一处理这种影响，这是对象与组件逻辑的解耦。</p>
+<h2 id="商业引擎中的事件机制"><a class="header" href="#商业引擎中的事件机制">商业引擎中的事件机制</a></h2>
+<p><img src="./assets/v2-96a21cce4309533121db9e2c7d374142_r.png" alt="" /></p>
+<h3 id="unity"><a class="header" href="#unity">Unity</a></h3>
+<p>如果GO1要对GO2产生影响，GO1需要做这些事情：</p>
+<ol>
+<li>注册一个事件，事件包括要影响的目标和回调函数。</li>
+<li>然后发送事件</li>
+<li>最后销毁事件。
+当GO2收到了这个事件后，激活回调函数做相应的处理。</li>
+</ol>
+<h3 id="ue"><a class="header" href="#ue">UE</a></h3>
+<p>UE使用了比较复杂的C++反射机制，其原理大同小异。</p>
+<p>它的本质就是让接口的消息不断扩展定义。一个可扩展的消息系统，让游戏开发者可以在我们的引擎之上不断的定制玩法和相关的各种各样的消息类型，然后他们可以定制各种各样自己想要的组件去对这些消息，让事件进行按照自己想要的逻辑的处理，这就是现在游戏引擎的核心的一个工作。</p>
+<h1 id="场景管理"><a class="header" href="#场景管理">场景管理</a></h1>
+<p>当场景中的对象非常多时，查找/访问对象会成为巨大的负担。场景管理是指根据角色的位置，对角色进行递归分组，避免全局性的角色查找。</p>
+<h2 id="均匀分组"><a class="header" href="#均匀分组">均匀分组</a></h2>
+<p><img src="./assets/v2-2fa577fe98ec1dc78c3fdf57f6ec3964_r.png" alt="" /></p>
+<p>优点：简单直观<br />
+局限性：角色在地图里的分布通常是不均匀的。稀疏处的格子是浪费的，而密集处的格子仍然会很慢。</p>
+<h2 id="树形结构"><a class="header" href="#树形结构">树形结构</a></h2>
+<p><img src="./assets/v2-f48adbd08c24a2231da1bf53d06dc0b8_1440w.png" alt="" /></p>
+<p>根据实际情况决定是否需要继续分。<br />
+根据实际情况决定怎么分。</p>
+<h1 id="时序的一致性问题"><a class="header" href="#时序的一致性问题">时序的一致性问题</a></h1>
+<p>由于各个角色、各个组件是独立tick的，它们之间是并发关系，因此同样的输入，其结果是不确定的。<br />
+使用“邮局”作为第三方，根据依赖关系定义发生的顺序，可以确保它的时序是严格一致的，但实际上角色之间存循环依赖。</p>
+<p>时序一致性问题会产生很多逻辑上的混乱性，这个混乱性在很多时候你会注意不到。但实际上的话，对游戏的影响是非常大的。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="游戏引擎中的渲染系统的挑战"><a class="header" href="#游戏引擎中的渲染系统的挑战">游戏引擎中的渲染系统的挑战</a></h1>
+<h2 id="挑战一复杂性问题"><a class="header" href="#挑战一复杂性问题">挑战一：复杂性问题</a></h2>
+<p>一个场景中可能存在着成千上万个物体对象，而且每个对象的形式都不一样。比如场景中可能同时出现水体、植被（foliage）、角色、云朵等对象。每个对象需要用到的绘制算法，比如水体的算法、植被的算法、毛发的算法、皮肤的算法、还有地面上的材质的算法等等，这些算法都完全不同。<br />
+但渲染理论通常是针对一种对象解决问题。</p>
+<h2 id="挑战二硬件的深度适配问题"><a class="header" href="#挑战二硬件的深度适配问题">挑战二：硬件的深度适配问题</a></h2>
+<p>游戏绘制系统的实现是一个实践性问题，它需要运行在各种性能的现代硬件上。<br />
+同学们需要对经典计算机的架构有所了解，比如南桥和北桥的概念、显卡和CPU的通信方式等等。游戏绘制系统所实现的所有算法必须要在这些现代的PC或者主机（比如Switch）上高效运行。因此我们需要对这些设备的硬件进行非常深入的了解，才能充分利用各种硬件的特性，从而实现高效的算法。<br />
+但在图形学理论中，我们一般不会特别关注具体的硬件实现，而只关注图形学理论在算法或者数学上的正确性。</p>
+<h2 id="挑战三性能预算问题"><a class="header" href="#挑战三性能预算问题">挑战三：性能预算问题</a></h2>
+<ol>
+<li>游戏中的场景是千变万化的，而且必须在这种情况下保证稳定的帧率。</li>
+<li>每帧的时间预算越来越少，30FPS -&gt; 60 FPS -&gt; 120 FPS</li>
+<li>对画质的要求越来越高,1080P -&gt; 4K -&gt; 8K</li>
+</ol>
+<p>但在学习图形学理论时，如果实现了一个算法的效果，并且达到了相对较好的帧率，我们认为就可以了。</p>
+<h2 id="挑战四时间预算分配问题"><a class="header" href="#挑战四时间预算分配问题">挑战四：时间预算分配问题</a></h2>
+<p>工业级游戏引擎的绘制系统和同学们在图形学课上所学到渲染算法有所不同，它并不能将100%的计算资源全部用掉。一般来说，绘制系统只能使用大概10%-20%左右的计算资源，剩下的大部分计算资源需要分配给其他的系统，比如Gameplay等模块。这也是一个硬性要求。</p>
+<h1 id="本课程内容"><a class="header" href="#本课程内容">本课程内容</a></h1>
+<p>接下来所讲的所有内容，并不是纯粹的理论模型，而是非常具有实践性的工程知识，在经过了游戏行业接近30年的迭代优化所形成的软件系统，属于实践科学的范畴。</p>
+<h2 id="第一节课"><a class="header" href="#第一节课">第一节课</a></h2>
+<ul>
+<li>介绍基础的GPU硬件的相关知识
+<ul>
+<li>在基于GPU硬件的架构上，如何对渲染数据，以及整个渲染体系进行管理</li>
+<li>包括可见性裁剪等基础知识</li>
+</ul>
+</li>
+</ul>
+<p>同学们会了解到GPU绘制物体的基本原理。</p>
+<h2 id="第二节课"><a class="header" href="#第二节课">第二节课</a></h2>
+<ul>
+<li>介绍游戏开发实战中用到的光照和材质的知识。
+<ul>
+<li>包括现代游戏中使用的光照模型的介绍</li>
+<li>以及著名的IBL模型</li>
+</ul>
+</li>
+<li>介绍现在行业内最标准的材质系统
+<ul>
+<li>PBR材质</li>
+<li>两种最经典的材质模型之间的优异度差别</li>
+</ul>
+</li>
+<li>介绍Shader模型相关的知识。</li>
+</ul>
+<p>第二节课结束之后，大家应该能够了解如何绘制出接近于现代游戏画质的画面表现，做出来的内容看上去会很接近工业级产品画质的画面。</p>
+<h2 id="第三节课"><a class="header" href="#第三节课">第三节课</a></h2>
+<ul>
+<li>介绍游戏中很多很重要的子系统
+<ul>
+<li>地形系统</li>
+<li>天空系统</li>
+<li>后处理系统</li>
+</ul>
+</li>
+</ul>
+<p>经过前三节课的知识储备，大家会对基础的数据组织，基础的绘制算法，以及材质模型有所了解。</p>
+<h2 id="第四节课"><a class="header" href="#第四节课">第四节课</a></h2>
+<ul>
+<li>开始讲解管线（Pipeline）方面的相关知识,比如延迟着色（DeferredShading）。
+<ul>
+<li>讲解延迟着色的设计原理</li>
+<li>延迟着色的关键点。</li>
+</ul>
+</li>
+<li>在实际开发过程中，完成绘制之后，如何将画面提交到屏幕上</li>
+<li>显卡所绘制的内容是如何管理的，包括如何在屏幕上进行同步。</li>
+<li>Tiled-Based Rendering方法</li>
+</ul>
+<p>由于受到课程时长的限制，因此本课程不会涉及：</p>
+<ul>
+<li>卡通渲染方面的知识</li>
+<li>非真实感渲染（Non-Photorealistic Rendering</li>
+<li>2D游戏引擎方面</li>
+<li>一些酷炫的效果，本课程也不会涉及，包括皮肤的次表面散射材质效果、毛发效果等。</li>
+</ul>
+<p>这些内容适合作为一些特定的专题讲座来介绍。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="pipeline"><a class="header" href="#pipeline">Pipeline</a></h1>
+<p><img src="Render/../assets/v2-99ab1ed51db4352046c34fa0df8d36b7_1440w.png" alt="" /></p>
+<p>绘制的最核心工作就是计算（Computation）。</p>
+<ul>
+<li>投影。我们设定一个相机位置，然后对物体进行投影（无论是正交投影还是透视投影），就可以得到屏幕空间中的三角形。</li>
+<li>光栅化。将屏幕空间中的三角形光栅化成一个个的像素。</li>
+<li>着色，也叫做绘制。着色器代码将自己所处理的像素点所对应的纹理贴图上的坐标的相应位置上的颜色值取出。
+<strong>进行一次纹理采样，需要采样八个像素点的数据，并且进行七次插值运算。因此，纹理采样是绘制过程中的一个很重要的运算。</strong></li>
+</ul>
+<h1 id="gpugraphic-processing-unit"><a class="header" href="#gpugraphic-processing-unit">GPU（Graphic Processing Unit）</a></h1>
+<p>随着独立显卡的出现，我们可以将这些复杂的运算用一台更高效的机器进行处理，这样可以释放出大量的CPU时间。</p>
+<h2 id="基本概念"><a class="header" href="#基本概念">基本概念</a></h2>
+<ul>
+<li>SIMD（Single Instruction Multiple Data）</li>
+</ul>
+<p>对于一个四维向量来说，每进行一次加法操作，它的XYZW坐标会同时进行运算。所以一条指令就能够完成四个加法或者四个减法运算。</p>
+<ul>
+<li>SIMT（Single Instruction Multiple Threads）</li>
+</ul>
+<p>即将一个计算核心做得很小，这样可以同时提供多个计算核心，并且可以同时在多个核心上执行同一条指令。<br />
+如果我们有100个计算核心，向这100个核心发送一条指令，就可以同时进行100次四维向量的加减。相当于将一条指令的计算效能放大了400倍。现代显卡如同一个蜂巢，其中内置了很多小型计算核心。NVIDIA的显卡中就内置了很多称为CUDA的计算核心。这就是现代显卡算力强悍的原因。</p>
+<p><img src="Render/../assets/v2-c2663488d1e6a768f843315edf539a9c_1440w.png" alt="" /></p>
+<ul>
+<li>FLOPS （floating-point operations per second）</li>
+</ul>
+<p>FLOPS代表着显卡的浮点运算能力，即每秒浮点运算次数。</p>
+<p>为什么显卡的算力能够遥遥领先于CPU呢？本质上是因为显卡中具有大量可以同时进行并行计算的小型计算核心，每个核心的功能简单，只可以进行简单的计算。而CPU的核心数量很少，但单个核心的计算能力很强。</p>
+<p>因此显卡的并行计算能力十分强大。因此，我们在设计绘制算法的时候，要<strong>尽可能地利用SIMT结构的优势，尽可能使用相同的代码进行并行计算</strong>。这样一来，每个计算核心都可以分别访问自己的数据，这样可以充分发挥显卡架构的优势。</p>
+<h2 id="gpu-architecture"><a class="header" href="#gpu-architecture">GPU Architecture</a></h2>
+<p><img src="Render/../assets/v2-c8a4465ed4f34d30a15698b919369750_r.png" alt="" /></p>
+<ul>
+<li>ALU（Arithmetic Logic Units，算术逻辑单元）</li>
+<li>SFU（Special Function Unit，特殊功能单元）：专门的硬件处理各种耗时的纹理采样工作，以及一些比较复杂的数学运算。比如正弦、余弦、指数、对数等超越函数运算。</li>
+<li>RT Core：用来加速光线追踪BVH算法的硬件逻辑电路。</li>
+</ul>
+<p>在GPU上的运算都会被分配到每个流式多处理器上进行处理。而流式多处理器中的几十个核心不仅可以进行并行处理，相互之间还可以交换数据，从而进行协作。</p>
+<h2 id="数据传输"><a class="header" href="#数据传输">数据传输</a></h2>
+<p>我们一直使用的都是冯洛伊曼架构，即将计算和数据分开。这样的架构会让硬件设计变得非常简单。<br />
+冯洛伊曼架构的最大问题是，每一次计算，都需要去获取数据。但是获取数据的操作速度非常慢，而且数据在不同的计算单元（例如CPU和GPU）之间搬来搬去也是非常之慢。</p>
+<p>这一过程存在一个非常严重的问题，在现在引擎架构中，绘制和逻辑通常是不同步的。如果有一步绘制运算需要等待数据，则可能会导致半帧到一帧的延迟（Latency）。</p>
+<p>因此，在游戏引擎的绘制系统架构中有一个原则，就是<strong>尽可能将数据单向传输</strong>。即CPU将数据单向发送到显卡，并且尽可能不要从显卡中回读数据。这也是现代计算机结构对渲染系统设计的一个限制。</p>
+<h1 id="cache"><a class="header" href="#cache">Cache</a></h1>
+<p>缓存对于现代计算的性能影响是非常大的，可能远远超过大家的想象。这也是<strong>数据一定要放在一起的原因，其实就是为了缓存去做这样的准备</strong>。因为数据连贯性对于缓存来说非常重要。如果有些数据过大，那么也会导致缓存很难被利用好。</p>
+<h1 id="可渲染物体"><a class="header" href="#可渲染物体">可渲染物体</a></h1>
+<h2 id="网格在游戏引擎中如何表示"><a class="header" href="#网格在游戏引擎中如何表示">网格在游戏引擎中如何表示</a></h2>
+<ul>
+<li>顶点位置：用索引数据（Index Data）和顶点数据（Vertex Data）来定义三角形的信息</li>
+<li>顶点处的法线朝向：使用邻近的几个三角形的法向量进行平均得到的法向量在硬表面（比如立方体）的折线处会出错，因此建议自己定义法向</li>
+<li>顶点的UV坐标</li>
+<li>材质：绘制系统中定义的材质表达的是物体的视觉属性，而不是物理材质中表达的物理属性</li>
+<li>纹理：人眼对于材质类型的感知（即看起来像金属还是像生锈的非金属表面）并不是由材质的参数决定的，很多时候是由它的纹理所决定的</li>
+<li>其他各种各样的属性</li>
+</ul>
+<h2 id="着色器对效果进行计算"><a class="header" href="#着色器对效果进行计算">着色器对效果进行计算</a></h2>
+<p>Shader的神奇之处在于，Shader是一段代码，因为我们需要编写大量的代码来表达材质，但是在游戏引擎中又会被当成数据来处理。</p>
+<p>绘制一个物体的流程大致如下：</p>
+<ul>
+<li>首先告诉显卡需要绘制的具体物体，</li>
+<li>然后传入物体的纹理，</li>
+<li>还需要传入一小段代码，我们一般称为一个Block（一个二进制的数据块），这就是我们编译好的一段Shader代码。</li>
+<li>显卡会使用这段Shader代码，将这些元素融合到一起，</li>
+<li>进行一些计算，绘制出我们想要的效果。</li>
+</ul>
+<p>Shader Graph：当艺术家想表达各种各样的材质时，会像搭积木一样，将各种元素按照自己的方法进行组合。组合完之后，引擎就会生成一段Shader代码，而这段Shader代码又会被编译成一个Block，和网格存储在一起。各种各样的网格和Shader代码组合在一起，就形成了多彩的游戏世界。因此，着色器代码也是一种关键的可渲染数据。</p>
+<h2 id="submesh"><a class="header" href="#submesh">Submesh</a></h2>
+<p>每个对象上的网格，我们会根据所应用材质的不同，把其切分成很多子网格。然后对于每个子网格，分别应用各自的的材质、纹理和着色器代码。</p>
+<h2 id="池pool"><a class="header" href="#池pool">池(Pool)</a></h2>
+<p>很多数据中的网格、贴图和着色器都是一样的，为了节约空间，在现代游戏引擎中，通用的做法是建立一个池（Pool）。<br />
+将所有的网格放到一起，形成一个网格池；将所有的纹理放在一起，也形成一个纹理池。尤其是着色器，也有一个池。<br />
+对象都是以引用的方式使用这些池里的数据。</p>
+<p>总结：</p>
+<ul>
+<li>首先，按照材质将对象切分成子网格。</li>
+<li>将相同的材质全部归类到一起，相同的纹理也归类到一起，用一个池进行管理。然后，将相同的网格也放到一起，也使用一个池进行管理。</li>
+<li>当绘制物体时，到相应的池中寻找对应的数据即可。</li>
+</ul>
+<h1 id="可见性剪裁"><a class="header" href="#可见性剪裁">可见性剪裁</a></h1>
+<p>只有位于视锥体中的物体才会被显示到屏幕上。</p>
+<p>每个物体都有一个包围盒，我们可以通过一些简单的数学运算，判断物体的包围盒是否位于视锥中。这就是可见性裁剪的基础思想。</p>
+<p>包围盒：AABB, OBB, Sphere, Convex Hull<br />
+相交计算：BVH</p>
+<p><img src="Render/../assets/v2-d74051d92007561505549253dbf41dc1_r.png" alt="" /></p>
+<p>裁剪算法：PVS</p>
+<p><img src="Render/../assets/v2-c452afa6f34d62c8d43842dedd9abf26_r.png" alt="" /></p>
+<p>遮挡优化：Early-z</p>
+<p><strong>千万不要用老的算法去限制你的想法，一定要拥抱硬件的最新变化。</strong></p>
+<h1 id="纹理压缩"><a class="header" href="#纹理压缩">纹理压缩</a></h1>
+<p>在游戏引擎中，我们一般会将纹理压缩存储。但不能使用一些流行的、非常优秀的算法对图片进行压缩，因为经过这些算法压缩后的图片无法进行随机访问。</p>
+<p>在游戏引擎中，我们一般采用基于块（Block Based）的压缩方法。我们将图片切成一个个小方块，最经典的就是4×4的小方块，然后进行压缩。</p>
+<h2 id="一个非常经典的算法"><a class="header" href="#一个非常经典的算法">一个非常经典的算法</a></h2>
+<p><img src="Render/../assets/v2-a1d4d5cbcca1a9d58c49b98304e16b36_1440w.png" alt="" /></p>
+<p>在一个4×4的色块中，可以找到最亮的点和最暗的点，即颜色最鲜艳和颜色最暗的点，然后将该方块中的其他点都视为这两个点之间的插值。因为对于很多图片来说，相邻的像素之间都有一定的关联度（Coherence）。所以我们可以存储一个最大值和一个最小值，然后为每个像素存储一个距离最大值和最小值的比例关系，这样就可以近似地表达整个色块中的每个像素的颜色值。</p>
+<h2 id="dxt系列的压缩算法"><a class="header" href="#dxt系列的压缩算法">DXT系列的压缩算法</a></h2>
+<p>DXT系列压缩算法的优势在于，当生成了一个纹理后，就可以在CPU上对纹理进行实时压缩。无论是压缩还是解压缩，这一系列算法的效率都非常高。</p>
+<h2 id="astc算法"><a class="header" href="#astc算法">ASTC算法</a></h2>
+<p>手机上使用的压缩算法。ASTC压缩的分块就不再是严格的4×4了，它可以使用任意的形状。</p>
+<p>优点：ASTC的压缩效果是最好的，解压缩的效率也不低。<br />
+缺点：压缩时的性能消耗较大，因此无法在运行中进行压缩。</p>
+<h1 id="cluster-based-pipeline"><a class="header" href="#cluster-based-pipeline">Cluster-Based Pipeline</a></h1>
+<p><img src="Render/../assets/v2-45cc0d42c9965ddde379b863752abd33_r.png" alt="" /></p>
+<p>面对一个非常精细的模型时，我们可以将其分成一个个小的分块，可以称之为<strong>Meshlet</strong>或者<strong>Cluster</strong>。而每一个Meshlet都是固定的，比如32个或者64个三角形大小。<br />
+因为当我们将每个Meshlet的大小固定之后，在显卡上的计算都是极其高效且一致的。</p>
+<p>壳着色器（Hull Shader）、域着色器（Domain Shader）和几何着色器（Geometry Shader），这类Shader的核心想法是，我们可以<strong>使用一个算法，基于数据凭空生成很多几何细节，而且可以根据距离相机的远近，选择所生成的几何细节的精度</strong>。</p>
+<p>优点：可以产生无数的细节，并且可以让艺术家自由发挥。这是一个非常值得大家关注的引擎的一个前沿的发展方向。<br />
+缺点：基于Cluster或者Meshlet的管线对于程序员的要求要比以前高很多。因为我们要进行大量的处理和运算，而且具体实现代码也不易理解。</p>
+<h1 id="nanite"><a class="header" href="#nanite">Nanite</a></h1>
+<p>虚幻引擎的Nanite，它实现了像素级的网格密度。可以认为，Nanite是将Meshlet的思想又往前深入了一步，做的更加工业化、更加成熟。这也是现代引擎的渲染管线发展的一个重要方向。</p>
+<h1 id="总结-3"><a class="header" href="#总结-3">总结</a></h1>
+<p>第一，游戏引擎的绘制系统是一个工程科学，并且深度依赖于你对现代图形硬件的理解。因此如果你想成为一个图形工程师，你必须要理解显卡的架构，知道显卡的性能卡点在哪里，了解各种性能限制。</p>
+<p>第二，在游戏中，我们要解决的核心问题就是网格模型、材质等数据之间的关系。最经典Mesh和Submesh就是一个非常好的解决方案。但是最前沿的技术会有所不同。</p>
+<p>第三，在进行绘制的时候，尽可能的通过一些运算（剪枝）减少绘制工作，这样能够达到最佳性能。</p>
+<p>最后，也是非常重要的一个趋势，即越来越多的绘制运算，包括一些复杂的处理，都已经从CPU转移到GPU，以利用现代GPU的高速处理能力。这就是GPU驱动（GPU-Driven）的思想，即将很多在CPU上进行的一些复杂运算（比如动画系统等）全部转移到显卡。这也是利用GPU帮助CPU分担负载的一个重要的方式。</p>
+<div style="break-before: page; page-break-before: always;"></div><p>P47</p>
+<h1 id="physical-based-material"><a class="header" href="#physical-based-material">Physical-Based Material</a></h1>
+<p>P54</p>
+<h2 id="disney-principled-brdf"><a class="header" href="#disney-principled-brdf">Disney Principled BRDF</a></h2>
+<p><strong>Principles to follow when implementing model</strong>:</p>
+<ul>
+<li>Intuitive rather than physical parameters should be used</li>
+<li>There should be as few parameters as possible</li>
+<li>Parameters should be zero to one over their plausible range</li>
+<li>Parameters should be allowed to be pushed beyond their plausible range where it makes sense</li>
+<li>All combinations of parameters should be as robust and plausible as possible</li>
+</ul>
+<p>P56</p>
+<h2 id="pbr-specular-glossiness"><a class="header" href="#pbr-specular-glossiness">PBR Specular Glossiness</a></h2>
+<p><img src="./assets/69-56-1.png" alt="" /></p>
+<blockquote>
+<p>用图片方式帮助选择参数，实现 shader，把参数代入模型，计算结果。</p>
+</blockquote>
+<p>P58</p>
+<h2 id="pbr-metallic-roughness"><a class="header" href="#pbr-metallic-roughness">PBR Metallic Roughness</a></h2>
+<blockquote>
+<p>Specular Glossiness 模型的封装版，解决其 Frenel 项炸掉的问题。灵活度下降，但不容易出问题。</p>
+</blockquote>
+<p>P60</p>
+<h2 id="pbr-pipeline-mr-vs-sg"><a class="header" href="#pbr-pipeline-mr-vs-sg">PBR Pipeline MR vs SG</a></h2>
+<p><img src="./assets/69-60.png" alt="" /></p>
+<p><strong>MR</strong><br />
+Pros</p>
+<ul>
+<li>Can be easier to author and less prone to errors caused by supplying incorrect dielectric F0 data</li>
+<li>Uses less texture memory, as metallic and roughness are
+both grayscale maps</li>
+</ul>
+<p>Cons</p>
+<ul>
+<li>No control over F0 for dielectrics in map creation. However, most implementations have a specular control to override the base 4% value</li>
+<li>Edge artifacts are more noticeable, especially at lower resolutions</li>
+</ul>
+<p><strong>SG</strong><br />
+Pros</p>
+<ul>
+<li>Edge artifacts are less apparent</li>
+<li>Control over dielectric F0 in the specular map</li>
+</ul>
+<p>Cons</p>
+<ul>
+<li>Because the specular map provides control over dielectric F0,it is more susceptible to use of incorrect values. It is possible to break the law of conservation if handled incorrectly in the shader</li>
+<li>Uses more texture memory with an additional RGB map    </li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><p>P61</p>
+<h2 id="image-based-lighting-ibl"><a class="header" href="#image-based-lighting-ibl">Image-Based Lighting (IBL)</a></h2>
+<p>P62</p>
+<h2 id="basic-idea-of-ibl"><a class="header" href="#basic-idea-of-ibl">Basic Idea of IBL</a></h2>
+<blockquote>
+<p>对真实的环境光照做预处理，快速地计算环境光照与材质之间的卷积。<br />
+SH 的局限性：SH 的表达比较粗糙，只能有明暗的感觉，达不到场景细节感和凹凸感的效果。</p>
+</blockquote>
+<p>P64</p>
+<h2 id="diffuse-irradiance-map"><a class="header" href="#diffuse-irradiance-map">Diffuse Irradiance Map</a></h2>
+<p><img src="./assets/69-64-1.png" alt="" /></p>
+<blockquote>
+<p>根据上文可知，\(L_o（x，W_o）\) 可以分为 diffuse 项和 specular 项。
+Diffuse 须提前把卷积结果算好存下来。实时渲染时查表即可。</p>
+</blockquote>
+<p>P65</p>
+<h2 id="specular-approximation"><a class="header" href="#specular-approximation">Specular Approximation</a></h2>
+<p><img src="./assets/69-65-1.png" alt="" /></p>
+<blockquote>
+<p>Specular 项的推导比较复杂，且做了大量假设和近似。<br />
+但 specular 结果与参数 roughness 有关。因此将不同 roughness 的结果存到了不同的 mipmap 中。因为，roughness 越大，对光的敏感度越低，可以放到 mipmap 的最低级。<br />
+方法详见 GAMES 201。</p>
+</blockquote>
+<p>P66</p>
+<h2 id="approximation-part-12"><a class="header" href="#approximation-part-12">Approximation: part (1/2)</a></h2>
+<p><img src="./assets/69-66-3.png" alt="" /></p>
+<p><img src="./assets/69-66-4.png" alt="" /></p>
+<p>P67</p>
+<h2 id="approximation-part-22"><a class="header" href="#approximation-part-22">Approximation: part (2/2)</a></h2>
+<p><img src="./assets/69-67-1.png" alt="" /></p>
+<p><img src="./assets/69-67-2.png" alt="" /></p>
+<p>P68</p>
+<h2 id="quick-shading-with-precomputation"><a class="header" href="#quick-shading-with-precomputation">Quick Shading with Precomputation</a></h2>
+<p><img src="./assets/69-68.png" alt="" /></p>
+<p>P69</p>
+<h2 id="shading-pbr-with-ibl"><a class="header" href="#shading-pbr-with-ibl">Shading PBR with IBL</a></h2>
+<p><img src="./assets/69-69.png" alt="" /></p>
+<p>P70</p>
+<h2 id="classic-shadow-solution"><a class="header" href="#classic-shadow-solution">Classic Shadow Solution</a></h2>
+<p>P75</p>
+<h2 id="hard-shadow-vs-realistic-shadow"><a class="header" href="#hard-shadow-vs-realistic-shadow">Hard Shadow vs Realistic Shadow</a></h2>
+<p><img src="./assets/69-75.png" alt="" /></p>
+<p>P76</p>
+<h2 id="pcf---percentage-closer-filter"><a class="header" href="#pcf---percentage-closer-filter">PCF - Percentage Closer Filter</a></h2>
+<ul>
+<li><strong>Target problem</strong>
+<ul>
+<li>The shadows that result from shadow mapping aliasing is serious</li>
+</ul>
+</li>
+<li><strong>Basic idea</strong>
+<ul>
+<li>Sample from the shadow map around the current pixel and compare its depth to all the samples</li>
+<li>By averaging out the results we get a smoother line between light and shadow</li>
+</ul>
+</li>
+</ul>
+<p><img src="./assets/69-76-1.png" alt="" /></p>
+<blockquote>
+<p>用滤波的法做软阴影。</p>
+</blockquote>
+<p>P77</p>
+<h2 id="pcss---percentage-closer-soft-shadow"><a class="header" href="#pcss---percentage-closer-soft-shadow">PCSS - Percentage Closer Soft Shadow</a></h2>
+<ul>
+<li><strong>Target problem</strong>
+<ul>
+<li>Suffers from aliasing and under sampling artifacts</li>
+</ul>
+</li>
+<li><strong>Basic idea</strong>
+<ul>
+<li>Search the shadow map and average the depths that
+are closer to the light source</li>
+<li>Using a parallel planes approximation</li>
+</ul>
+</li>
+</ul>
+<p><img src="./assets/69-77.png" alt="" /></p>
+<p>P78</p>
+<h2 id="variance-soft-shadow-map"><a class="header" href="#variance-soft-shadow-map">Variance Soft Shadow Map</a></h2>
+<ul>
+<li><strong>Target problem</strong>
+<ul>
+<li>Rendering plausible soft shadow in real-time</li>
+</ul>
+</li>
+<li><strong>Basic idea</strong>
+<ul>
+<li>Based on Chebyshev‘s inequality, using the average and variance of depth, we can approximate the percentage of depth distribution directly instead of comparing a single depth to a particular region(PCSS)</li>
+</ul>
+</li>
+</ul>
+<p><img src="./assets/69-78.png" alt="" /></p>
+<p>P79</p>
+<h2 id="summary-of-popular-aaa-rendering"><a class="header" href="#summary-of-popular-aaa-rendering">Summary of Popular AAA Rendering</a></h2>
+<p>光：Lightmap + Light probe<br />
+材质： PBR + IBL(环境光)<br />
+阴影：Cascade shadow + VSSM</p>
+<p>P80</p>
+<h1 id="moving-wave-of-high-quality"><a class="header" href="#moving-wave-of-high-quality">Moving Wave of High Quality</a></h1>
+<p>P81</p>
+<h2 id="quick-evolving-of-gpu"><a class="header" href="#quick-evolving-of-gpu">Quick Evolving of GPU</a></h2>
+<ul>
+<li>More flexible new shader model
+<ul>
+<li>Compute shader</li>
+<li>Mesh shader</li>
+<li>Ray-tracing shader</li>
+</ul>
+</li>
+<li>High performance parallel architecture
+<ul>
+<li>Warp or wave architecture</li>
+</ul>
+</li>
+<li>Fully opened graphics API
+<ul>
+<li>DirectX 12 and Vulkan</li>
+</ul>
+</li>
+</ul>
+<p>P82</p>
+<h2 id="real-time-ray-tracing-on-gpu"><a class="header" href="#real-time-ray-tracing-on-gpu">Real-Time Ray-Tracing on GPU</a></h2>
+<p><img src="./assets/69-82.png" alt="" /></p>
+<p>P83</p>
+<h2 id="real-time-global-illumination"><a class="header" href="#real-time-global-illumination">Real-Time Global Illumination</a></h2>
+<p>Screen-space GI<br />
+SDF Based GI<br />
+Voxel-Based GI（SVOGI/VXGI）<br />
+RSM / RTX GI</p>
+<p>P86</p>
+<h2 id="shader-management"><a class="header" href="#shader-management">Shader Management</a></h2>
+<p>P90</p>
+<h2 id="uber-shader-and-variants"><a class="header" href="#uber-shader-and-variants">Uber Shader and Variants</a></h2>
+<p>A combination of shader for all possible light types, render passes and material types</p>
+<ul>
+<li>Shared many state and codes</li>
+<li>Compile to many variant short shaders by pre-defined macro</li>
+</ul>
+<p><img src="./assets/69-90.png" alt="" /></p>
+<blockquote>
+<p>利用 uber 写好少量 shader 模版，然后自动生成大量 shader.</p>
+</blockquote>
+<p>P92</p>
+<h2 id="cross-platform-shader-compile"><a class="header" href="#cross-platform-shader-compile">Cross Platform Shader Compile</a></h2>
+<p><img src="./assets/69-92.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><p>P5</p>
+<h2 id="terrain-rendering"><a class="header" href="#terrain-rendering">Terrain Rendering</a></h2>
+<blockquote>
+<p>地形系统</p>
+</blockquote>
+<p>P8<br />
+<a href="https://caterpillarstudygroup.github.io/GAMES101_mdbook/TerrainRendering/HeightField.html">Simple Idea - Heightfield</a></p>
+<p>P27</p>
+<h2 id="mesh-shader-pipeline"><a class="header" href="#mesh-shader-pipeline">Mesh Shader Pipeline</a></h2>
+<ul>
+<li>Amplification Shader Stage - decides how many Mesh shader groups to run and passes data to those groups</li>
+<li>Mesh Shader Stage - produces a semi-regular tessellation pattern for each patch, and outputs comprise vertices and primitives</li>
+</ul>
+<p><img src="./assets/06-11.png" alt="" /></p>
+<blockquote>
+<p>只持 DX12 及以上。<br />
+可以基此实现动态高度的地形效果。</p>
+</blockquote>
+<p>P45</p>
+<h2 id="virtual-texture"><a class="header" href="#virtual-texture">Virtual Texture</a></h2>
+<p><a href="https://caterpillarstudygroup.github.io/GAMES101_mdbook/TerrainRendering/PaintTerrainMaterials.html">Virtual Texture</a></p>
+<p>P46</p>
+<blockquote>
+<p>这个方法涉及 GPU、内存、硬盘之间切换。</p>
+</blockquote>
+<p><img src="./assets/06-22-1.png" alt="" /></p>
+<p>新显卡的方式：</p>
+<ul>
+<li>DirectStorage: 硬盘数据只是从内存过一下，到 GPU 才解压，提升传输效率。</li>
+</ul>
+<p><img src="./assets/06-22-2.png" alt="" /> </p>
+<ul>
+<li>DMA：硬盘直接往 GPU 写数据。</li>
+</ul>
+<p><img src="./assets/06-22-3.png" alt="" /></p>
+<h2 id="production-friendly-quick-sky-and-atmosphere-rendering"><a class="header" href="#production-friendly-quick-sky-and-atmosphere-rendering">Production Friendly Quick Sky and Atmosphere Rendering</a></h2>
+<p>Simplify Multi-scattering Assumption</p>
+<ul>
+<li>Scattering events with order greater or equal to 2 are executed using an <strong>isotropic phase function</strong></li>
+<li>All points within the neighborhood of the position we currently shade <strong>receive the same amount of second order scattered light</strong></li>
+<li><strong>Visibility is ignored</strong></li>
+</ul>
+<p>$$
+G_{n+1}=G_n\ast f _{ms}
+$$</p>
+<p>$$
+\mathbf{ F_{ms}=1+f_{ms}+f^2_{ms}+f^3_{ms}+\dots = \frac{1}{1-\mathbf{f_{ms}} } }
+$$</p>
+<p>$$
+\mathbf{\Psi _ {ms} }=\mathbf{L_ {2^{nd}order} F_ {ms} }
+$$</p>
+<blockquote>
+<p>假设“散射是各向同性的”。那么，“均匀的入射光到均匀的出射光”的过程，只是一个简单的能衰减过程。所以只需要求出衰减比例，每 bounce 一次就按这个比例衰减就可以了。</p>
+</blockquote>
+<p>P83 </p>
+<p>Fixed view position and sun position to remove 2 dimensions out of LUT</p>
+<p><img src="./assets/06-40.png" alt="" /></p>
+<blockquote>
+<p>对上文中的 LUT 的简化：<br />
+(1) 假设人所在的高度不变，去掉 height 维<br />
+(2) 假设太阳位置不变，去掉入射角的维度仅留下出射光的维度(天顶角、环角)</p>
+</blockquote>
+<p>P84</p>
+<ul>
+<li>Generated a 3D LUT to evaluate aerial-perspective effects by ray marching</li>
+</ul>
+<p><img src="./assets/06-41.png" alt="" /></p>
+<blockquote>
+<p>这个方法不保证物理正确，但好处是：<br />
+(1) 艺术家友好<br />
+(2) 可以创造异星世界效果<br />
+(3) 硬件友好</p>
+</blockquote>
+<p>P85</p>
+<h2 id="good-balance-of-performance-and-effect"><a class="header" href="#good-balance-of-performance-and-effect">Good Balance of Performance and Effect</a></h2>
+<ul>
+<li>Scalable from mobile to high-end PCs</li>
+</ul>
+<p><img src="./assets/06-42.png" alt="" /></p>
+<p>Performance for each step of method, as measured on PC (NV 1080) and a mobile device (iPhone 6s)</p>
+<div style="break-before: page; page-break-before: always;"></div><p>P34</p>
+<h2 id="post-process"><a class="header" href="#post-process">Post-process</a></h2>
+<p>Post-process in 3D Graphics refers to any algorithm that will be applied to the final image. It can be done for stylistic reasons (color correction, contrast, etc.) or for realistic reasons (tone mapping, depth of field, etc.)</p>
+<p><img src="./assets/07-24.png" alt="" /></p>
+<p>P35</p>
+<h2 id="bloom-effect"><a class="header" href="#bloom-effect">Bloom Effect</a></h2>
+<p>P36</p>
+<h2 id="what-is-bloom"><a class="header" href="#what-is-bloom">What is Bloom</a></h2>
+<ul>
+<li>The physical basis of bloom is that, in the real world, lenses can never focus perfectly</li>
+<li>Even a perfect lens will convolve the incoming image with an <u><strong>Airy disk</strong></U></li>
+</ul>
+<p><img src="./assets/07-25.png" alt="" /></p>
+<p>P37</p>
+<h2 id="detect-bright-area-by-threshold"><a class="header" href="#detect-bright-area-by-threshold">Detect Bright Area by Threshold</a></h2>
+<p><img src="./assets/07-26.png" alt="" /></p>
+<p>Find Luminance (Y) apply the standard coefficients for sRGB:</p>
+<p>$$
+Y=R_{lin}\ast 0.2126+G_{lin}\ast 0.7152+B_{lin}\ast 0.0722
+$$</p>
+<blockquote>
+<p>取出非常亮的部分，做与 5\(\times \)5 高斯 blur。</p>
+</blockquote>
+<p>P38</p>
+<h2 id="gaussian-blur"><a class="header" href="#gaussian-blur">Gaussian Blur</a></h2>
+<p><img src="./assets/07-27.png" alt="" /></p>
+<p>P39</p>
+<h2 id="pyramid-guassian-blur"><a class="header" href="#pyramid-guassian-blur">Pyramid Guassian Blur</a></h2>
+<p><img src="./assets/07-28.png" alt="" /></p>
+<p>We can't do all that filtering at high resolution, so we need a way to <strong>downsample</strong> and <strong>upsample</strong> the image Need a weight coefficient to tweak final effect</p>
+<blockquote>
+<p>在低精度图上 blur 再放大，可以得到大区域的 blur 效果同时较小的计算量。</p>
+</blockquote>
+<p>P40</p>
+<h2 id="bloom-composite"><a class="header" href="#bloom-composite">Bloom Composite</a></h2>
+<p><img src="./assets/07-29.png" alt="" /></p>
+<p>P41<br />
+<img src="./assets/07-30.png" alt="" /></p>
+<p>P42</p>
+<h2 id="tone-mapping"><a class="header" href="#tone-mapping">Tone Mapping</a></h2>
+<blockquote>
+<p>真实世界的亮度 range 非常大，如果曝光没调好，会出现亮部过亮或暗部过暗的效果。</p>
+</blockquote>
+<p>P43</p>
+<h2 id="tone-mapping-1"><a class="header" href="#tone-mapping-1">Tone Mapping</a></h2>
+<ul>
+<li>No way to directly display HDR image in a SDR device</li>
+<li>The purpose of the <strong>Tone Mapping</strong> function is to map the wide range of high dynamic range (HDR) colors into standard dynamic range (SDR) that a display can output</li>
+</ul>
+<p><img src="./assets/07-31.png" alt="" /></p>
+<blockquote>
+<p>用一条曲线把 HDR 映射到 SDR。<br />
+filmic curve 是一个拟合出来的所项式曲线。</p>
+</blockquote>
+<p>P45</p>
+<h2 id="aces"><a class="header" href="#aces">ACES</a></h2>
+<ul>
+<li><strong>A</strong>cademy <strong>C</strong>olor <strong>E</strong>ncoding <strong>S</strong>ystem
+<ul>
+<li>Primarily for Film &amp; Animation</li>
+<li>Interesting paradigms and transformations</li>
+</ul>
+</li>
+<li>The useful bits
+<ul>
+<li>Applying Color Grading in HDR is good</li>
+<li>The idea of a fixed pipeline up to the final OTD transforms stage is good
+<ul>
+<li>Separates artistic intent from the mechanics of supporting different devices</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="./assets/07-32-1.png" alt="" /></p>
+<blockquote>
+<p>ACES 曲线不但效果更好，还可以通注增加一个后处理，无差别适配到任何终端。</p>
+</blockquote>
+<p>P46</p>
+<h2 id="hdr-and-sdr-pipeline"><a class="header" href="#hdr-and-sdr-pipeline">HDR and SDR Pipeline</a></h2>
+<ul>
+<li>Visual consistency between HDR / SDR</li>
+<li>Similar SDR results to previous SDR color pipeline</li>
+<li>High quality</li>
+<li>High performance</li>
+<li>Minimal disruption to art teams
+<ul>
+<li>Simple transition from current color pipeline</li>
+<li>Minimal additional overhead for mastering HDR <em>and</em> SDR</li>
+</ul>
+</li>
+</ul>
+<p><img src="./assets/07-33.png" alt="" /></p>
+<p>P47</p>
+<h2 id="tone-mapping-curve-comparison"><a class="header" href="#tone-mapping-curve-comparison">Tone Mapping Curve Comparison</a></h2>
+<p><img src="./assets/07-34-1.png" alt="" /><br />
+<img src="./assets/07-34-2.png" alt="" /></p>
+<p>P48</p>
+<h2 id="color-grading"><a class="header" href="#color-grading">Color Grading</a></h2>
+<p>P49</p>
+<h2 id="lookup-table-lut"><a class="header" href="#lookup-table-lut">Lookup Table (LUT)</a></h2>
+<ul>
+<li>
+<p>LUT is used to remap the input color values of source pixels to new output values based on data contained within the LUT</p>
+</li>
+<li>
+<p>A LUT can be considered as a kind of color preset that can be applied to image or footage</p>
+</li>
+</ul>
+<p><img src="./assets/07-35.png" alt="" /> </p>
+<blockquote>
+<p>用一个表格实现从原始色相空间到目标色相空间的映射。</p>
+</blockquote>
+<p>P53</p>
+<h2 id="rendering-pipeline"><a class="header" href="#rendering-pipeline">Rendering Pipeline</a></h2>
+<p>P59</p>
+<h2 id="rendering-pipeline-1"><a class="header" href="#rendering-pipeline-1">Rendering Pipeline</a></h2>
+<ul>
+<li><strong>Rendering pipeline</strong> is the management order of all rendering operation execution and resource allocation</li>
+</ul>
+<p><img src="./assets/07-36.png" alt="" /> </p>
+<p>P60</p>
+<h2 id="forward-rendering"><a class="header" href="#forward-rendering">Forward Rendering</a></h2>
+<p>for n meshes<br />
+\(\quad\) for m lights<br />
+\(\quad \quad\)color += shading(mesh, light)</p>
+<p>P61</p>
+<h2 id="sort-and-render-transparent-after-opaque-objects"><a class="header" href="#sort-and-render-transparent-after-opaque-objects">Sort and Render Transparent after Opaque Objects</a></h2>
+<p><img src="./assets/07-37.png" alt="" /> </p>
+<blockquote>
+<p>透明物质必须最后绘制。<br />
+多个透明物质则由远及近绘制，因为不同绘制顺序产生的结果是不一样的。<br />
+透明物体的排序很容易引起各种 BuG。<br />
+十几年前的主流 Pipeline。</p>
+</blockquote>
+<p>P64</p>
+<h2 id="deferred-rendering"><a class="header" href="#deferred-rendering">Deferred Rendering</a></h2>
+<p><img src="./assets/07-38-1.png" alt="" /></p>
+<p><img src="./assets/07-38-2.png" alt="" /> </p>
+<p><img src="./assets/07-38-3.png" alt="" /> </p>
+<p><img src="./assets/07-38-4.png" alt="" /> </p>
+<blockquote>
+<p>由于光的种类非常复杂，引入延迟渲染技术，即先绘制物体，再考虑与光的关系。<br />
+近十年最主流的 Pipeline.</p>
+</blockquote>
+<p>P65</p>
+<h2 id="deferred-rendering-1"><a class="header" href="#deferred-rendering-1">Deferred Rendering</a></h2>
+<p><strong>Pros</strong></p>
+<ul>
+<li>Lighting is only computed for visible fragments</li>
+<li>The data from the G-Buffer can be used for post- processing</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>High memory and bandwidth cost</li>
+<li>Not supporting transparent object</li>
+<li>Not friendly to MSAA</li>
+</ul>
+<p><img src="./assets/07-39.png" alt="" /></p>
+<p>P66</p>
+<h2 id="pilot-engine-deferred-rendering"><a class="header" href="#pilot-engine-deferred-rendering">Pilot Engine Deferred Rendering</a></h2>
+<p><img src="./assets/07-40.png" alt="" /></p>
+<p>P67</p>
+<h2 id="tile-based-rendering"><a class="header" href="#tile-based-rendering">Tile-based Rendering</a></h2>
+<p><img src="./assets/07-41-1.png" alt="" /></p>
+<p><img src="./assets/07-41-2.png" alt="" /></p>
+<p><img src="./assets/07-41-3.png" alt="" /></p>
+<blockquote>
+<p>这个 pipeline 用于移动端。因为移动端最关心发热问题。<br />
+DRAM 存储大、速度慢、功耗高。On-chip 中的 SRAM 则相反。<br />
+因此，把整个 G-buffer 切成小的 tile 在 SRAM 计算，算好存成framebuffer。</p>
+</blockquote>
+<p>P68</p>
+<h2 id="light-culling-by-tiles"><a class="header" href="#light-culling-by-tiles">Light Culling by Tiles</a></h2>
+<p><img src="./assets/07-42.png" alt="" /></p>
+<p>P69</p>
+<h2 id="depth-range-optimization"><a class="header" href="#depth-range-optimization">Depth Range Optimization</a></h2>
+<ul>
+<li>Get Min/Max depth per tile from Pre-z pass</li>
+<li>Test depth bounds for each light</li>
+</ul>
+<p><img src="./assets/07-43.png" alt="" /></p>
+<blockquote>
+<p>tile-based 是现代引擎的主流方案。<br />
+tile 的额外好处是简化光的计算。</p>
+</blockquote>
+<p>P71</p>
+<h2 id="forward-tile-based-forward-rendering"><a class="header" href="#forward-tile-based-forward-rendering">Forward+ (Tile-based Forward) Rendering</a></h2>
+<ul>
+<li>Depth prepass (prevent overdraw / provide tile depth bounds)</li>
+<li>Tiled light culling (output: light list per tile)</li>
+<li>Shading per object (PS: Iterate through light list calculated in light culling)</li>
+</ul>
+<p>P72</p>
+<h2 id="cluster-based-rendering"><a class="header" href="#cluster-based-rendering">Cluster-based Rendering</a></h2>
+<p><img src="./assets/07-44.png" alt="" /></p>
+<blockquote>
+<p>对 Z 空间也做切分。一个小块称为 cluster。</p>
+</blockquote>
+<p>P73</p>
+<h2 id="visibility-buffer"><a class="header" href="#visibility-buffer">Visibility Buffer</a></h2>
+<p><img src="./assets/07-45.png" alt="" /></p>
+<blockquote>
+<p>几何信息 (V-Buffer) 和材质信息 (G-Buffer) 剥离开。<br />
+因为现在的几何越来越复杂，甚至几何密度超过像素密度。<br />
+这是现代引擎的发展方向。</p>
+</blockquote>
+<p>P74<br />
+<img src="./assets/07-46.png" alt="" /></p>
+<p>P75</p>
+<h2 id="challenges"><a class="header" href="#challenges">Challenges</a></h2>
+<ul>
+<li>Complex parallel work needs to synchronize with complex resource dependency</li>
+<li>Large amount of transient resource whose lifetime is shorter than one frame</li>
+<li>Complex resource state management</li>
+<li>Exploit newly exposed GPU features without extensive user low level knowledge</li>
+</ul>
+<p>P76</p>
+<h2 id="frame-graph"><a class="header" href="#frame-graph">Frame Graph</a></h2>
+<p>A Directed Acyclic Graph (DAG) of pass and resource dependency in a frame, not a real visual graph</p>
+<p><img src="./assets/07-47.png" alt="" /></p>
+<blockquote>
+<p>Frame Graph 是未来重要的发展方向。</p>
+</blockquote>
+<p>P77</p>
+<h2 id="render-to-monitor"><a class="header" href="#render-to-monitor">Render to Monitor</a></h2>
+<p>P78</p>
+<h2 id="screen-tearing"><a class="header" href="#screen-tearing">Screen Tearing</a></h2>
+<p><img src="./assets/07-48.png" alt="" /></p>
+<p>P79</p>
+<h2 id="screen-tearing-1"><a class="header" href="#screen-tearing-1">Screen Tearing</a></h2>
+<p>In most games your GPU frame rate will be highly volatile<br />
+When new GPU frame updates in the middle of last screen frame, screen tearing occurrs</p>
+<p><img src="./assets/07-49.png" alt="" /></p>
+<p>P80</p>
+<h2 id="v-sync-technology"><a class="header" href="#v-sync-technology">V-Sync Technology</a></h2>
+<p>Synchronizing buffer swaps with the Vertical refresh is called V-sync<br />
+V-Sync can be used to prevent tearing but framerates are reduced, the mouse is lagging &amp; stuttering ruins gameplay</p>
+<p><img src="./assets/07-50.png" alt="" /></p>
+<p>P81</p>
+<h2 id="variable-refresh-rate"><a class="header" href="#variable-refresh-rate">Variable Refresh Rate</a></h2>
+<p><img src="./assets/07-51.png" alt="" /></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="theme/pagetoc.js"></script>
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
+        });
+        </script>
+    </body>
+</html>
